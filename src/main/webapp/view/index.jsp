@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
@@ -18,7 +19,8 @@
     <link rel="stylesheet" type="text/css" href="./styles/responsive.css"/>
 </head>
 <body>
-
+<sec:authorize access="hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')" var="isAuthenticated">
+</sec:authorize>
 <div class="super_container">
 
     <!-- Sidebar -->
@@ -45,9 +47,16 @@
             </ul>
 
             <h4>
-                <br></br>
+                <br>
+                <c:choose>
+                <c:when test="${isAuthenticated}">
+                   <div> <a class="text-primary" href="${contextPath}/logout">Logout</a></div>
+                </c:when>
+                <c:otherwise>
                 <div class="text-primary"><a class="text-primary" href="${contextPath}/login">Sign in</a> /
                     <a class="text-primary" href="${contextPath}/register">Sign up</a></div>
+                </c:otherwise>
+                </c:choose>
             </h4>
         </nav>
     </div>

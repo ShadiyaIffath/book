@@ -59,7 +59,7 @@ public class UserController {
         return model;
     }
 
-    @RequestMapping(value = "/logout")
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public ModelAndView logout(){
         ModelAndView model = new ModelAndView();
         model.addObject("logout",true);
