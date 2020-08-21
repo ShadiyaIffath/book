@@ -43,7 +43,6 @@ public class UserController {
 
     @RequestMapping(value="/register", method = RequestMethod.POST)
     public ModelAndView register( CreateAccountDto createAccountDto, RedirectAttributes redirectAttributes){
-        System.out.println(createAccountDto.toString());
         boolean valid = service.isEmailInUse(createAccountDto.getEmail());
         ModelAndView model = new ModelAndView();
 
@@ -57,6 +56,14 @@ public class UserController {
             redirectAttributes.addFlashAttribute("register",true);
             model.setViewName("redirect:login");
         }
+        return model;
+    }
+
+    @RequestMapping(value = "/logout")
+    public ModelAndView logout(){
+        ModelAndView model = new ModelAndView();
+        model.addObject("logout",true);
+        model.setViewName("redirect:login");
         return model;
     }
 }

@@ -20,7 +20,7 @@ public class Account {
     @Column(length = 10, nullable=false)
     private Integer phone;
 
-    @Column(length = 50, nullable=false)
+    @Column(length = 250, nullable=false)
     private String password;
 
     @Column(length = 12, nullable = false)

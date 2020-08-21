@@ -73,11 +73,11 @@
                                 <input type="password" class="form-control" name="password">
                             </div>
 
-                            <c:if test="${param.logout}">
+                            <c:if test="${logout}">
                                 <div class="alert alert-info">You have been logged out.</div>
                             </c:if >
                             <c:if test="${error}">
-                                <div class="alert alert-info">Invalid email or password.. xyz</div>
+                                <div class="alert alert-info">Invalid email or password..</div>
                             </c:if >
                             <c:if test="${register}">
                                 <div class="alert alert-success">You have successfully registered!</div>
