@@ -12,6 +12,7 @@
     <title>Sign up</title>
     <link rel="stylesheet" type="text/css" href="./styles/bootstrap-4.1.3/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="./plugins/font-awesome-4.7.0/css/font-awesome.min.css"/>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="./plugins/OwlCarousel2-2.2.1/owl.carousel.css"/>
     <link rel="stylesheet" type="text/css" href="./plugins/OwlCarousel2-2.2.1/owl.theme.default.css"/>
     <link rel="stylesheet" type="text/css" href="./plugins/OwlCarousel2-2.2.1/animate.css"/>
@@ -20,6 +21,8 @@
     <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
 </head>
 <body>
+<sec:authorize access="hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')" var="isAuthenticated">
+</sec:authorize>
 <div class="super_container">
     <!-- Sidebar -->
 
@@ -44,9 +47,16 @@
                 <li><a href="#">contact<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
             </ul>
             <h4>
-                <br></br>
-                <div class="text-primary"><a class="text-primary" href="${contextPath}/login">Sign in</a> /
-                    <a class="text-primary" href="${contextPath}/register">Sign up</a></div>
+                <br>
+                <c:choose>
+                <c:when test="${isAuthenticated}">
+                    <div> <a class="text-primary" href="${contextPath}/logout">Logout</a></div>
+                </c:when>
+                <c:otherwise>
+                    <div class="text-primary"><a class="text-primary" href="${contextPath}/login">Sign in</a> /
+                        <a class="text-primary" href="${contextPath}/register">Sign up</a></div>
+                </c:otherwise>
+            </c:choose>
             </h4>
         </nav>
     </div>
@@ -92,7 +102,7 @@
                                         <label class="text-info">Email* </label><br/>
                                     </div>
                                     <div class="col">
-                                        <input type="email" name="email" class="form-control"  required maxlength="40"/>
+                                        <input type="email" name="email" class="form-control" required maxlength="40"/>
                                     </div>
                                 </div>
                             </div>

@@ -2,6 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
@@ -13,13 +14,17 @@
     <link rel="stylesheet" type="text/css" href="./styles/bootstrap-4.1.3/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="./plugins/font-awesome-4.7.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="./plugins/OwlCarousel2-2.2.1/owl.carousel.css"/>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="./plugins/OwlCarousel2-2.2.1/owl.theme.default.css"/>
     <link rel="stylesheet" type="text/css" href="./plugins/OwlCarousel2-2.2.1/animate.css"/>
     <link rel="stylesheet" type="text/css" href="./styles/main_styles.css"/>
     <link rel="stylesheet" type="text/css" href="./styles/responsive.css"/>
 </head>
 
-<body><div class="super_container">
+<body>
+<sec:authorize access="hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')" var="isAuthenticated">
+</sec:authorize>
+<div class="super_container">
     <!-- Sidebar -->
 
     <div class="sidebar">
@@ -43,38 +48,50 @@
                 <li><a href="#">contact<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
             </ul>
             <h4>
-                <br></br>
-                <div class="text-primary"><a class="text-primary" href="${contextPath}/login">Sign in</a> /
-                                <a class="text-primary" href="${contextPath}/register">Sign up</a></div>
+                <br>
+                <c:choose>
+                <c:when test="${isAuthenticated}">
+                    <div> <a class="text-primary" href="${contextPath}/logout">Logout</a></div>
+                </c:when>
+                <c:otherwise>
+                    <div class="text-primary"><a class="text-primary" href="${contextPath}/login">Sign in</a> /
+                        <a class="text-primary" href="${contextPath}/register">Sign up</a></div>
+                </c:otherwise>
+            </c:choose>
             </h4>
         </nav>
     </div>
     <div class="home">
         <div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="images/login.jpg" data-speed="0.8" style=" background-size:cover; object-fit: cover;"></div>
         <div class="row">
-            <div class="home_container col-8">
-                <div class="home_content">
-                    <div class="home_title text-white pt-5 pb-3 offset-6">Sign In</div>
-                </div>
-            </div>
+            <h1 class="text-white pt-5 pb-3 offset-5">Sign in</h1>
         </div>
         <div class="row">
-            <div class="container col-md-4" >
+            <div class="container col-md-3 pt-3" style="width: 55%" >
                 <div class="row text-center">
-                    <div class="card p-3 bg-dark">
+                    <div class="card p-4 bg-dark">
                         <form method="post" action="${contextPath}/login">
                             <h4 class="text-center text-white">Welcome back!</h4>
-                            <div class="form-group">
-                                <label class="text-info">Email</label>
-                                <input type="email" name="email"  class="form-control">
+                            <div class="form-group pt-3">
+                                <div class="input-group">
+                                    <div class="input-group addon input-group-text">
+                                        <i class="fa fa-envelope"></i>
+                                        &nbsp;<input type="email" name="email"  class="form-control" placeholder="E-mail">
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label class="text-info">Password</label>
-                                <input type="password" class="form-control" name="password">
+                                <div class="input-group">
+                                    <div class="input-group addon input-group-text">
+                                        <i class="fa fa-key"></i>
+                                        &nbsp;<input type="password" class="form-control" name="password" placeholder="Password">
+                                    </div>
+                                </div>
+
                             </div>
 
                             <c:if test="${logout}">
-                                <div class="alert alert-info">You have been logged out.</div>
+                                <div class="alert alert-info">You have logged out.</div>
                             </c:if >
                             <c:if test="${error}">
                                 <div class="alert alert-info">Invalid email or password..</div>
@@ -86,7 +103,7 @@
                             <div class="form-group">
                                 <button type="submit" class="btn btn-info btn-md">Sign in</button>
                             </div>
-                            <div id="register-link" class="text-center">Oops! Not a member?
+                            <div id="register-link" class="text-center">Not a member yet?
                                 <a href="${contextPath}/register" class="text-info">Get started!</a>
                             </div>
                         </form>

@@ -17,30 +17,6 @@ public class UserController {
     @Autowired
     AccountService service;
 
-    @RequestMapping(value="/login", method = RequestMethod.GET)
-    public String showLogin(Model model, String error, String logout) {
-        if (error != null)
-            model.addAttribute("error", true);
-
-        if (logout != null)
-            model.addAttribute("logout", true);
-
-        return "login";
-    }
-
-    @RequestMapping(value="/register", method = RequestMethod.GET)
-    public String showRegistration(Model model) {
-        model.addAttribute("accountForm", new CreateAccountDto());
-        return "register";
-    }
-
-    @RequestMapping(value="/", method = RequestMethod.GET)
-    public String welcome(@RequestParam(value = "name", defaultValue = "World",
-            required = true) String name, Model model){
-        model.addAttribute("name", name);
-        return "index"; //name of index.jsp
-    }
-
     @RequestMapping(value="/register", method = RequestMethod.POST)
     public ModelAndView register( CreateAccountDto createAccountDto, RedirectAttributes redirectAttributes){
         boolean valid = service.isEmailInUse(createAccountDto.getEmail());

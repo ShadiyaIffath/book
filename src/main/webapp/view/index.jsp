@@ -41,9 +41,10 @@
                 <li><a href="${contextPath}/">home<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
                 <li><a href="#">woman<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
                 <li><a href="#">man<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-                <li><a href="#">lookbook<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                <li><a href="${contextPath}/createBook">Add book<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
                 <li><a href="blog.html">blog<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-                <li><a href="#">contact<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                <li><a href="#">contact<i class="fa fa
+                -angle-right" aria-hidden="true"></i></a></li>
             </ul>
 
             <h4>

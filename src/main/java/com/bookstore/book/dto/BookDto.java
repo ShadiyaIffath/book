@@ -1,6 +1,7 @@
 package com.bookstore.book.dto;
 
-public class CreateBookDto {
+public class BookDto {
+    private int id;
     private String title;
     private String ISBN;
     private String description;
@@ -9,9 +10,10 @@ public class CreateBookDto {
     private boolean available;
     private GenreDto genreDto;
 
-    public CreateBookDto(){}
+    public BookDto(){}
 
-    public CreateBookDto(String title, String ISBN, String description, String author, double value, boolean available, GenreDto genreDto) {
+    public BookDto(int id, String title, String ISBN, String description, String author, double value, boolean available, GenreDto genreDto) {
+        this.id = id;
         this.title = title;
         this.ISBN = ISBN;
         this.description = description;
@@ -19,6 +21,14 @@ public class CreateBookDto {
         this.value = value;
         this.available = available;
         this.genreDto = genreDto;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
