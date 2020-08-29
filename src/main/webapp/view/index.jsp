@@ -21,46 +21,32 @@
 <body>
 <sec:authorize access="hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')" var="isAuthenticated">
 </sec:authorize>
-<div class="super_container">
 
-    <!-- Sidebar -->
-
-    <div class="sidebar">
-
-
-        <!-- Logo -->
-        <div class="sidebar_logo">
-            <a href="#">
-                <div>B<span>ook</span></div>
-            </a>
-        </div>
-
-        <!-- Sidebar Navigation -->
-        <nav class="sidebar_nav">
-            <ul>
-                <li><a href="${contextPath}/">home<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-                <li><a href="#">woman<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-                <li><a href="#">man<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-                <li><a href="${contextPath}/createBook">Add book<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-                <li><a href="blog.html">blog<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-                <li><a href="#">contact<i class="fa fa
-                -angle-right" aria-hidden="true"></i></a></li>
-            </ul>
-
-            <h4>
-                <br>
-                <c:choose>
-                <c:when test="${isAuthenticated}">
-                   <div> <a class="text-primary" href="${contextPath}/logout">Logout</a></div>
-                </c:when>
-                <c:otherwise>
-                <div class="text-primary"><a class="text-primary" href="${contextPath}/login">Sign in</a> /
-                    <a class="text-primary" href="${contextPath}/register">Sign up</a></div>
-                </c:otherwise>
-                </c:choose>
-            </h4>
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top pt-3" id="mainNav">
+            <div class="container">
+                <h1><a class="navbar-brand js-scroll-trigger text-primary display-1" href="${contextPath}/" style="font-family: Lucida Handwriting; font-size: 80%;"><img src="images/logo.png" alt="" style="width: 45px; height: 45px;"/>Raziel</a></h1>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars ml-1"></i>
+                </button>
+                <li class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav text-uppercase ml-auto">
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger text-primary" href="#services">Services</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger text-primary" href="#portfolio">Portfolio</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger text-primary" href="${contextPath}/createBook">Add book</a></li>
+                        <c:choose>
+                            <c:when test="${isAuthenticated}">
+                        <li class="nav-item"><b><a class="nav-link js-scroll-trigger text-white" href="${contextPath}/logout">Logout</a></b></li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="nav-item"><a class="nav-link js-scroll-trigger text-primary" href="${contextPath}/login">Sign in</a></li>
+                                <li class="nav-item"><b><a class="nav-link js-scroll-trigger text-dark" href="${contextPath}/register">Sign up</a></b></li>
+                            </c:otherwise>
+                        </c:choose>
+                    </ul>
+                </div>
         </nav>
-    </div>
     <!-- Home -->
 
     <div class="home">
@@ -69,6 +55,19 @@
         <div class="home_slider_container">
             <div class="owl-carousel owl-theme home_slider">
 
+                <!-- Slide -->
+                <div class="owl-item">
+                    <div class="background_image" style="background-image:url(images/home_3.jpg)"></div>
+                    <div class="home_content_container">
+                        <div class="home_content">
+                            <div class="home_discount d-flex flex-row align-items-end justify-content-start">
+                                <div class="home_discount_text text-white">A whole new world</div>
+                            </div>
+                            <div class="home_title text-white">New Collection</div>
+                            <div class="button button_1 home_button trans_200"><a href="categories.html">Read NOW!</a></div>
+                        </div>
+                    </div>
+                </div>
                 <!-- Slide -->
                 <div class="owl-item">
                     <div class="background_image" style="background-image:url(images/home.jpg)"></div>
@@ -89,24 +88,10 @@
                     <div class="home_content_container">
                         <div class="home_content">
                             <div class="home_discount d-flex flex-row align-items-end justify-content-start">
-                                <div class="home_discount_text">Escape to the land of imagination</div>
+                                <div class="home_discount_text text-white">Escape to the land of imagination</div>
                             </div>
-                            <div class="home_title">New Collection</div>
+                            <div class="home_title text-white">New Collection</div>
                             <div class="button button_1 home_button trans_200"><a href="categories.html">Read NOW!</a></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Slide -->
-                <div class="owl-item">
-                    <div class="background_image" style="background-image:url(images/home_3.jpg)"></div>
-                    <div class="home_content_container">
-                        <div class="home_content">
-                            <div class="home_discount d-flex flex-row align-items-end justify-content-start">
-                                <div class="home_discount_text">A whole new world</div>
-                            </div>
-                            <div class="home_title">New Collection</div>
-                            <div class="button button_1 home_button trans_200"><a href="categories.html">Shop NOW!</a></div>
                         </div>
                     </div>
                 </div>
@@ -372,8 +357,6 @@
             </div>
         </div>
     </footer>
-
-</div>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="styles/bootstrap-4.1.3/popper.js"></script>
 <script src="styles/bootstrap-4.1.3/bootstrap.min.js"></script>

@@ -24,97 +24,77 @@
 <body>
 <sec:authorize access="hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')" var="isAuthenticated">
 </sec:authorize>
-<div class="super_container">
-    <!-- Sidebar -->
-
-    <div class="sidebar">
-
-
-        <!-- Logo -->
-        <div class="sidebar_logo">
-            <a href="#">
-                <div>B<span>ook</span></div>
-            </a>
-        </div>
-
-        <!-- Sidebar Navigation -->
-        <nav class="sidebar_nav">
-            <ul>
-                <li><a href="${contextPath}/">home<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-                <li><a href="#">woman<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-                <li><a href="#">man<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-                <li><a href="#">lookbook<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-                <li><a href="blog.html">blog<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-                <li><a href="#">contact<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-            </ul>
-            <h4>
-                <br>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top pt-3" id="mainNav">
+    <div class="container">
+        <h1><a class="navbar-brand js-scroll-trigger text-primary display-1" href="${contextPath}/" style="font-family: Lucida Handwriting; font-size: 80%;"><img src="images/logo.png" alt="" style="width: 45px; height: 45px;"/>Raziel</a></h1>
+        <li class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav text-uppercase ml-auto">
+                <li class="nav-item"><a class="nav-link js-scroll-trigger text-primary" href="${contextPath}/">Home</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger text-primary" href="#portfolio">Portfolio</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger text-primary" href="#about">About</a></li>
                 <c:choose>
-                <c:when test="${isAuthenticated}">
-                    <div> <a class="text-primary" href="${contextPath}/logout">Logout</a></div>
-                </c:when>
-                <c:otherwise>
-                    <div class="text-primary"><a class="text-primary" href="${contextPath}/login">Sign in</a> /
-                        <a class="text-primary" href="${contextPath}/register">Sign up</a></div>
-                </c:otherwise>
-            </c:choose>
-            </h4>
-        </nav>
+                    <c:when test="${isAuthenticated}">
+                        <li class="nav-item"><b><a class="nav-link js-scroll-trigger text-white" href="${contextPath}/logout">Logout</a></b></li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger text-primary" href="${contextPath}/login">Sign in</a></li>
+                        <li class="nav-item"><b><a class="nav-link js-scroll-trigger text-white" href="${contextPath}/register">Sign up</a></b></li>
+                    </c:otherwise>
+                </c:choose>
+            </ul>
     </div>
+</nav>
+
+
     <div class="home">
         <div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="images/login.jpg" data-speed="0.8" style=" background-size:cover; object-fit: cover;"></div>
-        <div class="row">
-            <h1 class="text-white pt-5 pb-3 offset-5">Sign in</h1>
+        <div class="row" style="padding-top: 5%;">
+            <h1 class="text-white pt-5 pb-3 mx-auto" style="font-family: Lucida Handwriting; font-size: 250%;">Sign in</h1>
         </div>
-        <div class="row">
-            <div class="container col-md-3 pt-3" style="width: 55%" >
-                <div class="row text-center">
-                    <div class="card p-4 bg-dark">
-                        <form method="post" action="${contextPath}/login">
-                            <h4 class="text-center text-white">Welcome back!</h4>
-                            <div class="form-group pt-3">
-                                <div class="input-group">
-                                    <div class="input-group addon input-group-text">
-                                        <i class="fa fa-envelope"></i>
-                                        &nbsp;<input type="email" name="email"  class="form-control" placeholder="E-mail">
-                                    </div>
-                                </div>
+        <div class="row text-center">
+            <div class="card p-4 bg-dark mx-auto" style="width: 27%">
+                <form method="post" action="${contextPath}/login">
+                    <h4 class="text-center text-primary">Welcome back!</h4>
+                    <div class="form-group pt-3">
+                        <div class="input-group">
+                            <div class="input-group addon input-group-text">
+                                <i class="fa fa-envelope"></i>
+                                &nbsp;<input type="email" name="email" class="form-control" placeholder="E-mail">
                             </div>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <div class="input-group addon input-group-text">
-                                        <i class="fa fa-key"></i>
-                                        &nbsp;<input type="password" class="form-control" name="password" placeholder="Password">
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <c:if test="${logout}">
-                                <div class="alert alert-info">You have logged out.</div>
-                            </c:if >
-                            <c:if test="${error}">
-                                <div class="alert alert-info">Invalid email or password..</div>
-                            </c:if >
-                            <c:if test="${register}">
-                                <div class="alert alert-success">You have successfully registered!</div>
-                            </c:if>
-
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-info btn-md">Sign in</button>
-                            </div>
-                            <div id="register-link" class="text-center">Not a member yet?
-                                <a href="${contextPath}/register" class="text-info">Get started!</a>
-                            </div>
-                        </form>
+                        </div>
                     </div>
-                </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group addon input-group-text">
+                                <i class="fa fa-key"></i>
+                                &nbsp;<input type="password" class="form-control" name="password"
+                                             placeholder="Password">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <c:if test="${logout}">
+                        <div class="alert alert-info">You have logged out.</div>
+                    </c:if>
+                    <c:if test="${error}">
+                        <div class="alert alert-info">Invalid email or password..</div>
+                    </c:if>
+                    <c:if test="${register}">
+                        <div class="alert alert-success">You have successfully registered!</div>
+                    </c:if>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-md">Sign in</button>
+                    </div>
+                    <div id="register-link" class="text-center">Not a member yet?
+                        <a href="${contextPath}/register" class="text-primary">Get started!</a>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-</div>
-
-
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="styles/bootstrap-4.1.3/popper.js"></script>
 <script src="styles/bootstrap-4.1.3/bootstrap.min.js"></script>

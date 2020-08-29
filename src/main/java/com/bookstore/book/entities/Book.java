@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
@@ -26,11 +27,11 @@ public class Book {
     @Column( nullable = false)
     private boolean available;
 
-    @Column(length = 150, nullable = false)
-    private String description;
-
     @Column( nullable = false)
     private double value;
+
+    @Column(nullable = false)
+    private int quantity;
 
     @Column(length = 25, nullable = false)
     private String author;
@@ -39,5 +40,7 @@ public class Book {
     @JoinColumn(name = "genre_id", referencedColumnName = "id")
     private Genre genre;
 
-
+    @Lob
+    @Type(type="org.hibernate.type.ImageType")
+    private byte[] image;
 }

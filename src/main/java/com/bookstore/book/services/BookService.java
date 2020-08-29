@@ -1,6 +1,7 @@
 package com.bookstore.book.services;
 
 import com.bookstore.book.dto.GenreDto;
+import com.bookstore.book.repositories.BookRepository;
 import com.bookstore.book.repositories.GenreRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -17,6 +18,9 @@ public class BookService {
     private GenreRepository genreRepository;
 
     @Autowired
+    private BookRepository bookRepository;
+
+    @Autowired
     private ModelMapper modelMapper;
 
     public List<GenreDto> getAllGenre(){
@@ -24,5 +28,12 @@ public class BookService {
                 .stream().map( x -> modelMapper.map(x, GenreDto.class))
                 .collect(Collectors.toList());
         return genreDtos;
+    }
+
+    public boolean isBookAlreadyAvailable(String ISBN){
+        boolean valid = false;
+        if(bookRepository.findByISBN(ISBN) != null)
+            valid = true;
+        return valid;
     }
 }

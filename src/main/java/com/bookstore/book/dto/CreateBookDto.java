@@ -1,5 +1,7 @@
 package com.bookstore.book.dto;
 
+import java.io.File;
+
 public class CreateBookDto {
     private String title;
     private String ISBN;
@@ -8,10 +10,13 @@ public class CreateBookDto {
     private double value;
     private boolean available;
     private GenreDto genreDto;
+    private int quantity;
+    private File image;
 
     public CreateBookDto(){}
 
-    public CreateBookDto(String title, String ISBN, String description, String author, double value, boolean available, GenreDto genreDto) {
+
+    public CreateBookDto(String title, String ISBN, String description, String author, double value, boolean available, GenreDto genreDto, int quantity) {
         this.title = title;
         this.ISBN = ISBN;
         this.description = description;
@@ -19,6 +24,35 @@ public class CreateBookDto {
         this.value = value;
         this.available = available;
         this.genreDto = genreDto;
+        this.quantity = quantity;
+    }
+
+    public CreateBookDto(String title, String ISBN, String description, String author, double value, boolean available, GenreDto genreDto, int quantity, File image) {
+        this.title = title;
+        this.ISBN = ISBN;
+        this.description = description;
+        this.author = author;
+        this.value = value;
+        this.available = available;
+        this.genreDto = genreDto;
+        this.quantity = quantity;
+        this.image = image;
+    }
+
+    public File getImage() {
+        return image;
+    }
+
+    public void setImage(File image) {
+        this.image = image;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public String getTitle() {

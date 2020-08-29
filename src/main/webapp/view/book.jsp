@@ -23,58 +23,61 @@
 <body>
 <sec:authorize access="hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')" var="isAuthenticated">
 </sec:authorize>
-<div class="super_container">
-    <!-- Sidebar -->
-
-    <div class="sidebar">
-
-
-        <!-- Logo -->
-        <div class="sidebar_logo">
-            <a href="#">
-                <div>B<span>ook</span></div>
-            </a>
-        </div>
-
-        <!-- Sidebar Navigation -->
-        <nav class="sidebar_nav">
-            <ul>
-                <li><a href="${contextPath}/">home<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-                <li><a href="#">woman<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-                <li><a href="#">man<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-                <li><a href="#">lookbook<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-                <li><a href="blog.html">blog<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-                <li><a href="#">contact<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-            </ul>
-            <h4>
-                <br>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top pt-3" id="mainNav">
+    <div class="container">
+        <h1><a class="navbar-brand js-scroll-trigger text-primary display-1" href="${contextPath}/"
+               style="font-family: Lucida Handwriting; font-size: 80%;"><img src="images/logo.png" alt=""
+                                                                             style="width: 45px; height: 45px;"/>Raziel</a>
+        </h1>
+        <li class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav text-uppercase ml-auto">
+                <li class="nav-item"><a class="nav-link js-scroll-trigger text-primary" href="${contextPath}/">Home</a>
+                </li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger text-primary" href="#portfolio">Portfolio</a>
+                </li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger text-primary" href="#about">About</a></li>
                 <c:choose>
                     <c:when test="${isAuthenticated}">
-                        <div> <a class="text-primary" href="${contextPath}/logout">Logout</a></div>
+                        <li class="nav-item"><b><a class="nav-link js-scroll-trigger text-white"
+                                                   href="${contextPath}/logout">Logout</a></b></li>
                     </c:when>
                     <c:otherwise>
-                        <div class="text-primary"><a class="text-primary" href="${contextPath}/login">Sign in</a> /
-                            <a class="text-primary" href="${contextPath}/register">Sign up</a></div>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger text-primary"
+                                                href="${contextPath}/login">Sign in</a></li>
+                        <li class="nav-item"><b><a class="nav-link js-scroll-trigger text-white"
+                                                   href="${contextPath}/register">Sign up</a></b></li>
                     </c:otherwise>
                 </c:choose>
-            </h4>
-        </nav>
+            </ul>
     </div>
-    <div class="home">
-        <div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="images/home_2.jpg"
-             data-speed="0.8" style=" background-size:cover; object-fit: cover;"></div>
-        <div class="row">
-            <div class="col">
-                <h1 class="text-info pt-5 pb-3 offset-5">Add book</h1>
-            </div>
-            <div class="col">
-                <div class="card p-4 bg-dark">
-                    <form method="post" action="${contextPath}/login">
-                        <h4 class="text-center text-white">New one for our collection!</h4>
+</nav>
+<div class="home">
+    <div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="images/bg.jpg"
+         data-speed="0.8" style=" background-size:cover; object-fit: cover;"></div>
+    <div class="row">
+        <h1 class="text-white pb-3 mx-auto" style="font-family: Lucida Handwriting; font-size: 250%; padding-top:8%;">Add book</h1>
+    </div>
+    <div class="row text-center">
+        <div class="card p-4 bg-dark mx-auto">
+            <form method="post" action="${contextPath}/login" enctype="multipart/form-data">
+                <h4 class="text-center text-white pt-2">New book for our collection!</h4>
+                <div class="row">
+                    <div class="col">
+                        <c:if test="${bookForm.image == null}">
+                            <img class="card-img-top text-center p-3" id="bookImage" alt="Book image"
+                                 src='images/error-book.png'
+                                 style="width: 175px; height: 225px;">
+                        </c:if>
+                        <c:if test="${bookForm.image != null}">
+                            <img class="card-img-top text-center p-3 offset-md-4" id="bookImage" src="#"
+                                 alt="Book image"
+                                 style="width: 175px; height: 225px;">
+                        </c:if>
                         <div class="form-group pt-3">
                             <div class="row">
                                 <div class="col-md-1">
-                                    <label class="text-info h3">Title</label>
+                                    <label class="text-primary h3">Title</label>
                                 </div>
                                 <div class="col-md-10 pl-5">
                                     <input type="text" class="form-control" name="title" required
@@ -85,7 +88,7 @@
                         <div class="form-group pt-2">
                             <div class="row">
                                 <div class="col-md-1">
-                                    <label class="text-info h5">Author</label>
+                                    <label class="text-primary h5">Author</label>
                                 </div>
                                 <div class="col-md-10 pl-5">
                                     <input type="text" class="form-control" name="author" required
@@ -93,23 +96,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group pt-2">
+                    </div>
+                    <div class="col">
+                        <div class="form-group pt-5">
                             <div class="row">
                                 <div class="col-md-1">
-                                    <label class="text-info">
-                                        About
-                                    </label>
-                                </div>
-                                <div class="col-md-10 pl-5">
-                                    <input type="text" class="form-control" name="description" required
-                                           value="${bookForm.description}"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group pt-2">
-                            <div class="row">
-                                <div class="col-md-1">
-                                    <label class="text-info">Genre</label>
+                                    <label class="text-primary">Genre</label>
                                 </div>
                                 <div class="col-md-10 pl-5">
                                     <select class="form-control" name="genre">
@@ -125,7 +117,7 @@
                         <div class="form-group pt-2">
                             <div class="row">
                                 <div class="col-md-1">
-                                    <label class="text-info">ISBN</label>
+                                    <label class="text-primary">ISBN</label>
                                 </div>
                                 <div class="col-md-10 pl-5">
                                     <input type="text" class="form-control" name="ISBN" required
@@ -133,22 +125,46 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="form-group col">
-                                <button type="button" href="${contextPath}/" class="btn btn-info btn-md">Back</button>
-                            </div>
-                            <div class="form-group col">
-                                <button type="submit" class="btn btn-info btn-md">Submit</button>
+                        <div class="form-group pt-2">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <label class="text-primary">
+                                        Quantity
+                                    </label>
+                                </div>
+                                <div class="col-md-10 pl-5">
+                                    <input type="number" class="form-control" name="quantity" required
+                                           value="${bookForm.quantity}"/>
+                                </div>
                             </div>
                         </div>
-
-                    </form>
+                        <div class="form-group pt-2">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <label class="text-primary">
+                                        Image
+                                    </label>
+                                </div>
+                                <div class="col-md-10 pl-5">
+                                    <input type="file" class="form-control" name="image" required
+                                           value="${bookForm.image}" accept="image/*" onchange="readURL(this)"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+                <div class="row">
+                    <div class="form-group col">
+                        <button type="button" href="${contextPath}/" class="btn btn-primary btn-md">Back</button>
+                    </div>
+                    <div class="form-group col">
+                        <button type="submit" class="btn btn-primary btn-md">Submit</button>
+                    </div>
+                </div>
 
+            </form>
+        </div>
     </div>
-</div>
 </div>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="styles/bootstrap-4.1.3/popper.js"></script>
@@ -162,5 +178,21 @@
 <script src="plugins/easing/easing.js"></script>
 <script src="plugins/parallax-js-master/parallax.min.js"></script>
 <script src="js/custom.js"></script>
+<script type="text/javascript">
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#bookImage')
+                    .attr('src', e.target.result)
+                    .width(175)
+                    .height(225);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
 </body>
 </html>
