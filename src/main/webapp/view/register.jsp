@@ -29,16 +29,16 @@
         <h1><a class="navbar-brand js-scroll-trigger text-primary display-1" href="${contextPath}/" style="font-family: Lucida Handwriting; font-size: 80%;"><img src="images/logo.png" alt="" style="width: 45px; height: 45px;"/>Raziel</a></h1>
         <li class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav text-uppercase ml-auto">
-                <li class="nav-item"><a class="nav-link js-scroll-trigger text-primary" href="${contextPath}/">Home</a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger text-primary" href="#portfolio">Portfolio</a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger text-primary" href="#about">About</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary" href="${contextPath}/">Home</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary" href="#portfolio">Portfolio</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary" href="#about">About</a></li>
                 <c:choose>
                     <c:when test="${isAuthenticated}">
-                        <li class="nav-item"><b><a class="nav-link js-scroll-trigger text-white" href="${contextPath}/logout">Logout</a></b></li>
+                        <li class="nav-item"><b><a class="nav-link js-scroll-trigger text-primary" href="${contextPath}/logout">Logout</a></b></li>
                     </c:when>
                     <c:otherwise>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger text-primary" href="${contextPath}/login">Sign in</a></li>
-                        <li class="nav-item"><b><a class="nav-link js-scroll-trigger text-white" href="${contextPath}/register">Sign up</a></b></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary" href="${contextPath}/login">Sign in</a></li>
+                        <li class="nav-item"><b><a class="nav-link js-scroll-trigger text-primary" href="${contextPath}/register">Sign up</a></b></li>
                     </c:otherwise>
                 </c:choose>
             </ul>
@@ -48,7 +48,7 @@
     <div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="images/register.jpg"
          data-speed="0.8" style=" background-size:cover; object-fit: cover;"></div>
     <div class="row" style="padding-top: 5%;">
-        <h1 class="text-white pt-5 pb-3 mx-auto" style="font-family: Lucida Handwriting; font-size: 250%;">Sign up</h1>
+        <h1 class="text-warning pt-5 pb-3 mx-auto" style="font-family: Lucida Handwriting; font-size: 250%;">Sign up</h1>
     </div>
     <div class="row text-center">
         <div class="card p-3 bg-dark mx-auto" style="width: 40rem;">

@@ -22,341 +22,300 @@
 <sec:authorize access="hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')" var="isAuthenticated">
 </sec:authorize>
 
-        <!-- Navigation -->
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top pt-3" id="mainNav">
-            <div class="container">
-                <h1><a class="navbar-brand js-scroll-trigger text-primary display-1" href="${contextPath}/" style="font-family: Lucida Handwriting; font-size: 80%;"><img src="images/logo.png" alt="" style="width: 45px; height: 45px;"/>Raziel</a></h1>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    Menu
-                    <i class="fas fa-bars ml-1"></i>
-                </button>
-                <li class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav text-uppercase ml-auto">
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger text-primary" href="#services">Services</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger text-primary" href="#portfolio">Portfolio</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger text-primary" href="${contextPath}/createBook">Add book</a></li>
-                        <c:choose>
-                            <c:when test="${isAuthenticated}">
-                        <li class="nav-item"><b><a class="nav-link js-scroll-trigger text-white" href="${contextPath}/logout">Logout</a></b></li>
-                            </c:when>
-                            <c:otherwise>
-                                <li class="nav-item"><a class="nav-link js-scroll-trigger text-primary" href="${contextPath}/login">Sign in</a></li>
-                                <li class="nav-item"><b><a class="nav-link js-scroll-trigger text-dark" href="${contextPath}/register">Sign up</a></b></li>
-                            </c:otherwise>
-                        </c:choose>
-                    </ul>
-                </div>
-        </nav>
-    <!-- Home -->
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top pt-3" id="mainNav">
+    <div class="container">
+        <h1><a class="navbar-brand js-scroll-trigger text-primary display-1" href="${contextPath}/"
+               style="font-family: Lucida Handwriting; font-size: 80%;"><img src="images/logo.png" alt=""
+                                                                             style="width: 45px; height: 45px;"/>Raziel</a>
+        </h1>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars ml-1"></i>
+        </button>
+        <li class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav text-uppercase ml-auto">
+                <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary" href="#services">Services</a>
+                </li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary" href="#portfolio">Portfolio</a>
+                </li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary"
+                                        href="${contextPath}/createBook">Add book</a></li>
+                <c:choose>
+                    <c:when test="${isAuthenticated}">
+                        <li class="nav-item"><b><a class="nav-link js-scroll-trigger text-primary"
+                                                   href="${contextPath}/logout">Logout</a></b></li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary"
+                                                href="${contextPath}/login">Sign in</a></li>
+                        <li class="nav-item"><b><a class="nav-link js-scroll-trigger text-primary"
+                                                   href="${contextPath}/register">Sign up</a></b></li>
+                    </c:otherwise>
+                </c:choose>
+            </ul>
+    </div>
+</nav>
+<!-- Home -->
 
-    <div class="home">
+<div class="home">
 
-        <!-- Home Slider -->
-        <div class="home_slider_container">
-            <div class="owl-carousel owl-theme home_slider">
+    <!-- Home Slider -->
+    <div class="home_slider_container">
+        <div class="owl-carousel owl-theme home_slider">
 
-                <!-- Slide -->
-                <div class="owl-item">
-                    <div class="background_image" style="background-image:url(images/home_3.jpg)"></div>
-                    <div class="home_content_container">
-                        <div class="home_content">
-                            <div class="home_discount d-flex flex-row align-items-end justify-content-start">
-                                <div class="home_discount_text text-white">A whole new world</div>
-                            </div>
-                            <div class="home_title text-white">New Collection</div>
-                            <div class="button button_1 home_button trans_200"><a href="categories.html">Read NOW!</a></div>
+            <!-- Slide -->
+            <div class="owl-item">
+                <div class="background_image" style="background-image:url(images/home_3.jpg)"></div>
+                <div class="home_content_container">
+                    <div class="home_content">
+                        <div class="home_discount d-flex flex-row align-items-end justify-content-start">
+                            <div class="home_discount_text text-white">A whole new world</div>
                         </div>
+                        <div class="home_title text-white">New Collection</div>
+                        <div class="btn btn-primary"><a href="categories.html" class="text-ternary">Read NOW!</a></div>
                     </div>
                 </div>
-                <!-- Slide -->
-                <div class="owl-item">
-                    <div class="background_image" style="background-image:url(images/home.jpg)"></div>
-                    <div class="home_content_container">
-                        <div class="home_content">
-                            <div class="home_discount d-flex flex-row align-items-end justify-content-start">
-                                <div class="home_discount_text">Lets get you reading</div>
-                            </div>
-                            <div class="home_title">Latest books</div>
-                            <div class="button button_1 home_button trans_200"><a href="categories.html">Read NOW!</a></div>
+            </div>
+            <!-- Slide -->
+            <div class="owl-item">
+                <div class="background_image" style="background-image:url(images/home.jpg)"></div>
+                <div class="home_content_container">
+                    <div class="home_content">
+                        <div class="home_discount d-flex flex-row align-items-end justify-content-start">
+                            <div class="home_discount_text">Lets get you reading</div>
                         </div>
+                        <div class="home_title">Latest books</div>
+                        <div class="btn btn-primary"><a href="categories.html" class="text-ternary">Read
+                            NOW!</a></div>
                     </div>
                 </div>
-
-                <!-- Slide -->
-                <div class="owl-item">
-                    <div class="background_image" style="background-image:url(images/home_2.jpg)"></div>
-                    <div class="home_content_container">
-                        <div class="home_content">
-                            <div class="home_discount d-flex flex-row align-items-end justify-content-start">
-                                <div class="home_discount_text text-white">Escape to the land of imagination</div>
-                            </div>
-                            <div class="home_title text-white">New Collection</div>
-                            <div class="button button_1 home_button trans_200"><a href="categories.html">Read NOW!</a></div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
 
-            <!-- Home Slider Navigation -->
-            <div class="home_slider_nav home_slider_prev trans_200"><div class=" d-flex flex-column align-items-center justify-content-center"><img src="images/prev.png" alt=""/></div></div>
-            <div class="home_slider_nav home_slider_next trans_200"><div class=" d-flex flex-column align-items-center justify-content-center"><img src="images/next.png" alt=""/></div></div>
+            <!-- Slide -->
+            <div class="owl-item">
+                <div class="background_image" style="background-image:url(images/home_2.jpg)"></div>
+                <div class="home_content_container">
+                    <div class="home_content">
+                        <div class="home_discount d-flex flex-row align-items-end justify-content-start">
+                            <div class="home_discount_text text-white">Escape to the land of imagination</div>
+                        </div>
+                        <div class="home_title text-white">New Collection</div>
+                        <div class="btn btn-primary"><a href="categories.html" class="text-ternary">Read NOW!</a></div>
+                    </div>
+                </div>
+            </div>
 
         </div>
-    </div>
 
-    <!-- Boxes -->
-    <div class="boxes">
+        <!-- Home Slider Navigation -->
+        <div class="home_slider_nav home_slider_prev trans_200">
+            <div class=" d-flex flex-column align-items-center justify-content-center"><img src="images/prev.png"
+                                                                                            alt=""/></div>
+        </div>
+        <div class="home_slider_nav home_slider_next trans_200">
+            <div class=" d-flex flex-column align-items-center justify-content-center"><img src="images/next.png"
+                                                                                            alt=""/></div>
+        </div>
+
+    </div>
+</div>
+<div class="container">
+    <div class="row" style="height: 50px;">
+        <c:forEach var="genre" items="${genre}" varStatus="loop">
+            <div class="col-sm" style="background-color: ${colors[loop.index]};">
+                <a href="#" class="text-dark d-flex justify-content-center pt-2"
+                   style="font-family: Lucida Handwriting; font-size: 20px">${genre.genre}</a>
+            </div>
+        </c:forEach>
+    </div>
+</div>
+<!-- Products -->
+
+<div class="products">
+    <div class="section_container">
+        <div class="container">
+            <div class="products_container grid">
+                <div class="row">
+                <c:forEach var="book" items="${books}">
+                    <div class="col-auto mb-3">
+                        <!-- Product -->
+                        <div class="product grid-item"
+                             style="width: 250px; height:480px; background-color: #89c9b8;">
+                            <div class="product_inner p-2 pt-3">
+                                <div class="product_image">
+                                    <img src="data:image/jpeg;base64,${book.imageString}" alt=""
+                                         style="width: 250px; height: 270px"/>
+                                </div>
+                                <div class="product_content text-center" style="height:150px; padding-top: 15px;">
+                                    <div class="product_title"><a href="product.html" style="font-family: Lucida Handwriting; font-size: 15px">${book.title}</a></div>
+                                    <div class="product_price" style="font-size: 20px;">${book.author}</div>
+                                    <div class="product_button ml-auto mr-auto trans_200"><a href="#">Details</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%--<div class="section_container">--%>
+<%--    <div class="container">--%>
+<%--        <div class="row">--%>
+<%--        <c:forEach var="book" items="${books}">--%>
+<%--            <div class="col-auto mb-3">--%>
+<%--                <div class="card" style="width: 250px; height:480px; background-color: #89c9b8;">--%>
+<%--                    <div class="card-header">--%>
+<%--                        <img src="data:image/jpeg;base64,${book.imageString}" alt=""--%>
+<%--                             style="width: 210px; height: 270px"/>--%>
+<%--                    </div>--%>
+<%--                    <div class="card-body bg-white text-center">--%>
+<%--                        <div class="card-title">--%>
+<%--                            <a href="product.html" class="text-dark"--%>
+<%--                               style="font-family: Lucida Handwriting; font-size: 20px">${book.title}</a>--%>
+<%--                        </div>--%>
+<%--                        <div class="card-subtitle text-primary">--%>
+<%--                                By ${book.author}--%>
+<%--                        </div>--%>
+<%--                            <button class="btn btn-primary">Details</button>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--        </c:forEach>--%>
+<%--        </div>--%>
+<%--    </div>--%>
+<%--</div>--%>
+<!-- Footer -->
+
+<footer class="footer">
+    <div class="footer_content">
         <div class="section_container">
             <div class="container">
                 <div class="row">
 
-                    <!-- Box -->
-                    <div class="col-lg-4 box_col">
-                        <div class="box">
-                            <div class="box_image"><img src="images/mystery.jpg" alt=""/></div>
-                            <div class="box_title trans_200"><a href="categories.html">Mystery</a></div>
+                    <!-- About -->
+                    <div class="col-xxl-4 col-md-6 footer_col">
+                        <div class="footer_about">
+                            <!-- Logo -->
+                            <div class="footer_logo">
+                                <h1><a class="navbar-brand js-scroll-trigger text-primary display-1"
+                                       href="${contextPath}/"
+                                       style="font-family: Lucida Handwriting; font-size: 80%;"><img
+                                        src="images/logo.png" alt="" style="width: 45px; height: 45px;"/>Raziel</a></h1>
+                            </div>
+                            <div class="footer_about_text">
+                                <p>Book the book you want to read. This is a project of the non-profit Internet Archive,
+                                    and has been funded in part by a grant from the California State Library and the
+                                    Kahle/Austin Foundation.</p>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Box -->
-                    <div class="col-lg-4 box_col">
-                        <div class="box">
-                            <div class="box_image"><img src="images/fantasy.jpg" alt=""/></div>
-                            <div class="box_title trans_200"><a href="categories.html">Fantasy</a></div>
+                    <!-- Contact -->
+                    <div class="col-xxl-3 col-md-6 footer_col">
+                        <div class="footer_contact">
+                            <div class="footer_title">contact</div>
+                            <div class="footer_contact_list">
+                                <ul>
+                                    <li class="d-flex flex-row align-items-start justify-content-start"><span
+                                            class="text-primary">C.</span>
+                                        <div>Your Company Ltd</div>
+                                    </li>
+                                    <li class="d-flex flex-row align-items-start justify-content-start"><span
+                                            class="text-primary">A.</span>
+                                        <div>1481 Creekside Lane Avila Beach, CA 93424, P.O. BOX 68</div>
+                                    </li>
+                                    <li class="d-flex flex-row align-items-start justify-content-start"><span
+                                            class="text-primary">T.</span>
+                                        <div>+53 345 7953 32453</div>
+                                    </li>
+                                    <li class="d-flex flex-row align-items-start justify-content-start"><span
+                                            class="text-primary">E.</span>
+                                        <div>office@youremail.com</div>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-
-                    <!-- Box -->
-                    <div class="col-lg-4 box_col">
-                        <div class="box">
-                            <div class="box_image"><img src="images/biography.jpg" alt=""/></div>
-                            <div class="box_title trans_200"><a href="categories.html">Biographies</a></div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Products -->
-
-    <div class="products">
+    <!-- Social -->
+    <div class="footer_social">
         <div class="section_container">
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <div class="products_container grid">
-
-                            <!-- Product -->
-                            <div class="product grid-item hot">
-                                <div class="product_inner">
-                                    <div class="product_image">
-                                        <img src="images/product_1.jpg" alt=""/>
-                                        <div class="product_tag">hot</div>
+                        <div class="footer_social_container d-flex flex-row align-items-center justify-content-between">
+                            <!-- Instagram -->
+                            <a href="#">
+                                <div class="footer_social_item d-flex flex-row align-items-center justify-content-start">
+                                    <div class="footer_social_icon"><i class="fa fa-instagram" aria-hidden="true"></i>
                                     </div>
-                                    <div class="product_content text-center">
-                                        <div class="product_title"><a href="product.html">long red shirt</a></div>
-                                        <div class="product_price">$39.90</div>
-                                        <div class="product_button ml-auto mr-auto trans_200"><a href="#">add to cart</a></div>
-                                    </div>
+                                    <div class="footer_social_title">instagram</div>
                                 </div>
-                            </div>
-
-                            <!-- Product -->
-                            <div class="product grid-item">
-                                <div class="product_inner">
-                                    <div class="product_image"><img src="images/product_2.jpg" alt=""/></div>
-                                    <div class="product_content text-center">
-                                        <div class="product_title"><a href="product.html">hype grey shirt</a></div>
-                                        <div class="product_price">$19.50</div>
-                                        <div class="product_button ml-auto mr-auto trans_200"><a href="#">add to cart</a></div>
+                            </a>
+                            <!-- Google + -->
+                            <a href="#">
+                                <div class="footer_social_item d-flex flex-row align-items-center justify-content-start">
+                                    <div class="footer_social_icon"><i class="fa fa-google-plus" aria-hidden="true"></i>
                                     </div>
+                                    <div class="footer_social_title">google +</div>
                                 </div>
-                            </div>
-
-                            <!-- Product -->
-                            <div class="product grid-item sale">
-                                <div class="product_inner">
-                                    <div class="product_image">
-                                        <img src="images/product_3.jpg" alt=""/>
-                                        <div class="product_tag">sale</div>
+                            </a>
+                            <!-- Pinterest -->
+                            <a href="#">
+                                <div class="footer_social_item d-flex flex-row align-items-center justify-content-start">
+                                    <div class="footer_social_icon"><i class="fa fa-pinterest" aria-hidden="true"></i>
                                     </div>
-                                    <div class="product_content text-center">
-                                        <div class="product_title"><a href="product.html">long sleeve jacket</a></div>
-                                        <div class="product_price">$32.20<span>RRP 64.40</span></div>
-                                        <div class="product_button ml-auto mr-auto trans_200"><a href="#">add to cart</a></div>
-                                    </div>
+                                    <div class="footer_social_title">pinterest</div>
                                 </div>
-                            </div>
-
-                            <!-- Product -->
-                            <div class="product grid-item">
-                                <div class="product_inner">
-                                    <div class="product_image">
-                                        <img src="images/product_4.jpg" alt=""/>
+                            </a>
+                            <!-- Facebook -->
+                            <a href="#">
+                                <div class="footer_social_item d-flex flex-row align-items-center justify-content-start">
+                                    <div class="footer_social_icon"><i class="fa fa-facebook" aria-hidden="true"></i>
                                     </div>
-                                    <div class="product_content text-center">
-                                        <div class="product_title"><a href="product.html">denim men shirt</a></div>
-                                        <div class="product_price">$59.90</div>
-                                        <div class="product_button ml-auto mr-auto trans_200"><a href="#">add to cart</a></div>
-                                    </div>
+                                    <div class="footer_social_title">facebook</div>
                                 </div>
-                            </div>
-
-                            <!-- Product -->
-                            <div class="product grid-item">
-                                <div class="product_inner">
-                                    <div class="product_image">
-                                        <img src="images/product_5.jpg" alt=""/>
+                            </a>
+                            <!-- Twitter -->
+                            <a href="#">
+                                <div class="footer_social_item d-flex flex-row align-items-center justify-content-start">
+                                    <div class="footer_social_icon"><i class="fa fa-twitter" aria-hidden="true"></i>
                                     </div>
-                                    <div class="product_content text-center">
-                                        <div class="product_title"><a href="product.html">long red shirt</a></div>
-                                        <div class="product_price">$79.90</div>
-                                        <div class="product_button ml-auto mr-auto trans_200"><a href="#">add to cart</a></div>
-                                    </div>
+                                    <div class="footer_social_title">twitter</div>
                                 </div>
-                            </div>
-
-                            <!-- Product -->
-                            <div class="product grid-item new">
-                                <div class="product_inner">
-                                    <div class="product_image">
-                                        <img src="images/product_6.jpg" alt=""/>
-                                        <div class="product_tag">new</div>
+                            </a>
+                            <!-- YouTube -->
+                            <a href="#">
+                                <div class="footer_social_item d-flex flex-row align-items-center justify-content-start">
+                                    <div class="footer_social_icon"><i class="fa fa-youtube" aria-hidden="true"></i>
                                     </div>
-                                    <div class="product_content text-center">
-                                        <div class="product_title"><a href="product.html">hype grey shirt</a></div>
-                                        <div class="product_price">$59.90</div>
-                                        <div class="product_button ml-auto mr-auto trans_200"><a href="#">add to cart</a></div>
-                                    </div>
+                                    <div class="footer_social_title">youtube</div>
                                 </div>
-                            </div>
-
-                            <!-- Product -->
-                            <div class="product grid-item">
-                                <div class="product_inner">
-                                    <div class="product_image">
-                                        <img src="images/product_7.jpg" alt=""/>
-                                    </div>
-                                    <div class="product_content text-center">
-                                        <div class="product_title"><a href="product.html">long sleeve jacket</a></div>
-                                        <div class="product_price">$15.90</div>
-                                        <div class="product_button ml-auto mr-auto trans_200"><a href="#">add to cart</a></div>
-                                    </div>
+                            </a>
+                            <!-- Tumblr -->
+                            <a href="#">
+                                <div class="footer_social_item d-flex flex-row align-items-center justify-content-start">
+                                    <div class="footer_social_icon"><i class="fa fa-tumblr-square"
+                                                                       aria-hidden="true"></i></div>
+                                    <div class="footer_social_title">tumblr</div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Footer -->
-
-    <footer class="footer">
-        <div class="footer_content">
-            <div class="section_container">
-                <div class="container">
-                    <div class="row">
-
-                        <!-- About -->
-                        <div class="col-xxl-4 col-md-6 footer_col">
-                            <div class="footer_about">
-                                <!-- Logo -->
-                                <div class="footer_logo">
-                                    <a href="#"><div>B<span>ook</span></div></a>
-                                </div>
-                                <div class="footer_about_text">
-                                    <p>Book the book you want to read. This is a project of the non-profit Internet Archive, and has been funded in part by a grant from the California State Library and the Kahle/Austin Foundation.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Contact -->
-                        <div class="col-xxl-3 col-md-6 footer_col">
-                            <div class="footer_contact">
-                                <div class="footer_title">contact</div>
-                                <div class="footer_contact_list">
-                                    <ul>
-                                        <li class="d-flex flex-row align-items-start justify-content-start"><span>C.</span><div>Your Company Ltd</div></li>
-                                        <li class="d-flex flex-row align-items-start justify-content-start"><span>A.</span><div>1481 Creekside Lane  Avila Beach, CA 93424, P.O. BOX 68</div></li>
-                                        <li class="d-flex flex-row align-items-start justify-content-start"><span>T.</span><div>+53 345 7953 32453</div></li>
-                                        <li class="d-flex flex-row align-items-start justify-content-start"><span>E.</span><div>office@youremail.com</div></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Social -->
-        <div class="footer_social">
-            <div class="section_container">
-                <div class="container">
-                    <div class="row">
-                        <div class="col">
-                            <div class="footer_social_container d-flex flex-row align-items-center justify-content-between">
-                                <!-- Instagram -->
-                                <a href="#">
-                                    <div class="footer_social_item d-flex flex-row align-items-center justify-content-start">
-                                        <div class="footer_social_icon"><i class="fa fa-instagram" aria-hidden="true"></i></div>
-                                        <div class="footer_social_title">instagram</div>
-                                    </div>
-                                </a>
-                                <!-- Google + -->
-                                <a href="#">
-                                    <div class="footer_social_item d-flex flex-row align-items-center justify-content-start">
-                                        <div class="footer_social_icon"><i class="fa fa-google-plus" aria-hidden="true"></i></div>
-                                        <div class="footer_social_title">google +</div>
-                                    </div>
-                                </a>
-                                <!-- Pinterest -->
-                                <a href="#">
-                                    <div class="footer_social_item d-flex flex-row align-items-center justify-content-start">
-                                        <div class="footer_social_icon"><i class="fa fa-pinterest" aria-hidden="true"></i></div>
-                                        <div class="footer_social_title">pinterest</div>
-                                    </div>
-                                </a>
-                                <!-- Facebook -->
-                                <a href="#">
-                                    <div class="footer_social_item d-flex flex-row align-items-center justify-content-start">
-                                        <div class="footer_social_icon"><i class="fa fa-facebook" aria-hidden="true"></i></div>
-                                        <div class="footer_social_title">facebook</div>
-                                    </div>
-                                </a>
-                                <!-- Twitter -->
-                                <a href="#">
-                                    <div class="footer_social_item d-flex flex-row align-items-center justify-content-start">
-                                        <div class="footer_social_icon"><i class="fa fa-twitter" aria-hidden="true"></i></div>
-                                        <div class="footer_social_title">twitter</div>
-                                    </div>
-                                </a>
-                                <!-- YouTube -->
-                                <a href="#">
-                                    <div class="footer_social_item d-flex flex-row align-items-center justify-content-start">
-                                        <div class="footer_social_icon"><i class="fa fa-youtube" aria-hidden="true"></i></div>
-                                        <div class="footer_social_title">youtube</div>
-                                    </div>
-                                </a>
-                                <!-- Tumblr -->
-                                <a href="#">
-                                    <div class="footer_social_item d-flex flex-row align-items-center justify-content-start">
-                                        <div class="footer_social_icon"><i class="fa fa-tumblr-square" aria-hidden="true"></i></div>
-                                        <div class="footer_social_title">tumblr</div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+</footer>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="styles/bootstrap-4.1.3/popper.js"></script>
 <script src="styles/bootstrap-4.1.3/bootstrap.min.js"></script>

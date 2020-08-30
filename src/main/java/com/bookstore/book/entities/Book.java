@@ -36,8 +36,8 @@ public class Book {
     @Column(length = 25, nullable = false)
     private String author;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "genre_id", referencedColumnName = "id")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "genre_id")
     private Genre genre;
 
     @Lob

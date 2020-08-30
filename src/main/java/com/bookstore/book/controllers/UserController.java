@@ -1,12 +1,9 @@
 package com.bookstore.book.controllers;
 
 import com.bookstore.book.dto.CreateAccountDto;
-import com.bookstore.book.entities.Account;
 import com.bookstore.book.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -22,7 +19,7 @@ public class UserController {
         boolean valid = service.isEmailInUse(createAccountDto.getEmail());
         ModelAndView model = new ModelAndView();
 
-        if(valid == true){
+        if(valid){
             model.addObject("accountForm", createAccountDto);
             model.addObject("emailError", true);
             model.setViewName("register");

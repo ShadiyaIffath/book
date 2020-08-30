@@ -1,6 +1,6 @@
 package com.bookstore.book.dto;
 
-import java.io.File;
+import org.springframework.web.multipart.MultipartFile;
 
 public class CreateBookDto {
     private String title;
@@ -8,42 +8,49 @@ public class CreateBookDto {
     private String description;
     private String author;
     private double value;
-    private boolean available;
-    private GenreDto genreDto;
+    private boolean available = true;
     private int quantity;
-    private File image;
+    private MultipartFile image;
+    private int genreId;
 
     public CreateBookDto(){}
 
-
-    public CreateBookDto(String title, String ISBN, String description, String author, double value, boolean available, GenreDto genreDto, int quantity) {
+    public CreateBookDto(String title, String ISBN, String description, String author, double value, boolean available, int quantity, MultipartFile image, int genreId) {
         this.title = title;
         this.ISBN = ISBN;
         this.description = description;
         this.author = author;
         this.value = value;
         this.available = available;
-        this.genreDto = genreDto;
-        this.quantity = quantity;
-    }
-
-    public CreateBookDto(String title, String ISBN, String description, String author, double value, boolean available, GenreDto genreDto, int quantity, File image) {
-        this.title = title;
-        this.ISBN = ISBN;
-        this.description = description;
-        this.author = author;
-        this.value = value;
-        this.available = available;
-        this.genreDto = genreDto;
         this.quantity = quantity;
         this.image = image;
+        this.genreId = genreId;
     }
 
-    public File getImage() {
+    public CreateBookDto(String title, String ISBN, String description, String author, double value, boolean available, int quantity, int genreId) {
+        this.title = title;
+        this.ISBN = ISBN;
+        this.description = description;
+        this.author = author;
+        this.value = value;
+        this.available = available;
+        this.quantity = quantity;
+        this.genreId = genreId;
+    }
+
+    public int getGenreId() {
+        return genreId;
+    }
+
+    public void setGenreId(int genreId) {
+        this.genreId = genreId;
+    }
+
+    public MultipartFile getImage() {
         return image;
     }
 
-    public void setImage(File image) {
+    public void setImage(MultipartFile image) {
         this.image = image;
     }
 
@@ -103,11 +110,4 @@ public class CreateBookDto {
         this.available = available;
     }
 
-    public GenreDto getGenreDto() {
-        return genreDto;
-    }
-
-    public void setGenreDto(GenreDto genreDto) {
-        this.genreDto = genreDto;
-    }
 }

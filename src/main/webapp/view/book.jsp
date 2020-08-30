@@ -32,20 +32,20 @@
         </h1>
         <li class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav text-uppercase ml-auto">
-                <li class="nav-item"><a class="nav-link js-scroll-trigger text-primary" href="${contextPath}/">Home</a>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary" href="${contextPath}/">Home</a>
                 </li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger text-primary" href="#portfolio">Portfolio</a>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary" href="#portfolio">Portfolio</a>
                 </li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger text-primary" href="#about">About</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary" href="#about">About</a></li>
                 <c:choose>
                     <c:when test="${isAuthenticated}">
-                        <li class="nav-item"><b><a class="nav-link js-scroll-trigger text-white"
+                        <li class="nav-item"><b><a class="nav-link js-scroll-trigger text-primary"
                                                    href="${contextPath}/logout">Logout</a></b></li>
                     </c:when>
                     <c:otherwise>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger text-primary"
-                                                href="${contextPath}/login">Sign in</a></li>
-                        <li class="nav-item"><b><a class="nav-link js-scroll-trigger text-white"
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary"
+                                                href="${contextPath}/login" >Sign in</a></li>
+                        <li class="nav-item"><b><a class="nav-link js-scroll-trigger text-primary"
                                                    href="${contextPath}/register">Sign up</a></b></li>
                     </c:otherwise>
                 </c:choose>
@@ -56,11 +56,11 @@
     <div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="images/bg.jpg"
          data-speed="0.8" style=" background-size:cover; object-fit: cover;"></div>
     <div class="row">
-        <h1 class="text-white pb-3 mx-auto" style="font-family: Lucida Handwriting; font-size: 250%; padding-top:8%;">Add book</h1>
+        <h1 class="text-warning pb-3 mx-auto" style="font-family: Lucida Handwriting; font-size: 250%; padding-top:8%;">Add book</h1>
     </div>
     <div class="row text-center">
         <div class="card p-4 bg-dark mx-auto">
-            <form method="post" action="${contextPath}/login" enctype="multipart/form-data">
+            <form method="post" action="${contextPath}/addBook" enctype="multipart/form-data">
                 <h4 class="text-center text-white pt-2">New book for our collection!</h4>
                 <div class="row">
                     <div class="col">
@@ -77,10 +77,10 @@
                         <div class="form-group pt-3">
                             <div class="row">
                                 <div class="col-md-1">
-                                    <label class="text-primary h3">Title</label>
+                                    <label class="text-primary">Title</label>
                                 </div>
                                 <div class="col-md-10 pl-5">
-                                    <input type="text" class="form-control" name="title" required
+                                    <input type="text" class="form-control" name="title" required spellcheck="false"
                                            value="${bookForm.title}"/>
                                 </div>
                             </div>
@@ -88,10 +88,10 @@
                         <div class="form-group pt-2">
                             <div class="row">
                                 <div class="col-md-1">
-                                    <label class="text-primary h5">Author</label>
+                                    <label class="text-primary">Author</label>
                                 </div>
                                 <div class="col-md-10 pl-5">
-                                    <input type="text" class="form-control" name="author" required
+                                    <input type="text" class="form-control" name="author" required spellcheck="false"
                                            value="${bookForm.author}"/>
                                 </div>
                             </div>
@@ -104,9 +104,10 @@
                                     <label class="text-primary">Genre</label>
                                 </div>
                                 <div class="col-md-10 pl-5">
-                                    <select class="form-control" name="genre">
+                                    <select class="form-control" name="genreId" required>
+                                        <option value="" selected disabled hidden>Choose genre</option>
                                         <c:forEach items="${genres}" var="genre">
-                                            <option value="${genre}">
+                                            <option value="${genre.id}">
                                                     ${genre.genre}
                                             </option>
                                         </c:forEach>
@@ -120,7 +121,7 @@
                                     <label class="text-primary">ISBN</label>
                                 </div>
                                 <div class="col-md-10 pl-5">
-                                    <input type="text" class="form-control" name="ISBN" required
+                                    <input type="text" class="form-control" name="ISBN" required spellcheck="false"
                                            value="${bookForm.ISBN}"/>
                                 </div>
                             </div>
@@ -133,8 +134,21 @@
                                     </label>
                                 </div>
                                 <div class="col-md-10 pl-5">
-                                    <input type="number" class="form-control" name="quantity" required
+                                    <input type="number" class="form-control" name="quantity" required min="1"
                                            value="${bookForm.quantity}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group pt-2">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <label class="text-primary">
+                                        Value
+                                    </label>
+                                </div>
+                                <div class="col-md-10 pl-5">
+                                    <input type="number" class="form-control" name="value" required placeholder="$ " min="10"
+                                           value="${bookForm.value}"/>
                                 </div>
                             </div>
                         </div>
@@ -153,9 +167,12 @@
                         </div>
                     </div>
                 </div>
+                <c:if test="${error}">
+                    <div class="alert alert-warning">ISBN is existing</div>
+                </c:if>
                 <div class="row">
                     <div class="form-group col">
-                        <button type="button" href="${contextPath}/" class="btn btn-primary btn-md">Back</button>
+                        <button type="button" onclick="location.href ='${contextPath}/'" class="btn btn-primary btn-md">Back</button>
                     </div>
                     <div class="form-group col">
                         <button type="submit" class="btn btn-primary btn-md">Submit</button>

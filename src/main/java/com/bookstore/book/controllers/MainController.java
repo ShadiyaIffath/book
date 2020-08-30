@@ -16,10 +16,13 @@ public class MainController {
     @Autowired
     private BookService bookService;
 
+    private String[] colors = {"776d8a","f3e6e3","dbe3e5","d3c09a","fabea7","fbe2e5","9cada4","cff6cf","faf0af"};
+
     @RequestMapping(value="/", method = RequestMethod.GET)
-    public String welcome(@RequestParam(value = "name", defaultValue = "World",
-            required = true) String name, Model model){
-        model.addAttribute("name", name);
+    public String welcome(Model model){
+        model.addAttribute("colors",colors);
+        model.addAttribute("books", bookService.getAllBooks());
+        model.addAttribute("genre",bookService.getAllGenre());
         return "index"; //name of index.jsp
     }
 
@@ -30,13 +33,14 @@ public class MainController {
     }
 
     @RequestMapping(value="/login", method = RequestMethod.GET)
-    public String showLogin(Model model, String error, String logout) {
+    public String showLogin(Model model, String error, String logout,String register) {
         if (error != null)
             model.addAttribute("error", true);
 
         if (logout != null)
             model.addAttribute("logout", true);
-
+        if(register != null)
+            model.addAttribute("register", true);
         return "login";
     }
 

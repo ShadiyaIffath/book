@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -24,6 +25,6 @@ public class Genre {
     @Column(length = 25)
     private String description;
 
-    @OneToOne
-    private Book book;
+    @OneToMany( mappedBy = "genre",cascade = CascadeType.ALL)
+    private List<Book> books;
 }

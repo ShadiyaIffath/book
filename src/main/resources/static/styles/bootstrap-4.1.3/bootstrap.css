@@ -26,6 +26,7 @@
   --danger: #dc3545;
   --light: #f8f9fa;
   --dark: #343a40;
+  --combo: #F7DC6F;
   --breakpoint-xs: 0;
   --breakpoint-sm: 576px;
   --breakpoint-md: 768px;
@@ -217,7 +218,7 @@ textarea {
 
 button,
 input {
-  overflow: visible; }
+  overflow: visible;}
 
 button,
 select {
@@ -2341,13 +2342,13 @@ fieldset:disabled a.btn {
   pointer-events: none; }
 
 .btn-primary {
-  color: #fff;
-  background-color: #bbe432;
-  border-color: #bbe432; }
+  color: #283747;
+  background-color: #2ECC71 ;
+  border-color: #2ECC71 ; }
   .btn-primary:hover {
-    color: #fff;
-    background-color: #28a745;
-    border-color: #28a745; }
+    color: #28a745 ;
+    background-color:#1C2833 ;
+    border-color: #283747; }
   .btn-primary:focus, .btn-primary.focus {
     -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
             box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5); }
@@ -2364,13 +2365,13 @@ fieldset:disabled a.btn {
               box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5); }
 
 .btn-secondary {
-  color: #fff;
-  background-color: #6c757d;
-  border-color: #6c757d; }
+  color: #ffc107;
+  background-color: #2ECC71;
+  border-color: #28a745; }
   .btn-secondary:hover {
-    color: #fff;
-    background-color: #5a6268;
-    border-color: #545b62; }
+    color: #28a745;
+    background-color: #ffc207;
+    border-color: #ffc107; }
   .btn-secondary:focus, .btn-secondary.focus {
     -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
             box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5); }
@@ -3506,11 +3507,12 @@ input[type="button"].btn-block {
 
 .nav-link {
   display: block;
+  color: #F7DC6F;
   padding: 0.5rem 1rem; }
   .nav-link:hover, .nav-link:focus {
     text-decoration: none; }
   .nav-link.disabled {
-    color: #6c757d; }
+    color: #F7DC6F }
 
 .nav-tabs {
   border-bottom: 1px solid #dee2e6; }
@@ -8325,7 +8327,7 @@ button.bg-dark:focus {
   color: #fff !important; }
 
 .text-primary {
-  color: #bbe432 !important; }
+  color: #2ECC71  !important; }
 
 a.text-primary:hover, a.text-primary:focus {
   color: #28a745 !important; }
@@ -8335,6 +8337,12 @@ a.text-primary:hover, a.text-primary:focus {
 
 a.text-secondary:hover, a.text-secondary:focus {
   color: #545b62 !important; }
+
+.text-ternary {
+  color: #F7DC6F !important; }
+
+a.text-ternary:hover, a.text-ternary:focus {
+  color: #F39C12 !important; }
 
 .text-success {
   color: #28a745 !important; }
