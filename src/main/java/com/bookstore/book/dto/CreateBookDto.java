@@ -12,6 +12,7 @@ public class CreateBookDto {
     private int quantity;
     private MultipartFile image;
     private int genreId;
+    private String imageString;
 
     public CreateBookDto(){}
 
@@ -36,6 +37,14 @@ public class CreateBookDto {
         this.available = available;
         this.quantity = quantity;
         this.genreId = genreId;
+    }
+
+    public String getImageString() {
+        return imageString;
+    }
+
+    public void setImageString(String imageString) {
+        this.imageString = imageString;
     }
 
     public int getGenreId() {

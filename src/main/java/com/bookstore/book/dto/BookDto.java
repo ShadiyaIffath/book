@@ -9,6 +9,7 @@ public class BookDto {
     private int quantity;
     private boolean available;
     private GenreDto genreDto;
+    private int genreId;
     private byte[] image;
     private String imageString;
 
@@ -24,6 +25,28 @@ public class BookDto {
         this.available = available;
         this.genreDto = genreDto;
         this.image = image;
+    }
+
+    public BookDto(int id, String title, String ISBN, String author, double value, int quantity, boolean available, GenreDto genreDto, int genreId, byte[] image, String imageString) {
+        this.id = id;
+        this.title = title;
+        this.ISBN = ISBN;
+        this.author = author;
+        this.value = value;
+        this.quantity = quantity;
+        this.available = available;
+        this.genreDto = genreDto;
+        this.genreId = genreId;
+        this.image = image;
+        this.imageString = imageString;
+    }
+
+    public int getGenreId() {
+        return genreId;
+    }
+
+    public void setGenreId(int genreId) {
+        this.genreId = genreId;
     }
 
     public String getImageString() {

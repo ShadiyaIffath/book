@@ -9,7 +9,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Book</title>
+    <title>Home</title>
+    <!-- favicons
+================================================== -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <!-- Styles
+================================================== -->
     <link rel="stylesheet" type="text/css" href="./styles/bootstrap-4.1.3/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="./plugins/font-awesome-4.7.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="./plugins/OwlCarousel2-2.2.1/owl.carousel.css"/>
@@ -37,12 +43,10 @@
         </button>
         <li class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav text-uppercase ml-auto">
-                <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary" href="#services">Services</a>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary" href="${contextPath}/">Home</a>
                 </li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary" href="#portfolio">Portfolio</a>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary" href="${contextPath}/books">Manage Books</a>
                 </li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary"
-                                        href="${contextPath}/createBook">Add book</a></li>
                 <c:choose>
                     <c:when test="${isAuthenticated}">
                         <li class="nav-item"><b><a class="nav-link js-scroll-trigger text-primary"
@@ -76,6 +80,12 @@
                         </div>
                         <div class="home_title text-white">New Collection</div>
                         <div class="btn btn-primary"><a href="categories.html" class="text-ternary">Read NOW!</a></div>
+                    </div>
+                </div>
+                <div class="pull-right">
+                    <div class="card pull-right p3" style="background-color: rgba(255, 255, 255, 0.2); width: 350px; margin-top: 320px; margin-right: 80px; padding: 4%;">
+                        <p class="text-white">Who is Raziel?</p>
+                        <p class="text-ternary"><i>Raziel is an angel within the teachings of Jewish mysticism who is the "Keeper of Secrets" and the "Angel of Mysteries". We are the <b>keeper of secrets.</b></i></p>
                     </div>
                 </div>
             </div>
@@ -163,34 +173,6 @@
         </div>
     </div>
 </div>
-<%--<div class="section_container">--%>
-<%--    <div class="container">--%>
-<%--        <div class="row">--%>
-<%--        <c:forEach var="book" items="${books}">--%>
-<%--            <div class="col-auto mb-3">--%>
-<%--                <div class="card" style="width: 250px; height:480px; background-color: #89c9b8;">--%>
-<%--                    <div class="card-header">--%>
-<%--                        <img src="data:image/jpeg;base64,${book.imageString}" alt=""--%>
-<%--                             style="width: 210px; height: 270px"/>--%>
-<%--                    </div>--%>
-<%--                    <div class="card-body bg-white text-center">--%>
-<%--                        <div class="card-title">--%>
-<%--                            <a href="product.html" class="text-dark"--%>
-<%--                               style="font-family: Lucida Handwriting; font-size: 20px">${book.title}</a>--%>
-<%--                        </div>--%>
-<%--                        <div class="card-subtitle text-primary">--%>
-<%--                                By ${book.author}--%>
-<%--                        </div>--%>
-<%--                            <button class="btn btn-primary">Details</button>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        </c:forEach>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--</div>--%>
-<!-- Footer -->
-
 <footer class="footer">
     <div class="footer_content">
         <div class="section_container">

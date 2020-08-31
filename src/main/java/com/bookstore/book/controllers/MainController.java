@@ -1,5 +1,6 @@
 package com.bookstore.book.controllers;
 
+import com.bookstore.book.dto.BookDto;
 import com.bookstore.book.dto.CreateAccountDto;
 import com.bookstore.book.dto.CreateBookDto;
 import com.bookstore.book.services.BookService;
@@ -9,6 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class MainController {
@@ -44,10 +48,12 @@ public class MainController {
         return "login";
     }
 
-    @RequestMapping(value="/createBook", method = RequestMethod.GET)
-    public String showCreateBook(Model model) {
-        model.addAttribute("bookForm", new CreateBookDto());
+    @RequestMapping(value="/books", method= RequestMethod.GET)
+    public String showBooks(Model model){
+        List<BookDto> filtered = new ArrayList<>();
+        model.addAttribute("books",bookService.getAllBooks());
         model.addAttribute("genres", bookService.getAllGenre());
-        return "book";
+        model.addAttribute("filtered", filtered);
+        return "manageBooks";
     }
 }

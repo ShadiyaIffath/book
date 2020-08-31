@@ -30,8 +30,6 @@
         <li class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav text-uppercase ml-auto">
                 <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary" href="${contextPath}/">Home</a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary" href="#portfolio">Portfolio</a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary" href="#about">About</a></li>
                 <c:choose>
                     <c:when test="${isAuthenticated}">
                         <li class="nav-item"><b><a class="nav-link js-scroll-trigger text-primary" href="${contextPath}/logout">Logout</a></b></li>
@@ -115,8 +113,6 @@
         </div>
     </div>
 </div>
-
-
         <script src="js/jquery-3.2.1.min.js"></script>
         <script src="styles/bootstrap-4.1.3/popper.js"></script>
         <script src="styles/bootstrap-4.1.3/bootstrap.min.js"></script>

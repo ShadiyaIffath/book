@@ -16,7 +16,7 @@
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700" rel="stylesheet">
 
     <!-- Custom stlylesheet -->
-    <link type="text/css" rel="stylesheet" href="${contextPath}/styles/errorStyle.css" />
+    <link type="text/css" rel="stylesheet" href="./styles/errorStyle.css" />
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -32,9 +32,9 @@
 <div id="notfound">
     <div class="notfound">
         <div class="notfound-404">
-            <h1>4<span>0</span>4</h1>
+            <h1>4<span>0</span>3</h1>
         </div>
-        <p>The page you are looking for might have been removed had its name changed or is temporarily unavailable.</p>
+        <p>I'm sorry, but you are not authorized to access this page.</p>
         <a href="${contextPath}/">Home page</a>
     </div>
 </div>
