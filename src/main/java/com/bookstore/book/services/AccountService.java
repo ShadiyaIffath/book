@@ -6,18 +6,11 @@ import com.bookstore.book.repositories.AccountRepository;
 import com.bookstore.book.utils.Role;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.List;
-
 @Service
-public class AccountService implements UserService {
+public class AccountService {
 
     @Autowired
     AccountRepository accountRepository;
@@ -35,6 +28,10 @@ public class AccountService implements UserService {
         return valid;
     }
 
+    public Account findByEmail(String email){
+        return accountRepository.findByEmail(email);
+    }
+
     public Account saveAccount(CreateAccountDto createAccountDto){
         Account account = modelMapper.map(createAccountDto, Account.class);
         account.setType(Role.RXS.getRole());
@@ -42,20 +39,4 @@ public class AccountService implements UserService {
         return  accountRepository.save(account);
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        Account account = accountRepository.findByEmail(s);
-        System.out.println(account.getFirstName()+ account.getPassword());
-        if (account == null) {
-            throw new UsernameNotFoundException("Invalid email or password.");
-        }
-        return new org.springframework.security.core.userdetails.User(account.getEmail(), account.getPassword(),mapRoleToAuthorities(account.getType()));
-    }
-
-
-    private Collection<? extends GrantedAuthority> mapRoleToAuthorities(String role){
-        List<SimpleGrantedAuthority> auths = new java.util.ArrayList<SimpleGrantedAuthority>();
-        auths.add(new SimpleGrantedAuthority(role));
-        return auths;
-    }
 }
