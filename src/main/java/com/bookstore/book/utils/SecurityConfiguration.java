@@ -12,9 +12,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -25,38 +23,38 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
         // securedEnabled = true,
         // jsr250Enabled = true,
         prePostEnabled = true)
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter
- {
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-     @Autowired
-     private UserDetailsServiceImpl userDetailsService;
-     @Autowired
-     private AuthEntryPointJwt unauthorizedHandler;
-     @Autowired
-     private AuthTokenFilter filter;
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
+    @Autowired
+    private AuthEntryPointJwt unauthorizedHandler;
+    @Autowired
+    private AuthTokenFilter filter;
+
     //a password encoder bean
     @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-     @Override
-     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-         authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-     }
-     @Bean
-     @Override
-     public AuthenticationManager authenticationManagerBean() throws Exception {
-         return super.authenticationManagerBean();
-     }
+    @Override
+    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+        authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().antMatchers(
-                "/register**","/**","**/error**","/books**", "/resources**","/login").permitAll()
+                "/register**", "/**", "**/error**", "/books**", "/resources**", "/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .logout()

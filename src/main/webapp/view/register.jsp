@@ -49,7 +49,7 @@
         <h1 class="text-warning pt-5 pb-3 mx-auto" style="font-family: Lucida Handwriting; font-size: 250%;">Sign up</h1>
     </div>
     <div class="row text-center">
-        <div class="card p-3 bg-dark mx-auto" style="width: 40rem;">
+        <div class="card p-3 bg-dark mx-auto" style="width: 40rem; border-radius: 22%;">
             <form class="form" action="${contextPath}/register" method="post">
                 <h4 class="text-center text-white">Become a member for free!</h4>
                 <div class="row pt-3">

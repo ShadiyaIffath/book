@@ -29,6 +29,7 @@ public class BookService {
     private ModelMapper modelMapper;
 
     private List<GenreDto> genreDtos = new ArrayList<>();
+    private List<BookDto> bookDtos = new ArrayList<>();
 
     public List<GenreDto> getAllGenre() {
         if (genreDtos.size() == 0) {
@@ -94,6 +95,7 @@ public class BookService {
         Book book = bookRepository.findById(id);
         BookDto dto = modelMapper.map(book, BookDto.class);
         dto.setImageString(Base64.getEncoder().encodeToString(dto.getImage()));
+        dto.setGenreDto(findGenreDto(book.getGenre().getId()));
         dto.setGenreId(book.getGenre().getId());
         return dto;
     }
@@ -105,7 +107,7 @@ public class BookService {
         book.setAuthor(dto.getAuthor());
         book.setISBN(dto.getISBN());
         book.setTitle(dto.getTitle());
-        book.setQuantity(dto.getQuantity());
+        book.setSummary(dto.getSummary());
         book.setValue(dto.getValue());
         bookRepository.save(book);
     }

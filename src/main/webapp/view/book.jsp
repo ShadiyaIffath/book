@@ -75,7 +75,7 @@
     <div class="row text-center">
         <div class="card p-4 bg-dark mx-auto">
             <c:if test="${edit == true}">
-            <form method="post" action="${contextPath}/books/editBook/${id}" enctype="multipart/form-data">
+            <form method="post" action="${contextPath}/books/editBook/${id}" enctype="multipart/form-data" id="book">
                 <h4 class="text-center text-white pt-2">
                     Modify book in collection!
                 </h4>
@@ -172,12 +172,12 @@
                                 <div class="row">
                                     <div class="col-md-1">
                                         <label class="text-primary">
-                                            Quantity
+                                            Summary
                                         </label>
                                     </div>
                                     <div class="col-md-10 pl-5">
-                                        <input type="number" class="form-control" name="quantity" required min="1"
-                                               value="${bookForm.quantity}"/>
+                                        <input type="text" class="form-control" name="summary" required spellcheck="false"
+                                               value="${bookForm.summary}"/>
                                     </div>
                                 </div>
                             </div>
@@ -185,7 +185,7 @@
                                 <div class="row">
                                     <div class="col-md-1">
                                         <label class="text-primary">
-                                            Value
+                                            Price Value
                                         </label>
                                     </div>
                                     <div class="col-md-10 pl-5">

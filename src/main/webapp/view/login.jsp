@@ -51,7 +51,7 @@
             <h1 class="text-warning pt-5 pb-3 mx-auto" style="font-family: Lucida Handwriting; font-size: 250%;">Sign in</h1>
         </div>
         <div class="row text-center">
-            <div class="card p-4 bg-dark mx-auto" style="width: 27%">
+            <div class="card p-4 bg-dark mx-auto" style="width: 30%; border-radius: 22%;">
                 <form method="post" action="${contextPath}/login">
                     <h4 class="text-center text-primary">Welcome back!</h4>
                     <div class="form-group pt-3">

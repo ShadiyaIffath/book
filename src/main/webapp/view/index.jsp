@@ -25,7 +25,8 @@
     <link rel="stylesheet" type="text/css" href="./styles/responsive.css"/>
 </head>
 <body>
-<sec:authorize access="hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')" var="isAuthenticated">
+<sec:authorize access="isAuthenticated()">
+    <h1>authenticated as <sec:authentication property="principal.username" /></h1>
 </sec:authorize>
 
 <!-- Navigation -->
@@ -152,7 +153,7 @@
                 <c:forEach var="book" items="${books}">
                     <div class="col-auto mb-3">
                         <!-- Product -->
-                        <div class="product grid-item"
+                        <div class="product grid-item shadow"
                              style="width: 250px; height:480px; background-color: #89c9b8;">
                             <div class="product_inner p-2 pt-3">
                                 <div class="product_image">
@@ -160,9 +161,9 @@
                                          style="width: 250px; height: 270px"/>
                                 </div>
                                 <div class="product_content text-center" style="height:150px; padding-top: 15px;">
-                                    <div class="product_title"><a href="product.html" style="font-family: Lucida Handwriting; font-size: 15px">${book.title}</a></div>
+                                    <div class="product_title"><a href="${contextPath}/books/details/${book.id}" style="font-family: Lucida Handwriting; font-size: 15px">${book.title}</a></div>
                                     <div class="product_price" style="font-size: 20px;">${book.author}</div>
-                                    <div class="product_button ml-auto mr-auto trans_200"><a href="#">Details</a></div>
+                                    <div class="product_button ml-auto mr-auto trans_200"><a href="${contextPath}/reservation/create/${book.id}">Reserve</a></div>
                                 </div>
                             </div>
                         </div>

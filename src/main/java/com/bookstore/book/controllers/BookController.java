@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Base64;
+
 @Controller
 @RequestMapping("/books")
 public class BookController {
@@ -29,19 +31,26 @@ public class BookController {
 
     @RequestMapping(value="/create", method = RequestMethod.POST )
     public ModelAndView createBook(CreateBookDto createBookDto){
-        boolean valid = service.isBookAlreadyAvailable(createBookDto.getISBN(), -1);
         ModelAndView modelAndView = new ModelAndView();
-        if(valid){
-            modelAndView.addObject("error",true);
-            modelAndView.addObject("bookForm", createBookDto);
-            modelAndView.addObject("genres", service.getAllGenre());
-            modelAndView.addObject("edit", false);
-            modelAndView.setViewName("book");
+        try {
+            System.out.println(createBookDto.getTitle() + " summary" + createBookDto.getSummary());
+            boolean valid = service.isBookAlreadyAvailable(createBookDto.getISBN(), -1);
+            createBookDto.setImageString(Base64.getEncoder().encodeToString(createBookDto.getImage().getBytes()));
+
+            if (valid) {
+                modelAndView.addObject("error", true);
+                modelAndView.addObject("bookForm", createBookDto);
+                modelAndView.addObject("genres", service.getAllGenre());
+                modelAndView.addObject("edit", false);
+                modelAndView.setViewName("book");
+            } else {
+                service.saveBook(createBookDto);
+                modelAndView.setViewName("redirect:../books");
+            }
         }
-        else{
-            service.saveBook(createBookDto);
-            modelAndView.setViewName("redirect:../books");
-        }
+        catch(Exception ex){
+
+            }
         return modelAndView;
     }
 

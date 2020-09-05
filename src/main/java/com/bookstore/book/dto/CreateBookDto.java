@@ -9,33 +9,35 @@ public class CreateBookDto {
     private String author;
     private double value;
     private boolean available = true;
-    private int quantity;
+    private String summary;
     private MultipartFile image;
     private int genreId;
     private String imageString;
 
     public CreateBookDto(){}
 
-    public CreateBookDto(String title, String ISBN, String description, String author, double value, boolean available, int quantity, MultipartFile image, int genreId) {
+    public CreateBookDto(String title, String ISBN, String description, String author, double value, boolean available, String summary, MultipartFile image, int genreId, String imageString) {
         this.title = title;
         this.ISBN = ISBN;
         this.description = description;
         this.author = author;
         this.value = value;
         this.available = available;
-        this.quantity = quantity;
+        this.summary = summary;
         this.image = image;
         this.genreId = genreId;
+        this.imageString = imageString;
     }
 
-    public CreateBookDto(String title, String ISBN, String description, String author, double value, boolean available, int quantity, int genreId) {
+    public CreateBookDto(String title, String ISBN, String description, String author, double value, boolean available, String summary, MultipartFile image, int genreId) {
         this.title = title;
         this.ISBN = ISBN;
         this.description = description;
         this.author = author;
         this.value = value;
         this.available = available;
-        this.quantity = quantity;
+        this.summary = summary;
+        this.image = image;
         this.genreId = genreId;
     }
 
@@ -63,12 +65,12 @@ public class CreateBookDto {
         this.image = image;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public String getSummary() {
+        return summary;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 
     public String getTitle() {
@@ -118,5 +120,7 @@ public class CreateBookDto {
     public void setAvailable(boolean available) {
         this.available = available;
     }
+
+
 
 }

@@ -30,8 +30,8 @@ public class Book {
     @Column( nullable = false)
     private double value;
 
-    @Column(nullable = false)
-    private int quantity;
+    @Column(length = 500,nullable = false)
+    private String summary;
 
     @Column(length = 25, nullable = false)
     private String author;

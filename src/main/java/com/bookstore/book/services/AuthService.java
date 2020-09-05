@@ -2,11 +2,13 @@ package com.bookstore.book.services;
 
 import com.bookstore.book.entities.Account;
 import com.bookstore.book.repositories.AccountRepository;
+import com.bookstore.book.utils.security.cookieutil.CookieUtil;
 import com.bookstore.book.utils.security.jwt.JwtUtils;
 import com.bookstore.book.utils.security.payload.UserDetailsImpl;
 import com.bookstore.book.utils.security.requests.AuthRequest;
 import com.bookstore.book.utils.security.responses.JwtResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,11 +18,16 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class AuthService {
+
+    @Value("${cookieToken}")
+    private String jwtTokenCookieName;
 
     @Autowired
     private AccountRepository accountRepository;
@@ -32,10 +39,10 @@ public class AuthService {
     @Autowired
     private JwtUtils jwtUtils;
 
+    //mobile application
     public ResponseEntity<?> loginUserService(AuthRequest authRequest) {
-        System.out.println(authRequest.getPassword());
+        System.out.println("auth service");
         Account account = accountRepository.findByEmail(authRequest.getEmail());
-        System.out.println(passwordEncoder.encode(authRequest.getPassword()));
         if (account == null || !passwordEncoder.matches(authRequest.getPassword(), account.getPassword())) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body("Email or password incorrect");
@@ -56,5 +63,23 @@ public class AuthService {
                 userDetails.getId(),
                 userDetails.getUsername(),
                 roles));
+    }
+
+    public void loginWebPortal(AuthRequest authRequest,
+                               HttpServletResponse httpServletResponse, HttpServletRequest httpServletRequest) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = jwtUtils.generateJwtToken(authentication);
+        CookieUtil.create(httpServletResponse, jwtTokenCookieName, jwt, false, -1, "localhost");
+    }
+
+    public boolean validateCredentials(AuthRequest authRequest) {
+        boolean valid = true;
+        Account account = accountRepository.findByEmail(authRequest.getEmail());
+        if (account == null || !passwordEncoder.matches(authRequest.getPassword(), account.getPassword()))
+            valid = false;
+
+        return valid;
     }
 }

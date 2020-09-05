@@ -6,7 +6,7 @@ public class BookDto {
     private String ISBN;
     private String author;
     private double value;
-    private int quantity;
+    private String summary;
     private boolean available;
     private GenreDto genreDto;
     private int genreId;
@@ -15,30 +15,31 @@ public class BookDto {
 
     public BookDto(){}
 
-    public BookDto(int id, String title, String ISBN, String author, double value, int quantity, boolean available, GenreDto genreDto, byte[] image) {
+    public BookDto(int id, String title, String ISBN, String author, double value, String summary, boolean available, GenreDto genreDto, int genreId, byte[] image, String imageString) {
         this.id = id;
         this.title = title;
         this.ISBN = ISBN;
         this.author = author;
         this.value = value;
-        this.quantity = quantity;
-        this.available = available;
-        this.genreDto = genreDto;
-        this.image = image;
-    }
-
-    public BookDto(int id, String title, String ISBN, String author, double value, int quantity, boolean available, GenreDto genreDto, int genreId, byte[] image, String imageString) {
-        this.id = id;
-        this.title = title;
-        this.ISBN = ISBN;
-        this.author = author;
-        this.value = value;
-        this.quantity = quantity;
+        this.summary = summary;
         this.available = available;
         this.genreDto = genreDto;
         this.genreId = genreId;
         this.image = image;
         this.imageString = imageString;
+    }
+
+    public BookDto(int id, String title, String ISBN, String author, double value, String summary, boolean available, GenreDto genreDto, int genreId, byte[] image) {
+        this.id = id;
+        this.title = title;
+        this.ISBN = ISBN;
+        this.author = author;
+        this.value = value;
+        this.summary = summary;
+        this.available = available;
+        this.genreDto = genreDto;
+        this.genreId = genreId;
+        this.image = image;
     }
 
     public int getGenreId() {
@@ -65,13 +66,6 @@ public class BookDto {
         this.image = image;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
 
     public int getId() {
         return id;
@@ -127,5 +121,13 @@ public class BookDto {
 
     public void setGenreDto(GenreDto genreDto) {
         this.genreDto = genreDto;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 }
