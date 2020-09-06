@@ -4,6 +4,7 @@ import com.bookstore.book.dto.BookDto;
 import com.bookstore.book.dto.CreateBookDto;
 import com.bookstore.book.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ public class BookController {
     @Autowired
     private BookService service;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value="/create", method = RequestMethod.GET)
     public String showCreateBook(Model model) {
         model.addAttribute("bookForm", new CreateBookDto());
@@ -29,6 +31,7 @@ public class BookController {
         return "book";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value="/create", method = RequestMethod.POST )
     public ModelAndView createBook(CreateBookDto createBookDto){
         ModelAndView modelAndView = new ModelAndView();
@@ -54,6 +57,7 @@ public class BookController {
         return modelAndView;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value="/removeBook", method = RequestMethod.POST)
     public ModelAndView removeBook(@RequestParam("id") int id){
         ModelAndView model = new ModelAndView();
@@ -62,6 +66,7 @@ public class BookController {
         return model;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public ModelAndView editBook(@PathVariable("id")int id){
         ModelAndView model = new ModelAndView();
@@ -73,6 +78,7 @@ public class BookController {
         return model;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value="/editBook/{id}", method = RequestMethod.POST)
     public ModelAndView editBook(@PathVariable("id")int id, BookDto bookDto){
         boolean valid = service.isBookAlreadyAvailable(bookDto.getISBN(), id);

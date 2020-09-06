@@ -6,6 +6,7 @@ import com.bookstore.book.services.AuthService;
 import com.bookstore.book.utils.security.requests.AuthRequest;
 import com.bookstore.book.utils.security.responses.JwtResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -38,6 +39,7 @@ public class UserController {
         return model;
     }
 
+    @PreAuthorize("hasAnyRole()")
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public ModelAndView logout(HttpServletResponse response) {
         ModelAndView model = new ModelAndView();

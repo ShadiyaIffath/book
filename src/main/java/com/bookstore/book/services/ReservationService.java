@@ -1,6 +1,9 @@
 package com.bookstore.book.services;
 
+import com.bookstore.book.dto.BookDto;
 import com.bookstore.book.dto.CreateReservationDto;
+import com.bookstore.book.dto.GenreDto;
+import com.bookstore.book.dto.ReservationDto;
 import com.bookstore.book.entities.Reservation;
 import com.bookstore.book.repositories.BookRepository;
 import com.bookstore.book.repositories.ReservationRepository;
@@ -11,6 +14,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Base64;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ReservationService {
@@ -36,6 +42,19 @@ public class ReservationService {
             valid = true;
         }
         return valid;
+    }
+    public List<ReservationDto> getAllReservations() {
+        List<ReservationDto> reservations = reservationRepository.findAll()
+                .stream().map(x -> {
+                    ReservationDto reservationDto = modelMapper.map(x, ReservationDto.class);
+                    return reservationDto;
+                })
+                .collect(Collectors.toList());
+        return reservations;
+    }
+
+    public String[] getAllStatus(){
+        return new String[]{"Created","Cancelled","Completed"};
     }
 
     private Reservation convertDto(CreateReservationDto dto){

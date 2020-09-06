@@ -20,10 +20,10 @@
 </sec:authorize>
 
 <!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top pt-3" id="mainNav">
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top pt-3" id= "mainNav">
     <div class="container">
         <h1><a class="navbar-brand js-scroll-trigger text-primary display-1" href="${contextPath}/"
-               style="font-family: Lucida Handwriting; font-size: 80%;"><img src="images/logo.png" alt=""
+               style="font-family: Lucida Handwriting; font-size: 80%;"><img src="${contextPath}/images/logo.png" alt=""
                                                                              style="width: 45px; height: 45px;"/>Raziel</a>
         </h1>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
@@ -37,9 +37,9 @@
                 <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary" href="${contextPath}/">Home</a>
                 </li>
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary" href="${contextPath}/books">Manage Books</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary" href="${contextPath}/books">Manage Reservations</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary" href="${contextPath}/books">Manage Users</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary" href="${contextPath}/books">Books</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary" href="${contextPath}/reservations">Reservations</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary" href="${contextPath}/books">Accounts</a></li>
                 </sec:authorize>
                 <c:choose>
                     <c:when test="${isAuthenticated}">
