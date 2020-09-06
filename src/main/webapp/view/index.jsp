@@ -25,8 +25,7 @@
     <link rel="stylesheet" type="text/css" href="./styles/responsive.css"/>
 </head>
 <body>
-<sec:authorize access="isAuthenticated()">
-    <h1>authenticated as <sec:authentication property="principal.username" /></h1>
+<sec:authorize access="hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')" var="isAuthenticated">
 </sec:authorize>
 
 <!-- Navigation -->

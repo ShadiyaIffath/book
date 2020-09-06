@@ -27,6 +27,9 @@ public class Reservation {
     //The day the book is returned
     private Date dateReturned;
 
+    //The day the book is expected
+    private Date dateExpected;
+
     @Column(length = 15, nullable = false)
     private String status;
 

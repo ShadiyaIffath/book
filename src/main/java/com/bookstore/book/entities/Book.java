@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -43,4 +44,7 @@ public class Book {
     @Lob
     @Type(type="org.hibernate.type.ImageType")
     private byte[] image;
+
+    @OneToMany( mappedBy = "book",cascade = CascadeType.ALL)
+    private List<Reservation> reservations;
 }

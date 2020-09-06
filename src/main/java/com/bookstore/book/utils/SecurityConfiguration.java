@@ -4,6 +4,7 @@ import com.bookstore.book.utils.security.jwt.AuthEntryPointJwt;
 import com.bookstore.book.utils.security.jwt.AuthTokenFilter;
 import com.bookstore.book.utils.security.payload.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,24 +15,25 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 
 @Configuration
 @EnableWebSecurity //gives spring access to apply the class to security layer
-@EnableGlobalMethodSecurity(
-        // securedEnabled = true,
-        // jsr250Enabled = true,
-        prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
     @Autowired
     private AuthEntryPointJwt unauthorizedHandler;
-    @Autowired
-    private AuthTokenFilter filter;
 
+    @Value("${cookieToken}")
+    private String cookieName;
+
+    @Bean
+    public AuthTokenFilter  authenticationJwtTokenFilter() {
+        return new AuthTokenFilter();
+    }
     //a password encoder bean
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -55,15 +57,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .authorizeRequests().antMatchers(
                 "/register**", "/**", "**/error**", "/books**", "/resources**", "/login").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .logout()
-                .invalidateHttpSession(true)
-                .clearAuthentication(true)
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login?logout")
-                .permitAll();
-        http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
+                .anyRequest().authenticated();
+        //sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
 }

@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <html>
 <head>
@@ -87,7 +88,7 @@
                     <h3 class="pt-1 text-center" style="font-family: Lucida Handwriting; font-size: 150%; color: #856c8b; padding-bottom: 8%;">Your
                         reservation</h3>
                     <form method="post" action="${contextPath}/reservation/create/${book.id}">
-                        <h5 class="text-center text-info">Understand that you can borrow a book for a maximum of 14 days only.</h5>
+                        <h5 class="text-center text-info">Understand that you can borrow a book for a maximum of 7 days only.</h5>
                         <div class="form-group">
                             <div class="input-group form-group-no-border input-lg">
                                 <div class="col">
@@ -99,8 +100,8 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                                         </div>
-                                        <input type="text" class="form-control datetimepicker dateselect2" name="date" id="firstDate"
-                                               placeholder="${date}" style="background-color: #aacfcf;"  required>
+                                        <input type="text" class="form-control datetimepicker dateselect2" name="dateReserved" id="firstDate"
+                                               placeholder="${date}" style="background-color: #aacfcf;" value="${resForm.dateReserved}" required>
                                     </div>
                                 </div>
                             </div>
@@ -116,8 +117,8 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                                         </div>
-                                        <input type="text" class="form-control datetimepicker" name="date" id="secondDate"
-                                               value="${date}" style="background-color: #aacfcf;" disabled>
+                                        <input type="text" class="form-control datetimepicker" name="dateExpected" id="secondDate"
+                                                style="background-color: #aacfcf;" placeholder="${date}" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -129,6 +130,9 @@
                                     return? If you failed to return the book on time you will be charged.</label>
                             </div>
                         </div>
+                        <c:if test="${error}">
+                            <div class="alert alert-info">I'm sorry but this book has been reserved for this duration.</div>
+                        </c:if>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary btn-md">Submit</button>
                         </div>
@@ -164,10 +168,10 @@
         var updateSecondDate= function() {
             var firstDate = new Date($('#firstDate').val());
             var first = firstDate;
-            first.setDate(firstDate.getDate()+14);
+            first.setDate(firstDate.getDate()+7);
             $('#secondDate').datepicker('setDate', firstDate);
         }
-        $('#firstDate').change(updateSecondDate).datepicker({dateFormat: 'MM/dd/yy', minDate : new Date()});
+        $('#firstDate').change(updateSecondDate).datepicker({dateFormat: 'MM/dd/yyyy', minDate : new Date()});
     });
 
 </script>
