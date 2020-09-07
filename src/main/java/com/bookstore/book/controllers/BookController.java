@@ -36,24 +36,17 @@ public class BookController {
     public ModelAndView createBook(CreateBookDto createBookDto){
         ModelAndView modelAndView = new ModelAndView();
         try {
-            System.out.println(createBookDto.getTitle() + " summary" + createBookDto.getSummary());
-            boolean valid = service.isBookAlreadyAvailable(createBookDto.getISBN(), -1);
             createBookDto.setImageString(Base64.getEncoder().encodeToString(createBookDto.getImage().getBytes()));
-
-            if (valid) {
-                modelAndView.addObject("error", true);
-                modelAndView.addObject("bookForm", createBookDto);
-                modelAndView.addObject("genres", service.getAllGenre());
-                modelAndView.addObject("edit", false);
-                modelAndView.setViewName("book");
-            } else {
                 service.saveBook(createBookDto);
                 modelAndView.setViewName("redirect:../books");
-            }
         }
         catch(Exception ex){
-
-            }
+            modelAndView.addObject("error", true);
+            modelAndView.addObject("bookForm", createBookDto);
+            modelAndView.addObject("genres", service.getAllGenre());
+            modelAndView.addObject("edit", false);
+            modelAndView.setViewName("book");
+        }
         return modelAndView;
     }
 
@@ -81,21 +74,21 @@ public class BookController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value="/editBook/{id}", method = RequestMethod.POST)
     public ModelAndView editBook(@PathVariable("id")int id, BookDto bookDto){
-        boolean valid = service.isBookAlreadyAvailable(bookDto.getISBN(), id);
         ModelAndView model = new ModelAndView();
-        if(valid){
-            model.addObject("edit",true);
-            model.addObject("genres", service.getAllGenre());
-            model.addObject("id", id);
-            model.addObject("bookForm", bookDto);
-            model.addObject("error",true);
-            model.setViewName("book");
-        }
-        else{
+       try{
             bookDto.setId(id);
             service.updateBook(bookDto);
             model.setViewName("redirect:../../books");
         }
+       catch(Exception ex){
+           ex.printStackTrace();
+           model.addObject("edit",true);
+           model.addObject("genres", service.getAllGenre());
+           model.addObject("id", id);
+           model.addObject("bookForm", bookDto);
+           model.addObject("error",true);
+           model.setViewName("book");
+       }
         return model;
     }
 }

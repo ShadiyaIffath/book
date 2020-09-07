@@ -43,7 +43,7 @@
         <div class="col">
             <div class="row">
                 <div class="col-md-1">
-                    <label class="text-primary align-middle">Status</label>
+                    <label class="text-dark align-middle"><b>Status</b></label>
                 </div>
                 <div class="col-md-10">
                     <select class="form-control" name="status" id="status" required>

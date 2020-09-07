@@ -40,7 +40,7 @@
         <div class="col">
             <div class="row">
                 <div class="col-md-1">
-                    <label class="text-primary align-middle">Genre</label>
+                    <label class="text-dark align-middle"><b>Genre</b></label>
                 </div>
                 <div class="col-md-10 pl-5">
                     <select class="form-control" name="genreId" id="genreId" required>

@@ -186,7 +186,7 @@
                         </div>
                     </div>
                     <c:if test="${error}">
-                        <div class="alert alert-warning">ISBN is existing</div>
+                        <div class="alert alert-warning">An error occurred please try again later.</div>
                     </c:if>
                     <div class="row">
                         <div class="form-group col">
