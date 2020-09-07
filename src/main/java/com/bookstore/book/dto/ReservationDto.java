@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -14,10 +12,10 @@ import java.util.Date;
 public class ReservationDto {
     private int id;
     private String status;
-    private Date dateReserved;
-    private Date dateCreated;
-    private Date dateReturned;
-    private Date dateExpected;
+    private String dateReserved;
+    private String dateCreated;
+    private String dateReturned;
+    private String dateExpected;
     private BookDto book;
     private AccountDto account;
 }

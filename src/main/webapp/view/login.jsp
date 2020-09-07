@@ -63,6 +63,9 @@
                     <c:if test="${register}">
                         <div class="alert alert-success">You have successfully registered!</div>
                     </c:if>
+                    <c:if test="${unauthorized}">
+                        <div class="alert alert-warning">You have to be authorized to access this content!</div>
+                    </c:if>
 
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary btn-md">Sign in</button>

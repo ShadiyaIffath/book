@@ -77,7 +77,7 @@ public class AuthService {
     public boolean validateCredentials(AuthRequest authRequest) {
         boolean valid = true;
         Account account = accountRepository.findByEmail(authRequest.getEmail());
-        if (account == null || !passwordEncoder.matches(authRequest.getPassword(), account.getPassword()))
+        if (account == null || !passwordEncoder.matches(authRequest.getPassword(), account.getPassword()) || !account.getActive())
             valid = false;
 
         return valid;

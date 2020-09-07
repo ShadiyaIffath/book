@@ -54,7 +54,7 @@
                 </h4>
                 </c:if>
                 <c:if test="${edit == false}">
-                <form method="post" action="${contextPath}/books/create" enctype="multipart/form-data">
+                <form method="post" action="${contextPath}/books/create" enctype="multipart/form-data" id="book">
                     <h4 class="text-center text-white pt-2">
                         New book for our collection!</h4>
                     </c:if>

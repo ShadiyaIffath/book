@@ -92,8 +92,8 @@
                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
                             </div>
                             <div class="col">
-                                <form action="${contextPath}/books/removeBook" method="post">
-                                    <input type="hidden" value="${book.id}" name="id">
+                                <form action="${contextPath}/reservation/remove" method="post">
+                                    <input type="hidden" value="${res.id}" name="id">
                                     <button type="submit" class="btn btn-primary btn-sm" title="Remove reservation">
                                         <i class="fa fa-times" aria-hidden="true"></i></button>
                                 </form>

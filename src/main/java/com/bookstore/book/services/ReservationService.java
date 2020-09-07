@@ -1,8 +1,6 @@
 package com.bookstore.book.services;
 
-import com.bookstore.book.dto.BookDto;
 import com.bookstore.book.dto.CreateReservationDto;
-import com.bookstore.book.dto.GenreDto;
 import com.bookstore.book.dto.ReservationDto;
 import com.bookstore.book.entities.Reservation;
 import com.bookstore.book.repositories.BookRepository;
@@ -10,11 +8,10 @@ import com.bookstore.book.repositories.ReservationRepository;
 import com.bookstore.book.utils.DateUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Base64;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,13 +41,24 @@ public class ReservationService {
         return valid;
     }
     public List<ReservationDto> getAllReservations() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         List<ReservationDto> reservations = reservationRepository.findAll()
                 .stream().map(x -> {
                     ReservationDto reservationDto = modelMapper.map(x, ReservationDto.class);
+                    reservationDto.setDateCreated(sdf.format(x.getDateCreated()));
+                    reservationDto.setDateReserved(sdf.format(x.getDateReserved()));
+                    reservationDto.setDateExpected(sdf.format(x.getDateExpected()));
+                    if(x.getStatus().equals("Completed")) {
+                        reservationDto.setDateReturned(sdf.format(x.getDateReturned()));
+                    }
                     return reservationDto;
                 })
                 .collect(Collectors.toList());
         return reservations;
+    }
+
+    public void removeReservation(int id) {
+        reservationRepository.deleteById(id);
     }
 
     public String[] getAllStatus(){

@@ -42,7 +42,7 @@ public class MainController {
     }
 
     @RequestMapping(value="/login", method = RequestMethod.GET)
-    public String showLogin(Model model, String error, String logout,String register) {
+    public String showLogin(Model model, String error, String logout,String register, String unauthorized) {
         if (error != null)
             model.addAttribute("error", true);
 
@@ -50,6 +50,8 @@ public class MainController {
             model.addAttribute("logout", true);
         if(register != null)
             model.addAttribute("register", true);
+        if(unauthorized != null)
+            model.addAttribute("unauthorized",true);
         return "login";
     }
 

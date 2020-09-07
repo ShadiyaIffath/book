@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -50,4 +51,12 @@ public class ReservationsController {
         return model;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @RequestMapping(value="/remove", method = RequestMethod.POST)
+    public ModelAndView deleteReservation(@RequestParam("id") int id){
+        ModelAndView model = new ModelAndView();
+        reservationService.removeReservation(id);
+        model.setViewName("redirect:../reservations");
+        return model;
+    }
 }

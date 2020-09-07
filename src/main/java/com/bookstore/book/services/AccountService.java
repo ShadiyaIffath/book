@@ -26,9 +26,6 @@ public class AccountService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    @Autowired
-    private JwtUtils jwtUtils;
-
     public boolean isEmailInUse(String email){
         boolean valid = false;
         if(accountRepository.findByEmail(email) != null)
