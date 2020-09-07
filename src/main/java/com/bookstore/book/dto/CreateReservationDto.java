@@ -14,11 +14,11 @@ import java.util.Date;
 @AllArgsConstructor
 public class CreateReservationDto {
 
-    @DateTimeFormat(pattern = "MM/dd/yyyy")
-    private Date dateReserved;
+    private String dateReserved;
 
     private Date dateCreated = new Date();
 
-    private String status = "Created";
+    private String dateExpected;
 
+    private String status = "Created";
 }

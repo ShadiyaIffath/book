@@ -45,7 +45,6 @@ public class MainController {
     public String showLogin(Model model, String error, String logout,String register, String unauthorized) {
         if (error != null)
             model.addAttribute("error", true);
-
         if (logout != null)
             model.addAttribute("logout", true);
         if(register != null)

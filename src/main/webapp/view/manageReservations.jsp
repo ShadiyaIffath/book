@@ -88,7 +88,7 @@
                         <div class="row">
                             <div class="col">
                                 <button class="btn btn-primary btn-sm" title="Edit reservation"
-                                        onclick="location.href ='${contextPath}/books/edit/${book.id}'">
+                                        onclick="location.href ='${contextPath}/reservation/edit/${res.id}'">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
                             </div>
                             <div class="col">

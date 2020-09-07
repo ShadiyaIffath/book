@@ -11,7 +11,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-        Create Reservation
+        <c:if test="${edit == false}">
+            Create Reservation
+        </c:if>
+        <c:if test="${edit == true}">
+            Edit Reservation
+        </c:if>
     </title>
     <link href="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker3.min.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="${contextPath}/styles/bootstrap-4.1.3/bootstrap.css"/>
@@ -25,14 +30,24 @@
 </head>
 <body>
 <!-- Navigation -->
-<c:import url="navigation.jsp" />
+<c:import url="navigation.jsp"/>
 <!-- Navigation End -->
 
 <div class="home">
     <div class="parallax_background parallax-window" data-parallax="scroll"
          data-image-src="${contextPath}/images/bdetails.jpg"
          data-speed="0.8" style=" background-size:cover; object-fit: cover;"></div>
-    <div class="row text-center" style="padding-top: 20%;">
+    <div class="row" style="padding-top: 5%;">
+        <h1 class="text-warning pt-4 pb-3 mx-auto" style="font-family: Lucida Handwriting; font-size: 250%;">
+            <c:if test="${edit == false}">
+                Create Reservation
+            </c:if>
+            <c:if test="${edit == true}">
+                Edit Reservation
+            </c:if>
+        </h1>
+    </div>
+    <div class="row text-center">
         <div class="card text-center shadow" style=" width: 50%; margin-left: 25%;">
             <div class="row">
                 <div class="col-md-4 card-img p-3" style="background-color: #c9d99e">
@@ -50,11 +65,14 @@
                         ${book.summary}
                     </div>
                 </div>
-                <div class="col" style="background-color: #fae8c8; padding-top: 8%; padding-right: 5%;">
-                    <h3 class="pt-1 text-center" style="font-family: Lucida Handwriting; font-size: 150%; color: #856c8b; padding-bottom: 8%;">Your
+                <div class="col" style="background-color: #fae8c8; padding-top: 3%; padding-right: 5%;">
+                    <h3 class="pt-1 text-center"
+                        style="font-family: Lucida Handwriting; font-size: 150%; color: #856c8b; padding-bottom: 5%;">
+                        Your
                         reservation</h3>
                     <form method="post" action="${contextPath}/reservation/create/${book.id}">
-                        <h5 class="text-center text-info">Understand that you can borrow a book for a maximum of 7 days only.</h5>
+                        <h5 class="text-center text-info">Understand that you can borrow a book for a maximum of 7 days
+                            only.</h5>
                         <div class="form-group">
                             <div class="input-group form-group-no-border input-lg">
                                 <div class="col">
@@ -66,42 +84,143 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                                         </div>
-                                        <input type="text" class="form-control datetimepicker dateselect2" name="dateReserved" id="firstDate"
-                                               placeholder="${date}" style="background-color: #aacfcf;" value="${resForm.dateReserved}" autocomplete="off" required>
+                                        <input type="text" class="form-control datetimepicker dateselect2"
+                                               name="dateReserved" id="firstDate"
+                                               placeholder="${date}" style="background-color: #aacfcf;"
+                                               value="${resForm.dateReserved}" autocomplete="off" required>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <c:if test="${edit == true}">
+                            <div class="form-group">
+                                <div class="input-group form-group-no-border input-lg">
+                                    <div class="col">
+                                        <label class="form-check-label pt-2" style="color: #6886c5;">Day
+                                            Returned </label><br/>
+                                    </div>
+                                    <div class="col">
+                                        <div class="input-group date">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                            </div>
+                                            <sec:authorize access="hasRole('ROLE_USER')">
+                                                <input type="text" class="form-control datetimepicker"
+                                                       name="dateReturned"
+                                                       placeholder="-"
+                                                       style="background-color: #aacfcf;"
+                                                       value="${resForm.dateReturned}" autocomplete="off" disabled>
+                                            </sec:authorize>
+                                            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                                <input type="text" class="form-control datetimepicker"
+                                                       name="dateReturned"
+                                                       placeholder="-"
+                                                       style="background-color: #aacfcf;"
+                                                       value="${resForm.dateReturned}" autocomplete="off">
+                                            </sec:authorize>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group form-group-no-border input-lg">
+                                    <div class="col">
+                                        <label class="form-check-label pt-2" style="color: #6886c5;">Reservation
+                                            status </label><br/>
+                                    </div>
+                                    <div class="col">
+                                        <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                            <select class="form-control" name="genreId"
+                                                    style="background-color: #aacfcf;" required>
+                                                <c:forEach items="${statuses}" var="status">
+                                                    <c:choose>
+                                                        <c:when test="${status == resForm.status}">
+                                                            <option value="${status}">
+                                                                    ${status}</option>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <option value="${status}">
+                                                                    ${status}
+                                                            </option>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </c:forEach>
+                                            </select>
+                                        </sec:authorize>
+                                        <sec:authorize access="hasRole('ROLE-USER')">
+                                            <input type="text" class="form-control"
+                                                   name="status"
+                                                   style="background-color: #aacfcf;"
+                                                   value="${resForm.status}" autocomplete="off" disabled>
+                                        </sec:authorize>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:if>
                         <div class="form-group">
                             <div class="input-group form-group-no-border input-lg">
                                 <div class="col">
-                                    <label class="form-check-label pt-2" style="color: #6886c5;">Day of
-                                        return</label><br/>
+                                    <label class="form-check-label pt-2" style="color: #6886c5;">Maximum
+                                        day</label><br/>
                                 </div>
                                 <div class="col">
                                     <div class="input-group date" data-provide="datepicker">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                                         </div>
-                                        <input type="text" class="form-control datetimepicker" name="dateExpected" id="secondDate"
-                                                style="background-color: #aacfcf;" placeholder="${date}" disabled>
+                                        <c:if test="${edit == false}">
+                                            <input type="text" class="form-control datetimepicker" name="dateExpected"
+                                                   id="secondDate"
+                                                   style="background-color: #aacfcf;" placeholder="${date}"
+                                                   value="${resForm.dateExpected}" disabled>
+                                        </c:if>
+                                        <c:if test="${edit == true}">
+                                            <input type="text" class="form-control datetimepicker" name="dateExpected"
+                                                   id="secondDate"
+                                                   style="background-color: #aacfcf;" value="${resForm.dateExpected}"
+                                                   disabled>
+                                        </c:if>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group pl-5">
-                            <div class="row">
-                                <input type="checkbox" class="form-check-input" required>
-                                <label class="form-check-label">Do you agree to return this book before or on the day of
-                                    return? If you failed to return the book on time you will be charged.</label>
+                        <c:if test="${edit == false}">
+                            <div class="form-group pl-5">
+                                <div class="row">
+                                    <input type="checkbox" class="form-check-input" required>
+                                    <label class="form-check-label">Do you agree to return this book before or on the
+                                        day of
+                                        return? If you failed to return the book on time you will be charged.</label>
+                                </div>
                             </div>
-                        </div>
-                        <c:if test="${error}">
-                            <div class="alert alert-info">I'm sorry but this book has been reserved for this duration.</div>
                         </c:if>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary btn-md">Submit</button>
-                        </div>
+                        <c:if test="${error}">
+                            <div class="alert alert-info">Oops! Sorry, but this book has been reserved for this
+                                duration.
+                            </div>
+                        </c:if>
+                        <c:if test="${edit == true}">
+                            <div class="row">
+                                <div class="form-group col">
+                                    <button type="button" onclick="location.href ='${contextPath}/reservations'"
+                                            class="btn btn-primary btn-md">Back
+                                    </button>
+                                </div>
+                                <div class="form-group col">
+                                    <button type="submit" class="btn btn-primary btn-md">Submit</button>
+                                </div>
+                            </div>
+                            <div class="text-secondary pull-left">
+                                <i>
+                                    Date created: ${resForm.dateCreated}
+                                </i>
+                            </div>
+                        </c:if>
+                        <c:if test="${edit == false}">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-md">Submit</button>
+                            </div>
+                        </c:if>
                     </form>
                 </div>
             </div>
@@ -125,19 +244,26 @@
 <script src="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
 <script>
 
-    $(function() {
+    $(function () {
         $('.datetimepicker').datepicker({
             startDate: new Date(),
             autoclose: true,
         });
 
-        var updateSecondDate= function() {
+        <%--$('.dayreturnedpicker').datepicker({--%>
+        <%--    startDate: ${resForm.dateReserved},--%>
+        <%--    endDate: ${resForm.dateExpected},--%>
+        <%--    autoclose: true,--%>
+        <%--});--%>
+
+
+        var updateSecondDate = function () {
             var firstDate = new Date($('#firstDate').val());
             var first = firstDate;
-            first.setDate(firstDate.getDate()+7);
+            first.setDate(firstDate.getDate() + 7);
             $('#secondDate').datepicker('setDate', firstDate);
         }
-        $('#firstDate').change(updateSecondDate).datepicker({dateFormat: 'MM/dd/yyyy', minDate : new Date()});
+        $('#firstDate').change(updateSecondDate).datepicker({dateFormat: 'MM/dd/yyyy', minDate: new Date()});
     });
 
 </script>
