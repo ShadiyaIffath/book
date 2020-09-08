@@ -39,25 +39,25 @@
         </div>
 </div>
 <div class="container">
-    <div class="row p-4">
-        <div class="col">
-            <div class="row">
-                <div class="col-md-1">
-                    <label class="text-dark align-middle"><b>Status</b></label>
-                </div>
-                <div class="col-md-10">
-                    <select class="form-control" name="status" id="status" required>
-                        <option value="-1" selected>All</option>
-                        <c:forEach items="${statuses}" var="s">
-                            <option value="${s}">
-                                    ${s}
-                            </option>
-                        </c:forEach>
-                    </select>
-                </div>
-            </div>
-        </div>
-    </div>
+<%--    <div class="row p-4">--%>
+<%--        <div class="col">--%>
+<%--            <div class="row">--%>
+<%--                <div class="col-md-1">--%>
+<%--                    <label class="text-dark align-middle"><b>Status</b></label>--%>
+<%--                </div>--%>
+<%--                <div class="col-md-10">--%>
+<%--                    <select class="form-control" name="status" id="status" required>--%>
+<%--                        <option value="-1" selected>All</option>--%>
+<%--                        <c:forEach items="${statuses}" var="s">--%>
+<%--                            <option value="${s}">--%>
+<%--                                    ${s}--%>
+<%--                            </option>--%>
+<%--                        </c:forEach>--%>
+<%--                    </select>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--    </div>--%>
     <div class="table-responsive">
         <table class="table table-striped table-bordered table-hover table-dark">
             <thead class="thead-light">

@@ -7,12 +7,10 @@ import com.bookstore.book.services.BookService;
 import com.bookstore.book.services.ReservationService;
 import com.bookstore.book.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +27,7 @@ public class ReservationsController {
     @Autowired
     private ReservationService reservationService;
 
-    private SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     @RequestMapping(value="/create/{id}", method = RequestMethod.GET)
     public ModelAndView bookDetail(@PathVariable("id") int id, BookDto bookDto){
@@ -79,6 +77,28 @@ public class ReservationsController {
         model.addObject("book", dto.getBook());
         model.addObject("statuses",reservationService.getAllStatus() );
         model.addObject("edit",true);
+        return model;
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public ModelAndView editReservation(@PathVariable("id") int id, ReservationDto reservationDto, HttpServletRequest request){
+        ModelAndView model = new ModelAndView();
+        Date reservedDate = DateUtil.getDateFromString(reservationDto.getDateReserved());
+        reservedDate = DateUtil.addDays(reservedDate,7);
+        reservationDto.setDateExpected(sdf.format(reservedDate));
+        boolean updateSuccessful = reservationService.updateReservation(reservationDto,request);
+        if(updateSuccessful){
+            model.setViewName("redirect:../../reservations");
+        }else {
+            model.addObject("date", DateUtil.getToday());
+            model.addObject("resForm", reservationDto);
+            model.addObject("error", true);
+            model.addObject("book", reservationService.getBookFromReservationId(id));
+            model.addObject("statuses",reservationService.getAllStatus() );
+            model.addObject("edit",true);
+            model.setViewName("makeReservation");
+        }
         return model;
     }
 }

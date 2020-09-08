@@ -9,7 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class DateUtil {
-    private static DateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+    private static DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     private static final Logger logger = LoggerFactory.getLogger(DateUtil.class);
 
     public static Date addDays(Date date, int days) {
@@ -32,5 +32,14 @@ public class DateUtil {
             logger.error(ex.getMessage());
         }
         return date;
+    }
+
+    public static String getStringFromDate(Date date){
+        return sdf.format(date);
+    }
+
+    public static String getStringFormattedDate(String date){
+        Date dateConverted = getDateFromString(date);
+        return sdf.format(dateConverted);
     }
 }

@@ -48,7 +48,6 @@ public class AccountService {
         UserDetails userDetails =
                 (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String email = userDetails.getUsername();
-        System.out.println(email);
         return accountRepository.findByEmail(email);
     }
 
