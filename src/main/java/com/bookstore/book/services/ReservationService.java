@@ -35,12 +35,12 @@ public class ReservationService {
 
     private static final Logger logger = LoggerFactory.getLogger(ReservationService.class);
 
-    public boolean createReservation(CreateReservationDto reservationDto, int id, HttpServletRequest request) {
+    public boolean createReservation(CreateReservationDto reservationDto, int id) {
         boolean valid = false;
         Reservation reservation = convertDto(reservationDto);
         if (reservationRepository.checkAvailability("Created", reservation.getDateReserved(), reservation.getDateExpected(), id).size() == 0) {
             reservation.setBook(bookRepository.findById(id));
-            reservation.setAccount(accountService.findLoggedInAccount(request));
+            reservation.setAccount(accountService.findLoggedInAccount());
             reservationRepository.save(reservation);
             valid = true;
         }

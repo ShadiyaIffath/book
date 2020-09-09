@@ -39,7 +39,7 @@
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
                     <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary" href="${contextPath}/books">Books</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary" href="${contextPath}/reservations">Reservations</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary" href="${contextPath}/books">Accounts</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary" href="${contextPath}/accounts">Accounts</a></li>
                 </sec:authorize>
                 <c:choose>
                     <c:when test="${isAuthenticated}">

@@ -40,12 +40,12 @@ public class ReservationsController {
     }
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @RequestMapping(value="/create/{id}", method = RequestMethod.POST)
-    public ModelAndView createReservation(@PathVariable("id") int id, CreateReservationDto reservationDto, HttpServletRequest request){
+    public ModelAndView createReservation(@PathVariable("id") int id, CreateReservationDto reservationDto){
         ModelAndView model = new ModelAndView();
         Date reservedDate = DateUtil.getDateFromString(reservationDto.getDateReserved());
         reservedDate = DateUtil.addDays(reservedDate,7);
         reservationDto.setDateExpected(sdf.format(reservedDate));
-        boolean successful = reservationService.createReservation(reservationDto,id,request);
+        boolean successful = reservationService.createReservation(reservationDto,id);
         if(successful){
             model.setViewName("redirect:/");
         }

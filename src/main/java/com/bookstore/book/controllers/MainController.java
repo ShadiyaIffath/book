@@ -2,6 +2,7 @@ package com.bookstore.book.controllers;
 
 import com.bookstore.book.dto.BookDto;
 import com.bookstore.book.dto.CreateAccountDto;
+import com.bookstore.book.services.AccountService;
 import com.bookstore.book.services.BookService;
 import com.bookstore.book.services.ReservationService;
 import com.bookstore.book.utils.Status;
@@ -23,6 +24,9 @@ public class MainController {
 
     @Autowired
     private ReservationService reservationService;
+
+    @Autowired
+    private AccountService accountService;
 
 
     private String[] colors = {"776d8a","f3e6e3","dbe3e5","d3c09a","fabea7","fbe2e5","9cada4","cff6cf","faf0af"};
@@ -70,5 +74,12 @@ public class MainController {
         model.addAttribute("reservations", reservationService.getAllReservations());
         model.addAttribute("statuses",reservationService.getAllStatus() );
         return "manageReservations";
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @RequestMapping(value="/accounts", method= RequestMethod.GET)
+    public String showAccounts(Model model){
+        model.addAttribute("accounts", accountService.getAllAccounts());
+        return "manageAccounts";
     }
 }

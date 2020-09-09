@@ -1,18 +1,21 @@
 package com.bookstore.book.services;
 
+import com.bookstore.book.dto.AccountDto;
 import com.bookstore.book.dto.CreateAccountDto;
+import com.bookstore.book.dto.ReservationDto;
 import com.bookstore.book.entities.Account;
 import com.bookstore.book.repositories.AccountRepository;
 import com.bookstore.book.utils.Role;
-import com.bookstore.book.utils.security.jwt.JwtUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AccountService {
@@ -26,29 +29,43 @@ public class AccountService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    public boolean isEmailInUse(String email){
+    public boolean isEmailInUse(String email) {
         boolean valid = false;
-        if(accountRepository.findByEmail(email) != null)
+        if (accountRepository.findByEmail(email) != null)
             valid = true;
         return valid;
     }
 
-    public Account findByEmail(String email){
+    public Account findByEmail(String email) {
         return accountRepository.findByEmail(email);
     }
 
-    public Account saveAccount(CreateAccountDto createAccountDto){
+    public Account saveAccount(CreateAccountDto createAccountDto) {
         Account account = modelMapper.map(createAccountDto, Account.class);
         account.setType(Role.RXS.getRole());
         account.setPassword(passwordEncoder.encode(createAccountDto.getPassword()));
-        return  accountRepository.save(account);
+        return accountRepository.save(account);
     }
 
-    public Account findLoggedInAccount(HttpServletRequest request){
+    public Account findLoggedInAccount() {
         UserDetails userDetails =
                 (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String email = userDetails.getUsername();
         return accountRepository.findByEmail(email);
     }
+
+    public List<AccountDto> getAllAccounts() {
+        List<AccountDto> accounts = accountRepository.findAll()
+                .stream().map(x -> {
+                    return modelMapper.map(x, AccountDto.class);
+                })
+                .collect(Collectors.toList());
+        return accounts;
+    }
+
+    public void deleteAccountById(int id){ accountRepository.deleteById(id);}
+
+    @Transactional
+    public void banAccountById(int id, boolean ban){ accountRepository.banAccountById(id,ban);}
 
 }

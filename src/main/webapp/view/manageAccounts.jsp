@@ -10,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-        Manage Reservations
+        Manage Accounts
     </title>
     <link href="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker3.min.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="${contextPath}/styles/bootstrap-4.1.3/bootstrap.css"/>
@@ -30,72 +30,54 @@
 <!-- Home -->
 
 <div class="home">
-        <div class="background_image" style="background-image:url(${contextPath}/images/reserrvations.jpg)"></div>
-        <div class="home_content">
-            <div class="home_title text-center text-white"
-                 style="font-family: Lucida Handwriting; font-size: 700%; padding-top: 35%; padding-bottom: 20%; padding-left: 5%;">
-                Manage Reservations
-            </div>
+    <div class="background_image" style="background-image:url(${contextPath}/images/accounts.jpeg)"></div>
+    <div class="home_content">
+        <div class="home_title text-center text-dark"
+             style="font-family: Lucida Handwriting; font-size: 700%; padding-top: 35%; padding-bottom: 20%; padding-left: 5%;">
+            Manage Accounts
         </div>
+    </div>
 </div>
 <div class="container" style="padding-top: 2%;">
-<%--    <div class="row p-4">--%>
-<%--        <div class="col">--%>
-<%--            <div class="row">--%>
-<%--                <div class="col-md-1">--%>
-<%--                    <label class="text-dark align-middle"><b>Status</b></label>--%>
-<%--                </div>--%>
-<%--                <div class="col-md-10">--%>
-<%--                    <select class="form-control" name="status" id="status" required>--%>
-<%--                        <option value="-1" selected>All</option>--%>
-<%--                        <c:forEach items="${statuses}" var="s">--%>
-<%--                            <option value="${s}">--%>
-<%--                                    ${s}--%>
-<%--                            </option>--%>
-<%--                        </c:forEach>--%>
-<%--                    </select>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--    </div>--%>
     <div class="table-responsive">
         <table class="table table-striped table-bordered table-hover table-dark">
             <thead class="thead-light">
             <tr style="background-color: #cff6cf;" class="text-center">
                 <th scope="col">#Id</th>
-                <th scope="col">Status</th>
-                <th scope="col">Date Created</th>
-                <th scope="col">Date Reserved</th>
-                <th scope="col">Date Returned</th>
-                <th scope="col">Date Expected</th>
-                <th scope="col">Book Title</th>
-                <th scope="col">Reserved By</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">E-mail</th>
+                <th scope="col">Phone Number</th>
+                <th scope="col">Role</th>
+                <th scope="col">Active</th>
                 <th scope="col" style="width:12%;">Action</th>
             </tr>
             </thead>
             <tbody class="text-center text-primary">
-            <c:forEach var="res" items="${reservations}">
+            <c:forEach var="account" items="${accounts}">
                 <tr class="record">
-                    <th scope="row">${res.id}</th>
-                    <td>${res.status}</td>
-                    <td>${res.dateCreated}</td>
-                    <td>${res.dateReserved}</td>
-                    <td><c:if test="${res.dateReturned == null}"> - </c:if> <c:if test="${res.dateReturned != null}"> ${res.dateReturned} </c:if></td>
-                    <td>${res.dateExpected}</td>
-                    <td>${res.book.title}</td>
-                    <td>${res.account.firstName}</td>
+                    <th scope="row">${account.id}</th>
+                    <td>${account.firstName}</td>
+                    <td>${account.lastName}</td>
+                    <td>${account.email}</td>
+                    <td>${account.phone}</td>
+                    <td>${account.type}</td>
+                    <td>${account.active}</td>
                     <td>
                         <div class="row">
                             <div class="col">
-                                <button class="btn btn-primary btn-sm" title="Edit reservation"
-                                        onclick="location.href ='${contextPath}/reservation/edit/${res.id}'">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                <form action="${contextPath}/account/ban" method="post">
+                                    <input type="hidden" value="${account.id}" name="id">
+                                    <input type="hidden" value="${account.active}" name="ban">
+                                    <button type="submit" class="btn btn-primary btn-sm" title="Blacklist Account">
+                                        <i class="fa fa-ban" aria-hidden="true"></i></button>
+                                </form>
                             </div>
                             <div class="col">
-                                <form action="${contextPath}/reservation/remove" method="post">
-                                    <input type="hidden" value="${res.id}" name="id">
-                                    <button type="submit" class="btn btn-primary btn-sm" title="Remove reservation">
-                                        <i class="fa fa-times" aria-hidden="true"></i></button>
+                                <form action="${contextPath}/account/delete" method="post">
+                                    <input type="hidden" value="${account.id}" name="id">
+                                    <button type="submit" class="btn btn-primary btn-sm" title="Delete Account">
+                                        <i class="fa fa-trash" aria-hidden="true"></i></button>
                                 </form>
                             </div>
                         </div>
