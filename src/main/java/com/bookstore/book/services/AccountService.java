@@ -6,6 +6,7 @@ import com.bookstore.book.dto.ReservationDto;
 import com.bookstore.book.entities.Account;
 import com.bookstore.book.repositories.AccountRepository;
 import com.bookstore.book.utils.Role;
+import com.bookstore.book.utils.security.payload.UserDetailsImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -48,10 +49,14 @@ public class AccountService {
     }
 
     public Account findLoggedInAccount() {
+        String email = findLoggedInAccountEmail();
+        return accountRepository.findByEmail(email);
+    }
+
+    public String findLoggedInAccountEmail(){
         UserDetails userDetails =
                 (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String email = userDetails.getUsername();
-        return accountRepository.findByEmail(email);
+        return userDetails.getUsername();
     }
 
     public List<AccountDto> getAllAccounts() {
@@ -61,6 +66,13 @@ public class AccountService {
                 })
                 .collect(Collectors.toList());
         return accounts;
+    }
+
+    public boolean verifyAccount(String email){
+        boolean valid = false;
+        if(email.equals(findLoggedInAccountEmail()))
+            valid = true;
+        return valid;
     }
 
     public void deleteAccountById(int id){ accountRepository.deleteById(id);}

@@ -93,7 +93,7 @@
                                 <form action="${contextPath}/books/removeBook" method="post">
                                     <input type="hidden" value="${book.id}" name="id">
                                     <button type="submit" class="btn btn-primary btn-sm" title="Remove Book">
-                                        <i class="fa fa-times" aria-hidden="true"></i></button>
+                                        <i class="fa fa-trash" aria-hidden="true"></i></button>
                                 </form>
                             </div>
                         </div>

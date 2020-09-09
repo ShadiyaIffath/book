@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Base64;
@@ -100,6 +101,19 @@ public class ReservationService {
         dto.setImageString(Base64.getEncoder().encodeToString(dto.getImage()));
         return dto;
     }
+
+    public List<ReservationDto> getAccountReservations(){
+        List<ReservationDto> reservations = reservationRepository.findByAccount_Email(accountService.findLoggedInAccountEmail())
+                .stream().map(x -> {
+                    ReservationDto reservationDto = modelMapper.map(x, ReservationDto.class);
+                    return getReservationDto(x, reservationDto);
+                })
+                .collect(Collectors.toList());
+        return reservations;
+    }
+
+    @Transactional
+    public void cancelReservation(int id){reservationRepository.cancelReservationById(id,"Cancelled");}
 
     public String[] getAllStatus() {
         return new String[]{"Created", "Cancelled", "Completed"};

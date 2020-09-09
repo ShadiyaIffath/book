@@ -72,8 +72,14 @@ public class MainController {
     @RequestMapping(value="/reservations", method= RequestMethod.GET)
     public String showReservations(Model model){
         model.addAttribute("reservations", reservationService.getAllReservations());
-        model.addAttribute("statuses",reservationService.getAllStatus() );
         return "manageReservations";
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    @RequestMapping(value="/myReservations", method= RequestMethod.GET)
+    public String showAccountReservations(Model model){
+        model.addAttribute("reservations", reservationService.getAccountReservations());
+        return "myReservations";
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")

@@ -10,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-        Manage Reservations
+        My Reservations
     </title>
     <link href="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker3.min.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="${contextPath}/styles/bootstrap-4.1.3/bootstrap.css"/>
@@ -30,13 +30,13 @@
 <!-- Home -->
 
 <div class="home">
-        <div class="background_image" style="background-image:url(${contextPath}/images/reserrvations.jpg)"></div>
-        <div class="home_content">
-            <div class="home_title text-center text-white"
-                 style="font-family: Lucida Handwriting; font-size: 700%; padding-top: 35%; padding-bottom: 20%; padding-left: 5%;">
-                Manage Reservations
-            </div>
+    <div class="background_image" style="background-image:url(${contextPath}/images/reservation.jpg)"></div>
+    <div class="home_content">
+        <div class="home_title text-center text-white"
+             style="font-family: Lucida Handwriting; font-size: 700%; padding-top: 35%; padding-bottom: 20%; padding-left: 5%;">
+            My Reservations
         </div>
+    </div>
 </div>
 <div class="container" style="padding-top: 2%;">
     <div class="table-responsive">
@@ -51,7 +51,7 @@
                 <th scope="col">Date Expected</th>
                 <th scope="col">Book Title</th>
                 <th scope="col">Reserved By</th>
-                <th scope="col" style="width:12%;">Action</th>
+                <th scope="col" style="width:16%;">Action</th>
             </tr>
             </thead>
             <tbody class="text-center text-primary">
@@ -61,19 +61,29 @@
                     <td>${res.status}</td>
                     <td>${res.dateCreated}</td>
                     <td>${res.dateReserved}</td>
-                    <td><c:if test="${res.dateReturned == null}"> - </c:if> <c:if test="${res.dateReturned != null}"> ${res.dateReturned} </c:if></td>
+                    <td><c:if test="${res.dateReturned == null}"> - </c:if> <c:if
+                            test="${res.dateReturned != null}"> ${res.dateReturned} </c:if></td>
                     <td>${res.dateExpected}</td>
                     <td>${res.book.title}</td>
                     <td>${res.account.firstName}</td>
                     <td>
                         <div class="row">
                             <div class="col">
-                                <button class="btn btn-primary btn-sm" title="Edit reservation"
+                                <button class="btn btn-primary btn-sm" title="Edit Reservation"
                                         onclick="location.href ='${contextPath}/reservation/edit/${res.id}'">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
                             </div>
                             <div class="col">
-                                <form action="${contextPath}/reservation/remove" method="post">
+                                <c:if test="${res.status =='Created'}">
+                                    <form action="${contextPath}/reservation/ban" method="post">
+                                        <input type="hidden" value="${res.id}" name="id">
+                                        <button type="submit" class="btn btn-primary btn-sm" title="Cancel Reservation">
+                                            <i class="fa fa-ban" aria-hidden="true"></i></button>
+                                    </form>
+                                </c:if>
+                            </div>
+                            <div class="col">
+                                <form action="${contextPath}/reservation/delete" method="post">
                                     <input type="hidden" value="${res.id}" name="id">
                                     <button type="submit" class="btn btn-primary btn-sm" title="Remove reservation">
                                         <i class="fa fa-trash" aria-hidden="true"></i></button>
