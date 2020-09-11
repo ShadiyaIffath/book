@@ -30,7 +30,7 @@
 <!-- Home -->
 
 <div class="home">
-        <div class="background_image" style="background-image:url(${contextPath}/images/reserrvations.jpg)"></div>
+        <div class="background_image" style="background-image:url(${contextPath}/images/manageRes.jpg)"></div>
         <div class="home_content">
             <div class="home_title text-center text-white"
                  style="font-family: Lucida Handwriting; font-size: 700%; padding-top: 35%; padding-bottom: 20%; padding-left: 5%;">

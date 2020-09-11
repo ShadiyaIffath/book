@@ -27,9 +27,9 @@
 <!-- Navigation End -->
 
     <div class="home">
-        <div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="images/login.jpg" data-speed="0.8" style=" background-size:cover; object-fit: cover;"></div>
+        <div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="images/login.jpeg" data-speed="0.8" style=" background-size:cover; object-fit: cover;"></div>
         <div class="row" style="padding-top: 5%;">
-            <h1 class="text-warning pt-5 pb-3 mx-auto" style="font-family: Lucida Handwriting; font-size: 250%;">Sign in</h1>
+            <h1 class="text-white pt-5 pb-3 mx-auto" style="font-family: Lucida Handwriting; font-size: 250%;">Sign in</h1>
         </div>
         <div class="row text-center">
             <div class="card p-4 bg-dark mx-auto" style="width: 30%; border-radius: 22%;">

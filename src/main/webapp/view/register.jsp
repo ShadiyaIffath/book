@@ -25,7 +25,7 @@
 <c:import url="navigation.jsp" />
 <!-- Navigation End -->
 <div class="home">
-    <div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="images/register.jpg"
+    <div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="images/register.jpeg"
          data-speed="0.8" style=" background-size:cover; object-fit: cover;"></div>
     <div class="row" style="padding-top: 5%;">
         <h1 class="text-warning pt-5 pb-3 mx-auto" style="font-family: Lucida Handwriting; font-size: 250%;">Sign up</h1>

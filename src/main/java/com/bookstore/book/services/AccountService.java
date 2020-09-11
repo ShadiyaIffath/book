@@ -2,11 +2,9 @@ package com.bookstore.book.services;
 
 import com.bookstore.book.dto.AccountDto;
 import com.bookstore.book.dto.CreateAccountDto;
-import com.bookstore.book.dto.ReservationDto;
 import com.bookstore.book.entities.Account;
 import com.bookstore.book.repositories.AccountRepository;
 import com.bookstore.book.utils.Role;
-import com.bookstore.book.utils.security.payload.UserDetailsImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -48,9 +46,24 @@ public class AccountService {
         return accountRepository.save(account);
     }
 
+    public AccountDto updateAccount(AccountDto accountDto){
+        Account account = findLoggedInAccount();
+        account.setFirstName(accountDto.getFirstName());
+        account.setLastName(accountDto.getLastName());
+        account.setPhone(accountDto.getPhone());
+        accountRepository.save(account);
+        accountDto = modelMapper.map(accountDto, AccountDto.class);
+        return accountDto;
+    }
+
     public Account findLoggedInAccount() {
         String email = findLoggedInAccountEmail();
         return accountRepository.findByEmail(email);
+    }
+
+    public AccountDto getLoggedInAccount(){
+        Account account = findLoggedInAccount();
+        return modelMapper.map(account, AccountDto.class);
     }
 
     public String findLoggedInAccountEmail(){

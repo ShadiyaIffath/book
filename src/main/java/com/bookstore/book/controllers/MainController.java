@@ -5,7 +5,6 @@ import com.bookstore.book.dto.CreateAccountDto;
 import com.bookstore.book.services.AccountService;
 import com.bookstore.book.services.BookService;
 import com.bookstore.book.services.ReservationService;
-import com.bookstore.book.utils.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -36,7 +35,7 @@ public class MainController {
         model.addAttribute("colors",colors);
         model.addAttribute("books", bookService.getAllBooks());
         model.addAttribute("genre",bookService.getAllGenre());
-        return "index"; //name of index.jsp
+        return "index";
     }
 
     @RequestMapping(value="/register", method = RequestMethod.GET)
@@ -88,4 +87,11 @@ public class MainController {
         model.addAttribute("accounts", accountService.getAllAccounts());
         return "manageAccounts";
     }
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    @RequestMapping(value="/profile", method= RequestMethod.GET)
+    public String showProfile(Model model){
+        model.addAttribute("accounts", accountService.getLoggedInAccount());
+        return "profile";
+    }
+
 }

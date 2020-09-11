@@ -27,7 +27,7 @@
 <!-- Home -->
 
 <div class="home">
-    <div class="background_image" style="background-image:url(${contextPath}/images/manageBooks.jpg)"></div>
+    <div class="background_image" style="background-image:url(${contextPath}/images/manageBooks.jpeg)"></div>
         <div class="home_content">
             <div class="home_title text-white text-center"
                  style="font-family: Lucida Handwriting; font-size: 700%; padding-top: 35%;">

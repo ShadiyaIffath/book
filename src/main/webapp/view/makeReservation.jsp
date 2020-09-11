@@ -38,7 +38,7 @@
          data-image-src="${contextPath}/images/bdetails.jpg"
          data-speed="0.8" style=" background-size:cover; object-fit: cover;"></div>
     <div class="row" style="padding-top: 5%;">
-        <h1 class="text-warning pt-4 pb-3 mx-auto" style="font-family: Lucida Handwriting; font-size: 250%;">
+        <h1 class="text-primary pt-4 pb-3 mx-auto" style="font-family: Lucida Handwriting; font-size: 250%;">
             <c:if test="${edit == false}">
                 Create Reservation
             </c:if>
