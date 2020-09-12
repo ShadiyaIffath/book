@@ -26,7 +26,7 @@
 </head>
 <body>
 <!-- Navigation -->
-<c:import url="navigation.jsp" />
+<c:import url="navigation.jsp"/>
 <!-- Navigation End -->
 <!-- Home -->
 
@@ -45,13 +45,16 @@
                             <div class="home_discount_text text-white">A whole new world</div>
                         </div>
                         <div class="home_title text-white">New Collection</div>
-                        <div class="btn btn-primary"><a href="categories.html" class="text-ternary">Read NOW!</a></div>
+                        <div class="btn btn-primary"><a href="#books" class="text-ternary">Read NOW!</a></div>
                     </div>
                 </div>
                 <div class="pull-right">
-                    <div class="card pull-right p3" style="background-color: rgba(255, 255, 255, 0.2); width: 350px; margin-top: 320px; margin-right: 80px; padding: 4%;">
+                    <div class="card pull-right p3"
+                         style="background-color: rgba(255, 255, 255, 0.2); width: 350px; margin-top: 320px; margin-right: 80px; padding: 4%;">
                         <p class="text-white">Who is Raziel?</p>
-                        <p class="text-ternary"><i>Raziel is an angel within the teachings of Jewish mysticism who is the "Keeper of Secrets" and the "Angel of Mysteries". We are the <b>keeper of secrets.</b></i></p>
+                        <p class="text-ternary"><i>Raziel is an angel within the teachings of Jewish mysticism who is
+                            the "Keeper of Secrets" and the "Angel of Mysteries". We are the <b>keeper of
+                                secrets.</b></i></p>
                     </div>
                 </div>
             </div>
@@ -64,7 +67,7 @@
                             <div class="home_discount_text">Lets get you reading</div>
                         </div>
                         <div class="home_title">Latest books</div>
-                        <div class="btn btn-primary"><a href="categories.html" class="text-ternary">Read
+                        <div class="btn btn-primary"><a href="#books" class="text-ternary">Read
                             NOW!</a></div>
                     </div>
                 </div>
@@ -79,7 +82,7 @@
                             <div class="home_discount_text text-white">Escape to the land of imagination</div>
                         </div>
                         <div class="home_title text-white">New Collection</div>
-                        <div class="btn btn-primary"><a href="categories.html" class="text-ternary">Read NOW!</a></div>
+                        <div class="btn btn-primary"><a href="#books" class="text-ternary">Read NOW!</a></div>
                     </div>
                 </div>
             </div>
@@ -98,42 +101,70 @@
 
     </div>
 </div>
+
+<!-- Search -->
+<div class="container" style="margin-top: 2%; margin-left: 45%; ">
+    <form method="get" action="${contextPath}/search">
+        <div class="row">
+            <div class="col" style="width: 15%;">
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group addon input-group-text" style="background-color: #89c9b8;">
+                            <i class="fa fa-search"></i>
+                            &nbsp;<input type="text" name="search" class="form-control" placeholder="Search...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <button class="btn btn-primary btn-xl text-uppercase" id="sendMessageButton" type="submit" style="background-color: #89c9b8;">Search
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- genre -->
 <div class="container">
     <div class="row" style="height: 50px;">
         <c:forEach var="genre" items="${genre}" varStatus="loop">
             <div class="col-sm" style="background-color: ${colors[loop.index]};">
-                <a href="#" class="text-dark d-flex justify-content-center pt-2"
+                <a href="${contextPath}/${genre.genre}" class="text-dark d-flex justify-content-center pt-2"
                    style="font-family: Lucida Handwriting; font-size: 20px">${genre.genre}</a>
             </div>
         </c:forEach>
     </div>
 </div>
-<!-- Products -->
 
-<div class="products">
+<!-- Books -->
+<div class="products" id="books">
     <div class="section_container">
         <div class="container">
             <div class="products_container grid">
                 <div class="row">
-                <c:forEach var="book" items="${books}">
-                    <div class="col-auto mb-3">
-                        <!-- Product -->
-                        <div class="product grid-item shadow"
-                             style="width: 250px; height:480px; background-color: #89c9b8;">
-                            <div class="product_inner p-2 pt-3">
-                                <div class="product_image">
-                                    <img src="data:image/jpeg;base64,${book.imageString}" alt=""
-                                         style="width: 250px; height: 270px"/>
-                                </div>
-                                <div class="product_content text-center" style="height:150px; padding-top: 15px;">
-                                    <div class="product_title"><a href="${contextPath}/books/details/${book.id}" style="font-family: Lucida Handwriting; font-size: 15px">${book.title}</a></div>
-                                    <div class="product_price" style="font-size: 20px;">${book.author}</div>
-                                    <div class="product_button ml-auto mr-auto trans_200"><a href="${contextPath}/reservation/create/${book.id}">Reserve</a></div>
+                    <c:forEach var="book" items="${books}">
+                        <div class="col-auto mb-3">
+                            <!-- Product -->
+                            <div class="product grid-item shadow"
+                                 style="width: 250px; height:480px; background-color: #89c9b8;">
+                                <div class="product_inner p-2 pt-3">
+                                    <div class="product_image">
+                                        <img src="data:image/jpeg;base64,${book.imageString}" alt=""
+                                             style="width: 250px; height: 270px"/>
+                                    </div>
+                                    <div class="product_content text-center" style="height:150px; padding-top: 15px;">
+                                        <div class="product_title"><a href="${contextPath}/books/details/${book.id}"
+                                                                      style="font-family: Lucida Handwriting; font-size: 15px">${book.title}</a>
+                                        </div>
+                                        <div class="product_price" style="font-size: 20px;">${book.author}</div>
+                                        <div class="product_button ml-auto mr-auto trans_200"><a
+                                                href="${contextPath}/reservation/create/${book.id}">Reserve</a></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </c:forEach>
+                    </c:forEach>
                 </div>
             </div>
         </div>

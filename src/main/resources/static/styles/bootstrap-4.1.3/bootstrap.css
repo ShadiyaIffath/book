@@ -8651,3 +8651,26 @@ a.text-dark:hover, a.text-dark:focus {
   font-weight: 600;
   color: #28a745;
 }
+
+.searchGlow{
+  width: 3%;
+  height: 50%;
+  background-color: #28a745 ;
+  position: relative;
+  animation-name: example;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes example {
+  0% {
+    background-color: #F7DC6F;
+    left: 0px;
+    top: 0px;
+  }
+  50% {
+    background-color: #818182;
+    left: 95%;
+    top: 0px;
+  }
+}

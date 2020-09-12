@@ -74,6 +74,27 @@ public class BookService {
                     return bookDto;
                 })
                 .collect(Collectors.toList());
+        bookDtos = books;
+        return books;
+    }
+
+    public List<BookDto> searchFilter(String search){
+        List<BookDto> books = new ArrayList<>();
+        for (BookDto b:bookDtos) {
+            if(search.equalsIgnoreCase(b.getAuthor()) || search.equalsIgnoreCase(b.getTitle()) || search.equalsIgnoreCase(b.getISBN())){
+                books.add(b);
+            }
+        }
+        return books;
+    }
+
+    public List<BookDto> genreFilter(String genre){
+        List<BookDto> books = new ArrayList<>();
+        for (BookDto b:bookDtos) {
+            if(genre.equalsIgnoreCase(b.getGenreDto().getGenre())){
+                books.add(b);
+            }
+        }
         return books;
     }
 

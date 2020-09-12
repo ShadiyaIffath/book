@@ -53,7 +53,6 @@ public class UserController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ModelAndView login(AuthRequest authRequest, HttpServletResponse httpServletResponse) {
         ModelAndView model = new ModelAndView();
-        System.out.println(authRequest.getEmail() + " " + authRequest.getPassword());
         if (!authService.validateCredentials(authRequest)) {
             model.addObject("error", true);
             model.setViewName("login");

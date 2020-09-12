@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,12 +30,20 @@ public class MainController {
     private AccountService accountService;
 
 
-    private String[] colors = {"776d8a","f3e6e3","dbe3e5","d3c09a","fabea7","fbe2e5","9cada4","cff6cf","faf0af"};
+    private String[] colors = {"c3aed6","f3e6e3","dbe3e5","d3c09a","fabea7","fbe2e5","9cada4","cff6cf","faf0af"};
 
     @RequestMapping(value="/", method = RequestMethod.GET)
     public String welcome(Model model){
         model.addAttribute("colors",colors);
         model.addAttribute("books", bookService.getAllBooks());
+        model.addAttribute("genre",bookService.getAllGenre());
+        return "index";
+    }
+
+    @RequestMapping(value="/{genre}", method = RequestMethod.GET)
+    public String genreFilter(Model model, @PathVariable("genre") String genre){
+        model.addAttribute("colors",colors);
+        model.addAttribute("books", bookService.genreFilter(genre));
         model.addAttribute("genre",bookService.getAllGenre());
         return "index";
     }
@@ -60,6 +70,14 @@ public class MainController {
     @RequestMapping(value = "/contact", method = RequestMethod.GET)
     public String showContactUs(){
         return "contact";
+    }
+
+    @RequestMapping(value="/search", method = RequestMethod.GET)
+    public String search(Model model, @RequestParam("search") String search){
+        model.addAttribute("colors",colors);
+        model.addAttribute("books", bookService.searchFilter(search));
+        model.addAttribute("genre",bookService.getAllGenre());
+        return "index";
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
