@@ -142,6 +142,9 @@
     <div class="section_container">
         <div class="container">
             <div class="products_container grid">
+                <c:if test="${empty books}">
+                    <h2 class="text-center text-primary">SORRY! THERE ARE NO BOOKS AVAILABLE</h2>
+                </c:if>
                 <div class="row">
                     <c:forEach var="book" items="${books}">
                         <div class="col-auto mb-3">

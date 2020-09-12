@@ -22,7 +22,7 @@
     <link rel="stylesheet" type="text/css" href="${contextPath}/styles/main_styles.css"/>
     <link rel="stylesheet" type="text/css" href="${contextPath}/styles/responsive.css"/>
 </head>
-<body style="background-image: url(${contextPath}/images/bg2.jpg); background-size:cover; object-fit: cover;">
+<body style="background-image: url(${contextPath}/images/contact.jpeg); background-size:cover; object-fit: cover;">
 <!-- Navigation -->
 <c:import url="navigation.jsp"/>
 <!-- Navigation End -->
