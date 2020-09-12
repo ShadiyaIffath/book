@@ -133,7 +133,6 @@ public class ReservationsController {
     }
 
     private void editReservationModelView(int id, ReservationDto reservationDto, ModelAndView model, boolean personal) {
-//        model.addObject("date", DateUtil.getToday());
         model.addObject("personal", personal);
         model.addObject("resForm", reservationDto);
         model.addObject("error", true);

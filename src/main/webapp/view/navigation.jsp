@@ -48,7 +48,7 @@
                         <li class="nav-item"><b><a class="nav-link js-scroll-trigger text-primary"
                                                    href="${contextPath}/logout">Logout</a></b></li>
                         <sec:authorize access="hasRole('ROLE_USER')">
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary" href="${contextPath}/books">Help</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary" href="${contextPath}/contact">Contact</a></li>
                         </sec:authorize>
                     </c:when>
                     <c:otherwise>
@@ -56,7 +56,7 @@
                                                 href="${contextPath}/login">Sign in</a></li>
                         <li class="nav-item"><b><a class="nav-link js-scroll-trigger text-primary"
                                                    href="${contextPath}/register">Sign up</a></b></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary" href="${contextPath}/books">Help</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary" href="${contextPath}/contact">Contact</a></li>
                     </c:otherwise>
                 </c:choose>
             </ul>

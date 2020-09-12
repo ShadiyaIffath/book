@@ -1,5 +1,6 @@
 package com.bookstore.book.controllers;
 
+import com.bookstore.book.dto.AccountDto;
 import com.bookstore.book.dto.CreateAccountDto;
 import com.bookstore.book.services.AccountService;
 import com.bookstore.book.services.AuthService;
@@ -8,6 +9,7 @@ import com.bookstore.book.utils.security.responses.JwtResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -49,7 +51,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ModelAndView login(AuthRequest authRequest) {
+    public ModelAndView login(AuthRequest authRequest, HttpServletResponse httpServletResponse) {
         ModelAndView model = new ModelAndView();
         System.out.println(authRequest.getEmail() + " " + authRequest.getPassword());
         if (!authService.validateCredentials(authRequest)) {
@@ -57,11 +59,23 @@ public class UserController {
             model.setViewName("login");
         } else {
             JwtResponse response = authService.loginWebPortal(authRequest);
-//            httpServletResponse.addHeader("Authorization",response.getToken());
+            httpServletResponse.addHeader("Authorization",response.getToken());
             model.setViewName("redirect:/");
         }
         return model;
+    }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    @RequestMapping(value="/profile", method = RequestMethod.POST)
+    public ModelAndView editProfile(AccountDto accountDto){
+        ModelAndView model = new ModelAndView("redirect:profile");
+        model.addObject("accounts", service.updateAccount(accountDto));
+        return model;
+    }
+
+    @RequestMapping(value="/contact", method=RequestMethod.POST)
+    public ModelAndView contactUs(){
+        return new ModelAndView("redirect:/");
     }
 
 }

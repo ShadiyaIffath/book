@@ -1,6 +1,5 @@
 package com.bookstore.book.utils.security.jwt;
 
-import com.bookstore.book.services.AccountService;
 import com.bookstore.book.utils.security.payload.UserDetailsServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

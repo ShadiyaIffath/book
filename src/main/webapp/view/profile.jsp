@@ -22,14 +22,14 @@
     <link rel="stylesheet" type="text/css" href="${contextPath}/styles/main_styles.css"/>
     <link rel="stylesheet" type="text/css" href="${contextPath}/styles/responsive.css"/>
 </head>
-<body style="background-image: url(${contextPath}/images/bg2.jpg)">
+<body style="background-image: url(${contextPath}/images/bg2.jpg); background-size:cover; object-fit: cover;">
 <!-- Navigation -->
 <c:import url="navigation.jsp"/>
 <!-- Navigation End -->
 
 <div class="home">
     <div class="home_content">
-        <div class="container emp-profile bg-dark" style="padding-top: 10%;">
+        <div class="container emp-profile bg-dark" style="margin-top: 30%; margin-left:50%;">
             <h1 class="text-warning mx-auto text-center"
                 style="font-family: Lucida Handwriting; font-size: 250%; padding-bottom:3%; padding-top: 2%;">Profile
             </h1>
@@ -49,8 +49,8 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-md-2" style="padding-left: 30%;">
-                        <input type="submit" class="btn btn-primary" value="Confirm Changes" title="Edit Profile"/>
+                    <div class="col-md-2" style="padding-left: 20%;">
+                        <input type="submit" class="btn btn-primary" value="Edit Profile" title="Edit Profile"/>
                     </div>
                 </div>
                 <div class="row">

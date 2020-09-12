@@ -27,9 +27,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private AuthEntryPointJwt unauthorizedHandler;
 
-    @Value("${cookieToken}")
-    private String cookieName;
-
     @Bean
     public AuthTokenFilter  authenticationJwtTokenFilter() {
         return new AuthTokenFilter();

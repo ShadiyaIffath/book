@@ -57,6 +57,11 @@ public class MainController {
         return "login";
     }
 
+    @RequestMapping(value = "/contact", method = RequestMethod.GET)
+    public String showContactUs(){
+        return "contact";
+    }
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value="/books", method= RequestMethod.GET)
     public String showBooks(Model model){
