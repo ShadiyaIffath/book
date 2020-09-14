@@ -103,7 +103,7 @@
 </div>
 
 <!-- Search -->
-<div class="container" style="margin-top: 2%; margin-left: 45%; ">
+<div class="container" style="margin-top: 2%; padding-left: 45%; ">
     <form method="get" action="${contextPath}/search">
         <div class="row">
             <div class="col" style="width: 15%;">
