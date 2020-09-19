@@ -21,18 +21,17 @@
     <link rel="stylesheet" type="text/css" href="./styles/responsive.css"/>
 </head>
 
-<body>
+<body style="background-image: url(${contextPath}/images/login.jpeg); background-size:cover; object-fit: cover;">
 <!-- Navigation -->
 <c:import url="navigation.jsp" />
 <!-- Navigation End -->
 
-    <div class="home">
-        <div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="images/login.jpeg" data-speed="0.8" style=" background-size:cover; object-fit: cover;"></div>
+    <div class="container">
         <div class="row" style="padding-top: 5%;">
             <h1 class="text-white pt-5 pb-3 mx-auto" style="font-family: Lucida Handwriting; font-size: 250%;">Sign in</h1>
         </div>
         <div class="row text-center">
-            <div class="card p-4 bg-dark mx-auto" style="width: 30%; border-radius: 22%;">
+            <div class="card p-4 bg-dark mx-auto" style="width: 40%; border-radius: 22%;">
                 <form method="post" action="${contextPath}/login">
                     <h4 class="text-center text-primary">Welcome back!</h4>
                     <div class="form-group pt-3">

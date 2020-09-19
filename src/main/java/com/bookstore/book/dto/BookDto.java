@@ -12,10 +12,11 @@ public class BookDto {
     private int genreId;
     private byte[] image;
     private String imageString;
+    private String publisher;
 
     public BookDto(){}
 
-    public BookDto(int id, String title, String ISBN, String author, double value, String summary, boolean available, GenreDto genreDto, int genreId, byte[] image, String imageString) {
+    public BookDto(int id, String title, String ISBN, String author, double value, String summary, boolean available, GenreDto genreDto, int genreId, byte[] image, String imageString, String publisher) {
         this.id = id;
         this.title = title;
         this.ISBN = ISBN;
@@ -27,9 +28,10 @@ public class BookDto {
         this.genreId = genreId;
         this.image = image;
         this.imageString = imageString;
+        this.publisher = publisher;
     }
 
-    public BookDto(int id, String title, String ISBN, String author, double value, String summary, boolean available, GenreDto genreDto, int genreId, byte[] image) {
+    public BookDto(int id, String title, String ISBN, String author, double value, String summary, boolean available, GenreDto genreDto, int genreId, byte[] image, String publisher) {
         this.id = id;
         this.title = title;
         this.ISBN = ISBN;
@@ -40,6 +42,15 @@ public class BookDto {
         this.genreDto = genreDto;
         this.genreId = genreId;
         this.image = image;
+        this.publisher = publisher;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
     }
 
     public int getGenreId() {

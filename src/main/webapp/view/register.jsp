@@ -20,13 +20,11 @@
     <link rel="stylesheet" type="text/css" href="./styles/responsive.css"/>
     <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet"/>
 </head>
-<body>
+<body style="background-image: url(${contextPath}/images/register.jpeg); background-size:cover; object-fit: cover;">
 <!-- Navigation -->
 <c:import url="navigation.jsp" />
 <!-- Navigation End -->
-<div class="home">
-    <div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="images/register.jpeg"
-         data-speed="0.8" style=" background-size:cover; object-fit: cover;"></div>
+<div class="container">
     <div class="row" style="padding-top: 5%;">
         <h1 class="text-warning pt-5 pb-3 mx-auto" style="font-family: Lucida Handwriting; font-size: 250%;">Sign up</h1>
     </div>

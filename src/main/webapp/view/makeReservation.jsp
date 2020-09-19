@@ -28,16 +28,13 @@
     <link rel="stylesheet" type="text/css" href="${contextPath}/styles/main_styles.css"/>
     <link rel="stylesheet" type="text/css" href="${contextPath}/styles/responsive.css"/>
 </head>
-<body>
+<body style="background-image: url(${contextPath}/images/bdetails.jpg); background-size:cover; object-fit: cover;">
 <!-- Navigation -->
 <c:import url="navigation.jsp"/>
 <!-- Navigation End -->
 
-<div class="home">
-    <div class="parallax_background parallax-window" data-parallax="scroll"
-         data-image-src="${contextPath}/images/bdetails.jpg"
-         data-speed="0.8" style=" background-size:cover; object-fit: cover;"></div>
-    <div class="row" style="padding-top: 5%;">
+<div class="container">
+    <div class="row" style="padding-top: 7%;">
         <h1 class="text-primary pt-4 pb-3 mx-auto" style="font-family: Lucida Handwriting; font-size: 250%;">
             <c:if test="${edit == false}">
                 Create Reservation
@@ -48,7 +45,7 @@
         </h1>
     </div>
     <div class="row text-center">
-        <div class="card text-center shadow" style=" width: 50%; margin-left: 25%;">
+        <div class="card text-center shadow mx-auto" style=" width: 70%">
             <div class="row">
                 <div class="col-md-4 card-img p-3" style="background-color: #c9d99e">
                     <img class="card-img-top text-center p-3" id="bookImage"

@@ -34,6 +34,9 @@ public class Book {
     @Column(length = 500,nullable = false)
     private String summary;
 
+    @Column(length = 25, nullable = true)
+    private String publisher;
+
     @Column(length = 25, nullable = false)
     private String author;
 

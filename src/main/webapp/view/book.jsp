@@ -27,14 +27,11 @@
     <link rel="stylesheet" type="text/css" href="${contextPath}/styles/main_styles.css"/>
     <link rel="stylesheet" type="text/css" href="${contextPath}/styles/responsive.css"/>
 </head>
-<body>
+<body style="background-image: url(${contextPath}/images/bg.jpg); background-size:cover; object-fit: cover;">
 <!-- Navigation -->
-<c:import url="navigation.jsp" />
+<c:import url="navigation.jsp"/>
 <!-- Navigation End -->
-<div class="home">
-    <div class="parallax_background parallax-window" data-parallax="scroll"
-         data-image-src="${contextPath}/images/bg.jpg"
-         data-speed="0.8" style=" background-size:cover; object-fit: cover;"></div>
+<div class="container" style="margin-bottom:5%;">
     <div class="row">
         <h1 class="text-warning pb-3 mx-auto" style="font-family: Lucida Handwriting; font-size: 250%; padding-top:8%;">
             <c:if test="${edit == true}">
@@ -149,8 +146,21 @@
                                         </label>
                                     </div>
                                     <div class="col-md-10 pl-5">
-                                        <input type="text" class="form-control" name="summary" required spellcheck="false"
-                                               value="${bookForm.summary}"/>
+                                        <textarea class="form-control" name="summary" required spellcheck="false">${bookForm.summary}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group pt-2">
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <label class="text-primary">
+                                            Publisher
+                                        </label>
+                                    </div>
+                                    <div class="col-md-10 pl-5">
+                                        <input type="text" class="form-control" name="publisher" required
+                                               spellcheck="false"
+                                               value="${bookForm.publisher}"/>
                                     </div>
                                 </div>
                             </div>

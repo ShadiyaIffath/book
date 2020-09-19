@@ -2,8 +2,10 @@ package com.bookstore.book.controllers;
 
 import com.bookstore.book.dto.AccountDto;
 import com.bookstore.book.dto.CreateAccountDto;
+import com.bookstore.book.dto.CreateInquiryDto;
 import com.bookstore.book.services.AccountService;
 import com.bookstore.book.services.AuthService;
+import com.bookstore.book.services.InquiryService;
 import com.bookstore.book.utils.security.requests.AuthRequest;
 import com.bookstore.book.utils.security.responses.JwtResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class UserController {
 
     @Autowired
     private AuthService authService;
+
+    @Autowired
+    private InquiryService inquiryService;
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ModelAndView register(CreateAccountDto createAccountDto, RedirectAttributes redirectAttributes) {
@@ -73,7 +78,8 @@ public class UserController {
     }
 
     @RequestMapping(value="/contact", method=RequestMethod.POST)
-    public ModelAndView contactUs(){
+    public ModelAndView contactUs(CreateInquiryDto dto){
+        inquiryService.saveInquiry(dto);
         return new ModelAndView("redirect:/");
     }
 

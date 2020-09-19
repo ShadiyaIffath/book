@@ -7,6 +7,7 @@ public class CreateBookDto {
     private String ISBN;
     private String description;
     private String author;
+    private String publisher;
     private double value;
     private boolean available = true;
     private String summary;
@@ -16,7 +17,7 @@ public class CreateBookDto {
 
     public CreateBookDto(){}
 
-    public CreateBookDto(String title, String ISBN, String description, String author, double value, boolean available, String summary, MultipartFile image, int genreId, String imageString) {
+    public CreateBookDto(String title, String ISBN, String description, String author, double value, boolean available, String summary, MultipartFile image, int genreId, String imageString, String publisher) {
         this.title = title;
         this.ISBN = ISBN;
         this.description = description;
@@ -27,9 +28,10 @@ public class CreateBookDto {
         this.image = image;
         this.genreId = genreId;
         this.imageString = imageString;
+        this.publisher = publisher;
     }
 
-    public CreateBookDto(String title, String ISBN, String description, String author, double value, boolean available, String summary, MultipartFile image, int genreId) {
+    public CreateBookDto(String title, String ISBN, String description, String author, double value, boolean available, String summary, MultipartFile image, int genreId, String publisher) {
         this.title = title;
         this.ISBN = ISBN;
         this.description = description;
@@ -39,6 +41,15 @@ public class CreateBookDto {
         this.summary = summary;
         this.image = image;
         this.genreId = genreId;
+        this.publisher = publisher;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
     }
 
     public String getImageString() {

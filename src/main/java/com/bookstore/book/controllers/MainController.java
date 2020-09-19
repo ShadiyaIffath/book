@@ -2,6 +2,7 @@ package com.bookstore.book.controllers;
 
 import com.bookstore.book.dto.BookDto;
 import com.bookstore.book.dto.CreateAccountDto;
+import com.bookstore.book.dto.CreateInquiryDto;
 import com.bookstore.book.services.AccountService;
 import com.bookstore.book.services.BookService;
 import com.bookstore.book.services.ReservationService;
@@ -68,7 +69,8 @@ public class MainController {
     }
 
     @RequestMapping(value = "/contact", method = RequestMethod.GET)
-    public String showContactUs(){
+    public String showContactUs(Model model){
+        model.addAttribute("inquiry", new CreateInquiryDto());
         return "contact";
     }
 

@@ -103,22 +103,20 @@
 </div>
 
 <!-- Search -->
-<div class="container" style="margin-top: 2%; padding-left: 45%; ">
+<div class="container" style="margin-top: 2%;">
     <form method="get" action="${contextPath}/search">
-        <div class="row">
-            <div class="col" style="width: 15%;">
-
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group addon input-group-text" style="background-color: #89c9b8;">
-                            <i class="fa fa-search"></i>
-                            &nbsp;<input type="text" name="search" class="form-control" placeholder="Search...">
-                        </div>
+        <div class="row" style="margin-left:25%;">
+            <div class="col form-group">
+                <div class="input-group">
+                    <div class="input-group addon input-group-text" style="background-color: #89c9b8;">
+                        <i class="fa fa-search"></i>
+                        &nbsp;<input type="text" name="search" class="form-control" placeholder="Search...">
                     </div>
                 </div>
             </div>
             <div class="col">
-                <button class="btn btn-primary btn-xl text-uppercase" id="sendMessageButton" type="submit" style="background-color: #89c9b8;">Search
+                <button class="btn btn-primary btn-xl text-uppercase" id="sendMessageButton" type="submit"
+                        style="background-color: #89c9b8;">Search
                 </button>
             </div>
         </div>

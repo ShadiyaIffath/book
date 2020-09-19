@@ -33,6 +33,7 @@ public class ReservationsController {
 
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @RequestMapping(value="/create/{id}", method = RequestMethod.GET)
     public ModelAndView bookDetail(@PathVariable("id") int id, BookDto bookDto){
         ModelAndView model = new ModelAndView("makeReservation");
