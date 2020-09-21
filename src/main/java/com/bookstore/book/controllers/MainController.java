@@ -3,8 +3,10 @@ package com.bookstore.book.controllers;
 import com.bookstore.book.dto.BookDto;
 import com.bookstore.book.dto.CreateAccountDto;
 import com.bookstore.book.dto.CreateInquiryDto;
+import com.bookstore.book.entities.Inquiry;
 import com.bookstore.book.services.AccountService;
 import com.bookstore.book.services.BookService;
+import com.bookstore.book.services.InquiryService;
 import com.bookstore.book.services.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,6 +31,9 @@ public class MainController {
 
     @Autowired
     private AccountService accountService;
+
+    @Autowired
+    private InquiryService inquiryService;
 
 
     private String[] colors = {"c3aed6","f3e6e3","dbe3e5","d3c09a","fabea7","fbe2e5","9cada4","cff6cf","faf0af"};
@@ -117,6 +122,13 @@ public class MainController {
     public String showProfile(Model model){
         model.addAttribute("accounts", accountService.getLoggedInAccount());
         return "profile";
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @RequestMapping(value="/inquiries", method= RequestMethod.GET)
+    public String showInquiries(Model model){
+        model.addAttribute("inquiries", inquiryService.getAllInquiries());
+        return "inquiries";
     }
 
 }

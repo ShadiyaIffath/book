@@ -30,62 +30,68 @@
 <!-- Home -->
 
 <div class="home">
-        <div class="background_image" style="background-image:url(${contextPath}/images/manageRes.jpeg)"></div>
-        <div class="home_content">
-            <div class="home_title text-center text-white"
-                 style="font-family: Lucida Handwriting; font-size: 700%; padding-top: 35%; padding-bottom: 20%; padding-left: 5%;">
-                Manage Reservations
-            </div>
+    <div class="background_image" style="background-image:url(${contextPath}/images/manageRes.jpeg)"></div>
+    <div class="home_content">
+        <div class="home_title text-center text-white"
+             style="font-family: Lucida Handwriting; font-size: 700%; padding-top: 35%; padding-bottom: 20%; padding-left: 5%;">
+            Manage Reservations
         </div>
+    </div>
 </div>
 <div class="container" style="padding-top: 2%;">
-    <div class="table-responsive">
-        <table class="table table-striped table-bordered table-hover table-dark">
-            <thead class="thead-light">
-            <tr style="background-color: #cff6cf;" class="text-center">
-                <th scope="col">#Id</th>
-                <th scope="col">Status</th>
-                <th scope="col">Date Created</th>
-                <th scope="col">Date Reserved</th>
-                <th scope="col">Date Returned</th>
-                <th scope="col">Date Expected</th>
-                <th scope="col">Book Title</th>
-                <th scope="col">Reserved By</th>
-                <th scope="col" style="width:12%;">Action</th>
-            </tr>
-            </thead>
-            <tbody class="text-center text-primary">
-            <c:forEach var="res" items="${reservations}">
-                <tr class="record">
-                    <th scope="row">${res.id}</th>
-                    <td>${res.status}</td>
-                    <td>${res.dateCreated}</td>
-                    <td>${res.dateReserved}</td>
-                    <td><c:if test="${res.dateReturned == null}"> - </c:if> <c:if test="${res.dateReturned != null}"> ${res.dateReturned} </c:if></td>
-                    <td>${res.dateExpected}</td>
-                    <td>${res.book.title}</td>
-                    <td>${res.account.firstName}</td>
-                    <td>
-                        <div class="row">
-                            <div class="col">
-                                <button class="btn btn-primary btn-sm" title="Edit reservation"
-                                        onclick="location.href ='${contextPath}/reservation/edit/${res.id}'">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                            </div>
-                            <div class="col">
-                                <form action="${contextPath}/reservation/remove" method="post">
-                                    <input type="hidden" value="${res.id}" name="id">
-                                    <button type="submit" class="btn btn-primary btn-sm" title="Remove reservation">
-                                        <i class="fa fa-trash" aria-hidden="true"></i></button>
-                                </form>
-                            </div>
-                        </div>
-                    </td>
+    <c:if test="${empty reservations}">
+        <h2 class="text-center text-primary">There are no more reservations.</h2>
+    </c:if>
+    <c:if test="${not empty reservations}">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover table-dark">
+                <thead class="thead-light">
+                <tr style="background-color: #cff6cf;" class="text-center">
+                    <th scope="col">#Id</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Date Created</th>
+                    <th scope="col">Date Reserved</th>
+                    <th scope="col">Date Returned</th>
+                    <th scope="col">Date Expected</th>
+                    <th scope="col">Book Title</th>
+                    <th scope="col">Reserved By</th>
+                    <th scope="col" style="width:12%;">Action</th>
                 </tr>
-            </c:forEach>
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody class="text-center text-primary">
+                <c:forEach var="res" items="${reservations}">
+                    <tr class="record">
+                        <th scope="row">${res.id}</th>
+                        <td>${res.status}</td>
+                        <td>${res.dateCreated}</td>
+                        <td>${res.dateReserved}</td>
+                        <td><c:if test="${res.dateReturned == null}"> - </c:if> <c:if
+                                test="${res.dateReturned != null}"> ${res.dateReturned} </c:if></td>
+                        <td>${res.dateExpected}</td>
+                        <td>${res.book.title}</td>
+                        <td>${res.account.firstName}</td>
+                        <td>
+                            <div class="row">
+                                <div class="col">
+                                    <button class="btn btn-primary btn-sm" title="Edit reservation"
+                                            onclick="location.href ='${contextPath}/reservation/edit/${res.id}'">
+                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                </div>
+                                <div class="col">
+                                    <form action="${contextPath}/reservation/remove" method="post">
+                                        <input type="hidden" value="${res.id}" name="id">
+                                        <button type="submit" class="btn btn-primary btn-sm" title="Remove reservation">
+                                            <i class="fa fa-trash" aria-hidden="true"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </c:if>
 </div>
 
 <script src="${contextPath}/js/jquery-3.2.1.min.js"></script>

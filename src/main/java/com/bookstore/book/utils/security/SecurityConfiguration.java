@@ -1,4 +1,4 @@
-package com.bookstore.book.utils;
+package com.bookstore.book.utils.security;
 
 import com.bookstore.book.utils.security.jwt.AuthEntryPointJwt;
 import com.bookstore.book.utils.security.jwt.AuthTokenFilter;

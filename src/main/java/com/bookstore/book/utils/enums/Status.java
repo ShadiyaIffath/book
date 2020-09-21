@@ -1,4 +1,4 @@
-package com.bookstore.book.utils;
+package com.bookstore.book.utils.enums;
 
 public enum Status {
     create("Created"),

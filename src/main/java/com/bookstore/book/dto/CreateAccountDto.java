@@ -67,8 +67,4 @@ public class CreateAccountDto {
         this.password = password;
     }
 
-    @Override
-    public String toString(){
-        return this.getFirstName()+" " + this.getLastName() + " " + this.getEmail() + " " + this.getPhone()+" " + this.getPassword();
-    }
 }

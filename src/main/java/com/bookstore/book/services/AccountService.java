@@ -4,7 +4,7 @@ import com.bookstore.book.dto.AccountDto;
 import com.bookstore.book.dto.CreateAccountDto;
 import com.bookstore.book.entities.Account;
 import com.bookstore.book.repositories.AccountRepository;
-import com.bookstore.book.utils.Role;
+import com.bookstore.book.utils.enums.Role;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;

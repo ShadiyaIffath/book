@@ -29,4 +29,7 @@ public class Inquiry {
 
     @Column(length = 250, nullable=false)
     private String question;
+
+    @Column(nullable=false)
+    private Boolean responded;
 }

@@ -40,6 +40,7 @@
                     <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary" href="${contextPath}/books">Books</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary" href="${contextPath}/reservations">Reservations</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary" href="${contextPath}/accounts">Accounts</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary" href="${contextPath}/inquiries">Inquiries</a></li>
                 </sec:authorize>
                 <c:choose>
                     <c:when test="${isAuthenticated}">

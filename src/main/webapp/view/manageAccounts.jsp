@@ -39,54 +39,59 @@
     </div>
 </div>
 <div class="container" style="padding-top: 2%;">
-    <div class="table-responsive">
-        <table class="table table-striped table-bordered table-hover table-dark">
-            <thead class="thead-light">
-            <tr style="background-color: #cff6cf;" class="text-center">
-                <th scope="col">#Id</th>
-                <th scope="col">First Name</th>
-                <th scope="col">Last Name</th>
-                <th scope="col">E-mail</th>
-                <th scope="col">Phone Number</th>
-                <th scope="col">Role</th>
-                <th scope="col">Active</th>
-                <th scope="col" style="width:12%;">Action</th>
-            </tr>
-            </thead>
-            <tbody class="text-center text-primary">
-            <c:forEach var="account" items="${accounts}">
-                <tr class="record">
-                    <th scope="row">${account.id}</th>
-                    <td>${account.firstName}</td>
-                    <td>${account.lastName}</td>
-                    <td>${account.email}</td>
-                    <td>${account.phone}</td>
-                    <td>${account.type}</td>
-                    <td>${account.active}</td>
-                    <td>
-                        <div class="row">
-                            <div class="col">
-                                <form action="${contextPath}/account/ban" method="post">
-                                    <input type="hidden" value="${account.id}" name="id">
-                                    <input type="hidden" value="${account.active}" name="ban">
-                                    <button type="submit" class="btn btn-primary btn-sm" title="Blacklist Account">
-                                        <i class="fa fa-ban" aria-hidden="true"></i></button>
-                                </form>
-                            </div>
-                            <div class="col">
-                                <form action="${contextPath}/account/delete" method="post">
-                                    <input type="hidden" value="${account.id}" name="id">
-                                    <button type="submit" class="btn btn-primary btn-sm" title="Delete Account">
-                                        <i class="fa fa-trash" aria-hidden="true"></i></button>
-                                </form>
-                            </div>
-                        </div>
-                    </td>
+    <c:if test="${empty accounts}">
+        <h2 class="text-center text-primary">There are no more reservations.</h2>
+    </c:if>
+    <c:if test="${not empty accounts}">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover table-dark">
+                <thead class="thead-light">
+                <tr style="background-color: #cff6cf;" class="text-center">
+                    <th scope="col">#Id</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">E-mail</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Active</th>
+                    <th scope="col" style="width:12%;">Action</th>
                 </tr>
-            </c:forEach>
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody class="text-center text-primary">
+                <c:forEach var="account" items="${accounts}">
+                    <tr class="record">
+                        <th scope="row">${account.id}</th>
+                        <td>${account.firstName}</td>
+                        <td>${account.lastName}</td>
+                        <td>${account.email}</td>
+                        <td>${account.phone}</td>
+                        <td>${account.type}</td>
+                        <td>${account.active}</td>
+                        <td>
+                            <div class="row">
+                                <div class="col">
+                                    <form action="${contextPath}/account/ban" method="post">
+                                        <input type="hidden" value="${account.id}" name="id">
+                                        <input type="hidden" value="${account.active}" name="ban">
+                                        <button type="submit" class="btn btn-primary btn-sm" title="Blacklist Account">
+                                            <i class="fa fa-ban" aria-hidden="true"></i></button>
+                                    </form>
+                                </div>
+                                <div class="col">
+                                    <form action="${contextPath}/account/delete" method="post">
+                                        <input type="hidden" value="${account.id}" name="id">
+                                        <button type="submit" class="btn btn-primary btn-sm" title="Delete Account">
+                                            <i class="fa fa-trash" aria-hidden="true"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </c:if>
 </div>
 
 <script src="${contextPath}/js/jquery-3.2.1.min.js"></script>

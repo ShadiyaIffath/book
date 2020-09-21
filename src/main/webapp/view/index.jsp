@@ -105,7 +105,7 @@
 <!-- Search -->
 <div class="container" style="margin-top: 2%;">
     <form method="get" action="${contextPath}/search">
-        <div class="row" style="margin-left:25%;">
+        <div class="row" style="margin-left:33%;">
             <div class="col form-group">
                 <div class="input-group">
                     <div class="input-group addon input-group-text" style="background-color: #89c9b8;">

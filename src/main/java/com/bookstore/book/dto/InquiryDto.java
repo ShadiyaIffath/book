@@ -9,11 +9,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateInquiryDto {
-
+public class InquiryDto {
+    private int id;
     private String name;
     private String email;
     private int phone;
     private String question;
-    private boolean responded = false;
+    private boolean responded;
 }
