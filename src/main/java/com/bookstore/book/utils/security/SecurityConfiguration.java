@@ -1,5 +1,6 @@
 package com.bookstore.book.utils.security;
 
+import com.bookstore.book.utils.enums.Role;
 import com.bookstore.book.utils.security.jwt.AuthEntryPointJwt;
 import com.bookstore.book.utils.security.jwt.AuthTokenFilter;
 import com.bookstore.book.utils.security.payload.UserDetailsServiceImpl;
@@ -15,6 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 
 @Configuration
@@ -52,10 +54,25 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-                .authorizeRequests().antMatchers(
-                "/register**", "/**", "**/error**", "/books**", "/resources**", "/login").permitAll()
-                .anyRequest().authenticated();
-        //sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .authorizeRequests()
+                .antMatchers("/register", "**/error**", "/resources**", "/login", "/search**","/contact" ,"/**").permitAll()
+                .antMatchers("/myReservations","/profile","/inbox**").hasAnyAuthority(Role.RXS.getRole(), Role.RXA.getRole())
+                .antMatchers("/accounts**","/inquiry**","/books**","/reservations**").hasAnyAuthority(Role.RXA.getRole())
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .usernameParameter("email")
+                .passwordParameter("password")
+                .defaultSuccessUrl("/")
+                .permitAll()
+                .and()
+                .logout()
+                .invalidateHttpSession(true)
+                .clearAuthentication(true)
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/login?logout")
+                .permitAll();
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
