@@ -89,12 +89,12 @@ public class ReservationsController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ModelAndView editReservation(@PathVariable("id") int id, @RequestParam("personal") boolean personal, ReservationDto reservationDto, HttpServletRequest request){
+    public ModelAndView editReservation(@PathVariable("id") int id, @RequestParam("personal") boolean personal, ReservationDto reservationDto){
         ModelAndView model = new ModelAndView();
         Date reservedDate = DateUtil.getDateFromString(reservationDto.getDateReserved());
         reservedDate = DateUtil.addDays(reservedDate,7);
         reservationDto.setDateExpected(sdf.format(reservedDate));
-        boolean updateSuccessful = reservationService.updateReservation(reservationDto,request);
+        boolean updateSuccessful = reservationService.updateReservation(reservationDto);
         if(updateSuccessful){
             model.setViewName("redirect:../../reservations");
         }else {
@@ -119,12 +119,13 @@ public class ReservationsController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ModelAndView editPersonalReservation(@PathVariable("id") int id, @RequestParam("personal") boolean personal, ReservationDto reservationDto, HttpServletRequest request){
+    public ModelAndView editPersonalReservation(@PathVariable("id") int id, @RequestParam("personal") boolean personal, ReservationDto reservationDto){
         ModelAndView model = new ModelAndView();
         Date reservedDate = DateUtil.getDateFromString(reservationDto.getDateReserved());
         reservedDate = DateUtil.addDays(reservedDate,7);
         reservationDto.setDateExpected(sdf.format(reservedDate));
-        boolean updateSuccessful = reservationService.updateReservation(reservationDto,request);
+        reservationDto.setId(id);
+        boolean updateSuccessful = reservationService.updateReservation(reservationDto);
         if(updateSuccessful){
             model.setViewName("redirect:../../myReservations");
         }else {

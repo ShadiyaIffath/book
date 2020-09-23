@@ -73,12 +73,11 @@ public class AccountService {
     }
 
     public List<AccountDto> getAllAccounts() {
-        List<AccountDto> accounts = accountRepository.findAll()
+        return accountRepository.findAll()
                 .stream().map(x -> {
                     return modelMapper.map(x, AccountDto.class);
                 })
                 .collect(Collectors.toList());
-        return accounts;
     }
 
     public boolean verifyAccount(String email){
@@ -87,6 +86,8 @@ public class AccountService {
             valid = true;
         return valid;
     }
+
+    public Account findAccountById(int id){return accountRepository.findById(id);}
 
     public void deleteAccountById(int id){ accountRepository.deleteById(id);}
 

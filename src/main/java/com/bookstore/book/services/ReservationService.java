@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Base64;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,6 +35,9 @@ public class ReservationService {
     @Autowired
     private AccountService accountService;
 
+    @Autowired
+    private MessageService messageService;
+
     private static final Logger logger = LoggerFactory.getLogger(ReservationService.class);
 
     public boolean createReservation(CreateReservationDto reservationDto, int id) {
@@ -42,7 +46,9 @@ public class ReservationService {
         if (reservationRepository.checkAvailability("Created", reservation.getDateReserved(), reservation.getDateExpected(), id).size() == 0) {
             reservation.setBook(bookRepository.findById(id));
             reservation.setAccount(accountService.findLoggedInAccount());
-            reservationRepository.save(reservation);
+            reservation = reservationRepository.save(reservation);
+            messageService.reservationCreated(reservation.getAccount(),"Reservation Created", reservation);
+            messageService.reservationCreated(accountService.findAccountById(1),"Reservation Created", reservation);
             valid = true;
         }
         return valid;
@@ -59,6 +65,9 @@ public class ReservationService {
     }
 
     public void removeReservation(int id) {
+        Reservation reservation = reservationRepository.findById(id);
+        messageService.reservationDeleted(reservation.getAccount(), "Reservation Deleted", reservation);
+        messageService.reservationCreated(accountService.findAccountById(1),"Reservation Deleted", reservation);
         reservationRepository.deleteById(id);
     }
 
@@ -71,20 +80,24 @@ public class ReservationService {
         return getReservationDto(x, reservationDto);
     }
 
-    public boolean updateReservation(ReservationDto dto, HttpServletRequest request) {
+    public boolean updateReservation(ReservationDto dto) {
         boolean successful = false;
         try {
-            Reservation reservation = convertDtoToEntity(dto, request);
+            Reservation reservation = convertDtoToEntity(dto);
             if (dto.getStatus().equals("Created")) {
-                if (reservationRepository.checkReservationAvailability("Created", reservation.getDateReserved(), reservation.getDateExpected(), reservation.getBook().getId(), reservation.getId()).size() == 0) {
+                Collection<Reservation> reservationCollection = reservationRepository.checkReservationAvailability("Created", reservation.getDateReserved(), reservation.getDateExpected(), reservation.getBook().getId(), reservation.getId());
+                if (reservationCollection == null || reservationCollection.size() == 0) {
                     reservationRepository.save(reservation);
+                    messageService.reservationUpdated(reservation.getAccount(),"Reservation Updated", reservation);
                     successful = true;
                 }
             } else if (dto.getStatus().equals("Completed")) {
                 reservation.setDateReturned(DateUtil.getDateFromString(dto.getDateReturned()));
+                messageService.reservationUpdated(reservation.getAccount(),"Reservation Updated", reservation);
                 reservationRepository.save(reservation);
                 successful = true;
             } else {
+                messageService.reservationUpdated(reservation.getAccount(),"Reservation Updated", reservation);
                 reservationRepository.save(reservation);
                 successful = true;
             }
@@ -103,13 +116,12 @@ public class ReservationService {
     }
 
     public List<ReservationDto> getAccountReservations(){
-        List<ReservationDto> reservations = reservationRepository.findByAccount_Email(accountService.findLoggedInAccountEmail())
+        return reservationRepository.findByAccount_Email(accountService.findLoggedInAccountEmail())
                 .stream().map(x -> {
                     ReservationDto reservationDto = modelMapper.map(x, ReservationDto.class);
                     return getReservationDto(x, reservationDto);
                 })
                 .collect(Collectors.toList());
-        return reservations;
     }
 
     @Transactional
@@ -138,7 +150,7 @@ public class ReservationService {
         return reservationDto;
     }
 
-    private Reservation convertDtoToEntity(ReservationDto dto, HttpServletRequest request) throws Exception {
+    private Reservation convertDtoToEntity(ReservationDto dto){
         Reservation reservation = reservationRepository.findById(dto.getId());
         reservation.setDateCreated(DateUtil.getDateFromString(dto.getDateCreated()));
         reservation.setDateReserved(DateUtil.getDateFromString(dto.getDateReserved()));

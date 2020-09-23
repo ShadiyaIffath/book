@@ -63,7 +63,7 @@
                         <div class="alert alert-success">You have successfully registered!</div>
                     </c:if>
                     <c:if test="${unauthorized}">
-                        <div class="alert alert-warning">You have to be login to access this content!</div>
+                        <div class="alert alert-warning">You have to login to access this content!</div>
                     </c:if>
 
                     <div class="form-group">

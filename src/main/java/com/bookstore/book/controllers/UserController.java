@@ -6,6 +6,7 @@ import com.bookstore.book.dto.CreateInquiryDto;
 import com.bookstore.book.services.AccountService;
 import com.bookstore.book.services.AuthService;
 import com.bookstore.book.services.InquiryService;
+import com.bookstore.book.services.MessageService;
 import com.bookstore.book.utils.security.requests.AuthRequest;
 import com.bookstore.book.utils.security.responses.JwtResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,9 @@ public class UserController {
 
     @Autowired
     private InquiryService inquiryService;
+
+    @Autowired
+    private MessageService messageService;
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ModelAndView register(CreateAccountDto createAccountDto, RedirectAttributes redirectAttributes) {
@@ -83,4 +87,25 @@ public class UserController {
         return new ModelAndView("redirect:/");
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    @RequestMapping(value="/inbox", method = RequestMethod.POST)
+    public ModelAndView deleteMessage(@RequestParam("id") int id){
+        ModelAndView model = new ModelAndView("redirect:/inbox");
+        messageService.deleteMessage(id);
+        return model;
+    }
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    @RequestMapping(value="/inbox/{id}", method = RequestMethod.GET)
+    public void readMessage(@PathVariable int id){
+        System.out.println("read");
+        messageService.markMessageAsRead(id);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    @RequestMapping(value="/inbox/readAll", method = RequestMethod.GET)
+    public ModelAndView readAllMessages(){
+        ModelAndView model = new ModelAndView("redirect:../inbox");
+        messageService.markAllAsRead();
+        return model;
+    }
 }

@@ -4,10 +4,7 @@ import com.bookstore.book.dto.BookDto;
 import com.bookstore.book.dto.CreateAccountDto;
 import com.bookstore.book.dto.CreateInquiryDto;
 import com.bookstore.book.entities.Inquiry;
-import com.bookstore.book.services.AccountService;
-import com.bookstore.book.services.BookService;
-import com.bookstore.book.services.InquiryService;
-import com.bookstore.book.services.ReservationService;
+import com.bookstore.book.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -34,6 +31,9 @@ public class MainController {
 
     @Autowired
     private InquiryService inquiryService;
+
+    @Autowired
+    private MessageService messageService;
 
 
     private String[] colors = {"c3aed6","f3e6e3","dbe3e5","d3c09a","fabea7","fbe2e5","9cada4","cff6cf","faf0af"};
@@ -129,6 +129,14 @@ public class MainController {
     public String showInquiries(Model model){
         model.addAttribute("inquiries", inquiryService.getAllInquiries());
         return "inquiries";
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    @RequestMapping(value="/inbox", method= RequestMethod.GET)
+    public String showNotifications(Model model){
+        model.addAttribute("unreadCount", messageService.getUnreadCount());
+        model.addAttribute("notifications", messageService.getMessages());
+        return "notifications";
     }
 
 }

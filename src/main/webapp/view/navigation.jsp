@@ -46,6 +46,7 @@
                     <c:when test="${isAuthenticated}">
                         <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary" href="${contextPath}/myReservations">My Reservations</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger text-ternary" href="${contextPath}/profile">Profile</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="${contextPath}/inbox"><i class="fa fa-bell fa-1x"></i></a></li>
                         <li class="nav-item"><b><a class="nav-link js-scroll-trigger text-primary"
                                                    href="${contextPath}/logout">Logout</a></b></li>
                         <sec:authorize access="hasRole('ROLE_USER')">

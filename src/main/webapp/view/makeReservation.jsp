@@ -163,10 +163,11 @@
                                                     </select>
                                                 </sec:authorize>
                                                 <sec:authorize access="hasRole('ROLE_USER')">
-                                                    <input type="text" class="form-control"
-                                                           name="status"
-                                                           style="background-color: #aacfcf;"
-                                                           value="${resForm.status}" autocomplete="off" disabled>
+                                                    <input type="hidden" name="status" value="${resForm.status}">
+                                                    <select class="form-control" name="status"
+                                                            style="background-color: #aacfcf;" disabled>
+                                                        <option value="${resForm.status}" selected>${resForm.status}</option>
+                                                    </select>
                                                 </sec:authorize>
                                             </div>
                                         </div>
