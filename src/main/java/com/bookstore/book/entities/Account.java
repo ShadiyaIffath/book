@@ -44,4 +44,7 @@ public class Account {
 
     @OneToMany( mappedBy = "account",cascade = CascadeType.ALL)
     private List<Message> messages;
+
+    @OneToMany( mappedBy = "account",cascade = CascadeType.ALL)
+    private List<Review> reviews;
 }

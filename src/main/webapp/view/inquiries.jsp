@@ -110,7 +110,6 @@
         </div>
     </div>
 </div>
-
 <script src="${contextPath}/js/jquery-3.2.1.min.js"></script>
 <script src="${contextPath}/styles/bootstrap-4.1.3/popper.js"></script>
 <script src="${contextPath}/styles/bootstrap-4.1.3/bootstrap.min.js"></script>

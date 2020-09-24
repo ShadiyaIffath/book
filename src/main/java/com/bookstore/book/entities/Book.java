@@ -44,6 +44,9 @@ public class Book {
     @JoinColumn(name = "genre_id")
     private Genre genre;
 
+    @OneToMany( mappedBy = "book",cascade = CascadeType.ALL)
+    private List<Review> reviews;
+
     @Lob
     @Type(type="org.hibernate.type.ImageType")
     private byte[] image;

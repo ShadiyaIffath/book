@@ -141,7 +141,7 @@
         <div class="container">
             <div class="products_container grid">
                 <c:if test="${empty books}">
-                    <h2 class="text-center text-primary">SORRY! THERE ARE NO BOOKS AVAILABLE</h2>
+                    <h2 class="text-center" style="color: #f69e7b;">SORRY! THERE ARE NO BOOKS AVAILABLE</h2>
                 </c:if>
                 <div class="row">
                     <c:forEach var="book" items="${books}">
@@ -160,7 +160,7 @@
                                         </div>
                                         <div class="product_price" style="font-size: 20px;">${book.author}</div>
                                         <div class="product_button ml-auto mr-auto trans_200"><a
-                                                href="${contextPath}/reservation/create/${book.id}">Reserve</a></div>
+                                                href="${contextPath}/books/${book.title}?id=${book.id}">View</a></div>
                                     </div>
                                 </div>
                             </div>

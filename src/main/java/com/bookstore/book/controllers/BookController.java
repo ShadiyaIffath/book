@@ -2,7 +2,10 @@ package com.bookstore.book.controllers;
 
 import com.bookstore.book.dto.BookDto;
 import com.bookstore.book.dto.CreateBookDto;
+import com.bookstore.book.dto.CreateReviewDto;
+import com.bookstore.book.entities.Book;
 import com.bookstore.book.services.BookService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -90,5 +93,31 @@ public class BookController {
            model.setViewName("book");
        }
         return model;
+    }
+
+    @RequestMapping(value="/{title}", method = RequestMethod.GET)
+    public ModelAndView bookDetail(@PathVariable("title") String title, @RequestParam(value = "id") int id){
+        ModelAndView model = new ModelAndView("bookDetail");
+        model.addObject("book", service.findBookById(id));
+        model.addObject("reviews", service.getAllReviews(id));
+        return model;
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    @RequestMapping(value="/review", method = RequestMethod.POST)
+    public ModelAndView makeReview(CreateReviewDto createReviewDto){
+        ModelAndView modelAndView = new ModelAndView();
+        Book book = service.createReview(createReviewDto);
+        modelAndView.setViewName("redirect:"+book.getTitle()+"?id="+book.getId());
+        return modelAndView;
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @RequestMapping(value="/review/{id}", method = RequestMethod.POST)
+    public ModelAndView deleteReview(@PathVariable int id){
+        ModelAndView modelAndView = new ModelAndView();
+        Book book = service.deleteReview(id);
+        modelAndView.setViewName("redirect:../"+book.getTitle()+"?id="+book.getId());
+        return modelAndView;
     }
 }

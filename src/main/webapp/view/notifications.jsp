@@ -38,46 +38,47 @@
                 <div class="row">
                     <div class="col" style="border-right: 5px solid #dee2e6; overflow-y: scroll; height: 400px;">
                         <c:forEach var="msg" items="${notifications}">
-                        <div class="toast mb-3" role="alert" aria-live="assertive" aria-atomic="true"
-                             style="background-color: #f7f2e7; padding: 2%; border: 3px #a6aa9c solid;">
-                        <div class="toast-header">
-                            <strong class="mr-auto">${msg.title}</strong>
-                            <c:if test="${msg.unread == true}"><span class="pull-right" style="height: 15px; width: 15px; background-color: #776d8a; border-radius: 50%; display: inline-block;"></span></c:if><br>
-                            <small class="text-muted">${msg.dateCreated}</small>
-                        </div>
-                        <div class="toast-body">
-                            <div class="row">
-                                <div class="col">
-                                    <form action="${contextPath}/inbox" method="post">
-                                        <input type="hidden" value="${msg.id}" name="id">
-                                        <button type="submit" class="btn btn-primary pull-left"
-                                                title="Remove reservation">
-                                            <i class="fa fa-trash" aria-hidden="true"></i></button>
-                                    </form>
+                            <div class="toast mb-3" role="alert" aria-live="assertive" aria-atomic="true"
+                                 style="background-color: #f7f2e7; padding: 2%; border: 3px #a6aa9c solid;">
+                                <div class="toast-header">
+                                    <strong class="mr-auto">${msg.title}</strong>
+                                    <c:if test="${msg.unread == true}"><span class="pull-right"
+                                                                             style="height: 15px; width: 15px; background-color: #776d8a; border-radius: 50%; display: inline-block;"></span></c:if><br>
+                                    <small class="text-muted">${msg.dateCreated}</small>
                                 </div>
-                                <div class="col">
-                                    <button class="viewMessage btn-sm btn-primary pull-right" title="View"
-                                            type="button"
-                                            data-toggle="modal" msg-id="${msg.id}"
-                                            data-target="#exampleModalCenter" data-id="${msg.message}">View
-                                    </button>
+                                <div class="toast-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <form action="${contextPath}/inbox" method="post">
+                                                <input type="hidden" value="${msg.id}" name="id">
+                                                <button type="submit" class="btn btn-primary pull-left"
+                                                        title="Remove reservation">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i></button>
+                                            </form>
+                                        </div>
+                                        <div class="col">
+                                            <button class="viewMessage btn-sm btn-primary pull-right" title="View"
+                                                    type="button"
+                                                    data-toggle="modal" msg-id="${msg.id}"
+                                                    data-target="#exampleModalCenter" data-id="${msg.message}">View
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </c:forEach>
                     </div>
-                    </c:forEach>
-                </div>
-                <div class="col">
-                    <div class="container text-center" style="padding-top: 25%;">
-                        <img src="${contextPath}/images/bell.png" alt="" style="width:35%; height:25%;"/>
-                        <h2 class="text-white" style="font-family: Lucida Handwriting;">Your messages</h2>
-                        <h3>You have ${unreadCount} unread notifications</h3>
+                    <div class="col">
+                        <div class="container text-center" style="padding-top: 25%;">
+                            <img src="${contextPath}/images/bell.png" alt="" style="width:35%; height:25%;"/>
+                            <h2 class="text-white" style="font-family: Lucida Handwriting;">Your messages</h2>
+                            <h3>You have ${unreadCount} unread notifications</h3>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 
 <!-- Modal -->
@@ -92,7 +93,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <textarea class="form-control" type="text" name="message" id="message" style="height: 150px;" spellcheck="false"
+                <textarea class="form-control" type="text" name="message" id="message" style="height: 150px;"
+                          spellcheck="false"
                           disabled></textarea>
             </div>
             <div class="modal-footer">
@@ -115,17 +117,17 @@
 <script src="plugins/Isotope/isotope.pkgd.min.js"></script>
 <script src="plugins/Isotope/fitcolumns.js"></script>
 <script src="js/custom.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script>
     $(".viewMessage").click(function () {
         var messageBody = $(this).attr('data-id');
         var msgId = $(this).attr('msg-id');
         $("#message").val(messageBody);
         $.ajax({
-            url : 'inbox/'+msgId,
-            method : 'GET',
-            async : false,
-            complete : function(data) {
+            url: 'inbox/' + msgId,
+            method: 'GET',
+            async: false,
+            complete: function (data) {
                 console.log(data.responseText);
             }
         });

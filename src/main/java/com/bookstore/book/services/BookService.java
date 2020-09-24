@@ -1,12 +1,12 @@
 package com.bookstore.book.services;
 
-import com.bookstore.book.dto.BookDto;
-import com.bookstore.book.dto.CreateBookDto;
-import com.bookstore.book.dto.GenreDto;
+import com.bookstore.book.dto.*;
 import com.bookstore.book.entities.Book;
 import com.bookstore.book.entities.Genre;
+import com.bookstore.book.entities.Review;
 import com.bookstore.book.repositories.BookRepository;
 import com.bookstore.book.repositories.GenreRepository;
+import com.bookstore.book.repositories.ReviewRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +28,12 @@ public class BookService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private ReviewRepository reviewRepository;
+
+    @Autowired
+    private AccountService accountService;
+
     private List<GenreDto> genreDtos = new ArrayList<>();
     private List<BookDto> bookDtos = new ArrayList<>();
 
@@ -46,7 +52,7 @@ public class BookService {
         if (book != null) {
             if (id == -1) {
                 valid = true;
-            } else if(book.getId() != id){
+            } else if (book.getId() != id) {
                 valid = true;
             }
         }
@@ -78,20 +84,20 @@ public class BookService {
         return books;
     }
 
-    public List<BookDto> searchFilter(String search){
+    public List<BookDto> searchFilter(String search) {
         List<BookDto> books = new ArrayList<>();
-        for (BookDto b:bookDtos) {
-            if(search.equalsIgnoreCase(b.getAuthor()) || search.equalsIgnoreCase(b.getTitle()) || search.equalsIgnoreCase(b.getISBN())){
+        for (BookDto b : bookDtos) {
+            if (search.equalsIgnoreCase(b.getAuthor()) || search.equalsIgnoreCase(b.getTitle()) || search.equalsIgnoreCase(b.getISBN())) {
                 books.add(b);
             }
         }
         return books;
     }
 
-    public List<BookDto> genreFilter(String genre){
+    public List<BookDto> genreFilter(String genre) {
         List<BookDto> books = new ArrayList<>();
-        for (BookDto b:bookDtos) {
-            if(genre.equalsIgnoreCase(b.getGenreDto().getGenre())){
+        for (BookDto b : bookDtos) {
+            if (genre.equalsIgnoreCase(b.getGenreDto().getGenre())) {
                 books.add(b);
             }
         }
@@ -102,21 +108,11 @@ public class BookService {
         bookRepository.deleteById(id);
     }
 
-    private GenreDto findGenreDto(int id) {
-        GenreDto genreDto = null;
-        for (GenreDto g : genreDtos) {
-            if (g.getId() == id) {
-                genreDto = g;
-            }
-        }
-        return genreDto;
-    }
-
     public BookDto findBookById(int id) {
         Book book = bookRepository.findById(id);
         BookDto dto = modelMapper.map(book, BookDto.class);
         dto.setImageString(Base64.getEncoder().encodeToString(dto.getImage()));
-        dto.setGenreDto(findGenreDto(book.getGenre().getId()));
+        dto.setGenreDto(modelMapper.map(book.getGenre(), GenreDto.class));
         dto.setGenreId(book.getGenre().getId());
         return dto;
     }
@@ -131,5 +127,30 @@ public class BookService {
         book.setSummary(dto.getSummary());
         book.setValue(dto.getValue());
         bookRepository.save(book);
+    }
+
+    public Book createReview(CreateReviewDto dto) {
+        Review review = modelMapper.map(dto, Review.class);
+        Book book = bookRepository.findById(dto.getBookId());
+        review.setBook(book);
+        review.setAccount(accountService.findLoggedInAccount());
+        reviewRepository.save(review);
+        return book;
+    }
+
+    public List<ReviewDto> getAllReviews(int id) {
+        return reviewRepository.findAllByBook_Id(id).stream()
+                .map(x -> {
+                    ReviewDto r = modelMapper.map(x, ReviewDto.class);
+                    r.setAccountDto(modelMapper.map(x.getAccount(),AccountDto.class));
+                    return r;
+                })
+                .collect(Collectors.toList());
+    }
+
+    public Book deleteReview(int id){
+        Review review = reviewRepository.findById(id).get();
+        reviewRepository.delete(review);
+        return review.getBook();
     }
 }
