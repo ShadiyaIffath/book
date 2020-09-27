@@ -66,8 +66,7 @@ public class UserController {
             model.addObject("error", true);
             model.setViewName("login");
         } else {
-            JwtResponse response = authService.loginWebPortal(authRequest);
-            httpServletResponse.addHeader("Authorization",response.getToken());
+            authService.loginWebPortal(authRequest);
             model.setViewName("redirect:/");
         }
         return model;

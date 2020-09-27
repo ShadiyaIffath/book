@@ -46,7 +46,8 @@ public class InquiryService {
 
     public void sendResponseEmail(int id, String response){
         Inquiry inquiry = inquiryRepository.findInquiriesById(id);
-        mailService.sendMail("Response to your inquiry",inquiry.getEmail(), response);
+        String inquiryResponse = "Your Question: "+inquiry.getQuestion()+"\n"+"Our response: "+ response;
+        mailService.sendMail("Response to your inquiry",inquiry.getEmail(), inquiryResponse);
         inquiry.setResponded(true);
         inquiryRepository.save(inquiry);
     }

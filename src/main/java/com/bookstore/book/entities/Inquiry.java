@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class Inquiry {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(length = 50, nullable=false)

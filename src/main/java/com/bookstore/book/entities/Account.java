@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Account {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(length = 50, nullable=false)
@@ -47,4 +47,14 @@ public class Account {
 
     @OneToMany( mappedBy = "account",cascade = CascadeType.ALL)
     private List<Review> reviews;
+
+    public Account(String firstName,String lastName,String email, Integer phone,String password, String type, Boolean active) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
+        this.password = password;
+        this.type = type;
+        this.active = active;
+    }
 }

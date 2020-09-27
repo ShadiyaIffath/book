@@ -15,19 +15,15 @@ import java.util.Date;
 @AllArgsConstructor
 public class Reservation {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    //The day the book will be collected by the user
     private Date dateReserved;
 
-    //The day the reservation is made
     private Date dateCreated;
 
-    //The day the book is returned
     private Date dateReturned;
 
-    //The day the book is expected
     private Date dateExpected;
 
     @Column(length = 15, nullable = false)
