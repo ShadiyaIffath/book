@@ -67,7 +67,7 @@ public class MessageService {
 
     public List<MessageDto> getMessages() {
         String email = accountService.findLoggedInAccountEmail();
-        return repository.findByAccount_Email(email).stream().map(x -> modelMapper.map(x, MessageDto.class)).collect(Collectors.toList());
+        return repository.findByAccount_EmailOrderByIdDesc(email).stream().map(x -> modelMapper.map(x, MessageDto.class)).collect(Collectors.toList());
     }
 
     @Transactional

@@ -46,9 +46,13 @@ public class InquiryService {
 
     public void sendResponseEmail(int id, String response){
         Inquiry inquiry = inquiryRepository.findInquiriesById(id);
-        String inquiryResponse = "Your Question: "+inquiry.getQuestion()+"\n"+"Our response: "+ response;
-        mailService.sendMail("Response to your inquiry",inquiry.getEmail(), inquiryResponse);
-        inquiry.setResponded(true);
-        inquiryRepository.save(inquiry);
+        if(inquiry != null) {
+            String inquiryResponse = "Your Question: " + inquiry.getQuestion() + "\n" + "Our response: " + response;
+            mailService.sendMail("Response to your inquiry", inquiry.getEmail(), inquiryResponse);
+            inquiry.setResponded(true);
+            inquiryRepository.save(inquiry);
+        }else{
+            logger.info("Inquiry with id "+ id+" didn't exist. No response mail was sent.");
+        }
     }
 }

@@ -116,7 +116,7 @@ public class ReservationService {
     }
 
     public List<ReservationDto> getAccountReservations(){
-        return reservationRepository.findByAccount_Email(accountService.findLoggedInAccountEmail())
+        return reservationRepository.findByAccount_EmailOrderByIdDesc(accountService.findLoggedInAccountEmail())
                 .stream().map(x -> {
                     ReservationDto reservationDto = modelMapper.map(x, ReservationDto.class);
                     return getReservationDto(x, reservationDto);

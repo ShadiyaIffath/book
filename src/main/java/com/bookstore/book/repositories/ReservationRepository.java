@@ -23,7 +23,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
     @Query(value= "SELECT r.book from Reservation r where r.id = ?1")
     Book getBookOfReservation(int id);
 
-    Collection<Reservation> findByAccount_Email(String email);
+    Collection<Reservation> findByAccount_EmailOrderByIdDesc(String email);
 
     @Modifying
     @Query(value = "UPDATE Reservation SET status = ?2 where id = ?1")

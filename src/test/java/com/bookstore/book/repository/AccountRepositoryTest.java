@@ -16,22 +16,19 @@ import static org.junit.Assert.assertNull;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class AccountRepositoryTest {
-
     @Autowired
     private TestEntityManager entityManager;
-
     @Autowired
     private AccountRepository accountRepository;
 
     @Test
     public void whenFindByEmail_ThenReturnAccount(){
         //when
-        Account account = new Account("Ela","Bridge","elabridge@gmail.com",011111111,"1234","ROLE",true);
+        Account account = new Account("Ela","Bridge","elabridge@gmail.com",
+                011111111,"1234","ROLE",true);
        entityManager.persistAndFlush(account);
-
         //given
         Account found = accountRepository.findByEmail(account.getEmail());
-
         //then
         assert(found.getId()).equals(account.getId());
     }
@@ -47,12 +44,11 @@ public class AccountRepositoryTest {
     @Test
     public void whenBanAccountById_ThenReturnNull(){
         //when
-        Account account = new Account("Ela","Bridge","elabridge@gmail.com",011111111,"1234","ROLE",true);
+        Account account = new Account("Ela","Bridge",
+                "elabridge@gmail.com",011111111,"1234","ROLE",true);
         entityManager.persistAndFlush(account);
-
         //given
         accountRepository.banAccountById(account.getId(),true);
-
         //then
         assert(account.getActive().equals(true));
     }

@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Collection;
 
 public interface MessageRepository extends JpaRepository<Message, Integer> {
-    Collection<Message> findByAccount_Email(String email);
+    Collection<Message> findByAccount_EmailOrderByIdDesc(String email);
 
     @Modifying
     @Query(value = "UPDATE Message SET unread = false where id = ?1")
