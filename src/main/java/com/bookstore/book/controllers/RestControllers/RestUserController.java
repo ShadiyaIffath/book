@@ -1,6 +1,7 @@
 package com.bookstore.book.controllers.RestControllers;
 
 import com.bookstore.book.dto.CreateAccountDto;
+import com.bookstore.book.entities.Account;
 import com.bookstore.book.services.AccountService;
 import com.bookstore.book.services.AuthService;
 import com.bookstore.book.utils.security.requests.AuthRequest;
@@ -26,12 +27,17 @@ public class RestUserController {
 
     @PostMapping("/signUp")
     public ResponseEntity Register(@RequestBody CreateAccountDto accountDto){
-        boolean valid = service.isEmailInUse(accountDto.getEmail());
-        if(!valid){
-            return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body("RZE1");
-        }else{
-            return ResponseEntity.ok(service.saveAccount(accountDto));
+        try {
+            boolean valid = service.isEmailInUse(accountDto.getEmail());
+            if (valid) {
+                return ResponseEntity.status(HttpStatus.CONFLICT)
+                        .body("RZAU001");
+            } else {
+                Account account = service.saveAccount(accountDto);
+                return authService.authorizeNewUser(account, accountDto.getPassword());
+            }
+        }catch(Exception ex){
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("Server encountered an error");
         }
     }
 

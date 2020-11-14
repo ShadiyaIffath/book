@@ -16,6 +16,7 @@ public class BookDto {
     private String author;
     private double value;
     private String summary;
+    private String imageUrl;
     private boolean available;
     private GenreDto genreDto;
     private int genreId;

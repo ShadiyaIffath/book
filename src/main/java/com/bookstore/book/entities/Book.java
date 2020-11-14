@@ -40,6 +40,9 @@ public class Book {
     @Column(length = 25, nullable = false)
     private String author;
 
+    @Column
+    private String imageUrl;
+
     @ManyToOne()
     @JoinColumn(name = "genre_id")
     private Genre genre;

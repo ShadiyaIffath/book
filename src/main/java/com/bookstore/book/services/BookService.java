@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,6 +59,7 @@ public class BookService {
         }
         return valid;
     }
+    
 
     public void saveBook(CreateBookDto createBookDto) {
         Book book = modelMapper.map(createBookDto, Book.class);
@@ -152,5 +154,16 @@ public class BookService {
         Review review = reviewRepository.findById(id).get();
         reviewRepository.delete(review);
         return review.getBook();
+    }
+
+    public List<BookDto> getNewestBooks(){
+        return bookRepository.findTop4ByOrderByIdDesc()
+                .stream().map(x -> {
+                    BookDto bookDto = modelMapper.map(x, BookDto.class);
+                    bookDto.setImageString(Base64.getEncoder().encodeToString(x.getImage()));
+                    bookDto.setGenreDto(modelMapper.map(x, GenreDto.class));
+                    return bookDto;
+                })
+                .collect(Collectors.toList());
     }
 }

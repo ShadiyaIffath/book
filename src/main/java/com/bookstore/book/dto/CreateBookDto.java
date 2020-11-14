@@ -19,6 +19,7 @@ public class CreateBookDto {
     private double value;
     private boolean available = true;
     private String summary;
+    private String imageUrl;
     private MultipartFile image;
     private int genreId;
     private String imageString;

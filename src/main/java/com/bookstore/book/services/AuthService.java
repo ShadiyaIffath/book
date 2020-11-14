@@ -39,11 +39,25 @@ public class AuthService {
         Account account = accountRepository.findByEmail(authRequest.getEmail());
         if (account == null || !passwordEncoder.matches(authRequest.getPassword(), account.getPassword())) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body("Email or password incorrect");
+                    .body("RZAU000");
         }
 
+        return getResponseEntity(account, authRequest.getEmail(), authRequest.getPassword());
+    }
+
+    public void loginWebPortal(AuthRequest authRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+    }
+
+    public ResponseEntity authorizeNewUser(Account account, String password){
+            return getResponseEntity(account, account.getEmail(), password);
+    }
+
+    private ResponseEntity getResponseEntity(Account account, String email, String password) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(email, password));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken((authentication));
@@ -59,12 +73,6 @@ public class AuthService {
                 account.getFirstName(),
                 account.getLastName(),
                 roles, account.getPhone()));
-    }
-
-    public void loginWebPortal(AuthRequest authRequest) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
     public boolean validateCredentials(AuthRequest authRequest) {
