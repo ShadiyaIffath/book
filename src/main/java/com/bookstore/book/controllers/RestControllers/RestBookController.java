@@ -1,7 +1,6 @@
 package com.bookstore.book.controllers.RestControllers;
 
-import com.bookstore.book.dto.BookDto;
-import com.bookstore.book.dto.CreateBookDto;
+import com.bookstore.book.dto.*;
 import com.bookstore.book.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +22,7 @@ public class RestBookController {
     }
 
     @GetMapping("newest-books")
-    public List<BookDto> GetNewestBooks(){
+    public List<BookDtoForAndroid> GetNewestBooks(){
         return bookService.getNewestBooks();
     }
 
@@ -38,5 +37,22 @@ public class RestBookController {
         catch(Exception ex){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("RZN001");
         }
+    }
+
+    @GetMapping("book-reviews/{bookId}")
+    public List<ReviewDtoForAndroid> GetReviews(@PathVariable int bookId){
+        return bookService.getAllReviewsForAndroid(bookId);
+    }
+
+    @PostMapping("new-review")
+    public ReviewDtoForAndroid SaveReview(@RequestBody CreateReviewDto dto){
+        System.out.println(dto.getBookId()+" "+dto.getReview()+" "+dto.getDateCreated());
+        return bookService.saveReview(dto);
+    }
+
+    @PostMapping("delete-review/{reviewId}")
+    public ResponseEntity deleteReview(@PathVariable int reviewId){
+        bookService.deleteReview(reviewId);
+        return ResponseEntity.status(HttpStatus.OK).body("RZDR000");
     }
 }

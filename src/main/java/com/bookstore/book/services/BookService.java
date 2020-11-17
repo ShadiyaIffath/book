@@ -4,6 +4,7 @@ import com.bookstore.book.dto.*;
 import com.bookstore.book.entities.Book;
 import com.bookstore.book.entities.Genre;
 import com.bookstore.book.entities.Review;
+import com.bookstore.book.entities.Account;
 import com.bookstore.book.repositories.BookRepository;
 import com.bookstore.book.repositories.GenreRepository;
 import com.bookstore.book.repositories.ReviewRepository;
@@ -150,20 +151,44 @@ public class BookService {
                 .collect(Collectors.toList());
     }
 
+    public List<ReviewDtoForAndroid> getAllReviewsForAndroid(int id) {
+        return reviewRepository.findAllByBook_Id(id).stream()
+                .map(x -> {
+                    ReviewDtoForAndroid r = modelMapper.map(x, ReviewDtoForAndroid.class);
+                    r.setAccountDto(modelMapper.map(x.getAccount(),AccountDto.class));
+                    return r;
+                })
+                .collect(Collectors.toList());
+    }
+
     public Book deleteReview(int id){
         Review review = reviewRepository.findById(id).get();
         reviewRepository.delete(review);
         return review.getBook();
     }
 
-    public List<BookDto> getNewestBooks(){
+    public List<BookDtoForAndroid> getNewestBooks(){
         return bookRepository.findTop4ByOrderByIdDesc()
                 .stream().map(x -> {
-                    BookDto bookDto = modelMapper.map(x, BookDto.class);
-                    bookDto.setImageString(Base64.getEncoder().encodeToString(x.getImage()));
+                    BookDtoForAndroid bookDto = modelMapper.map(x, BookDtoForAndroid.class);
                     bookDto.setGenreDto(modelMapper.map(x, GenreDto.class));
                     return bookDto;
                 })
                 .collect(Collectors.toList());
+    }
+
+    public ReviewDtoForAndroid saveReview(CreateReviewDto dto){
+        Review review = new Review();
+        review.setDateCreated(dto.getDateCreated());
+        review.setRating(dto.getRating());
+        review.setReview(dto.getReview());
+        Account account = accountService.findAccountById(dto.getAccountId());
+        review.setAccount(account);
+        Book book = bookRepository.findById(dto.getBookId());
+        review.setBook(book);
+        review= reviewRepository.save(review);
+        ReviewDtoForAndroid reviewDto = modelMapper.map(review, ReviewDtoForAndroid.class);
+        reviewDto.setAccountDto(modelMapper.map(account, AccountDto.class));
+        return reviewDto;
     }
 }

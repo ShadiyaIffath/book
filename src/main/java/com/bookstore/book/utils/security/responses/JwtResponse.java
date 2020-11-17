@@ -8,14 +8,14 @@ import java.util.List;
 @Data
 public class JwtResponse {
     private String token;
-    private String type = "Bearer";
+    private String type;
     private String firstName,lastName;
     private int id;
     private String email;
     private int phone;
     private List<String> roles;
 
-    public JwtResponse(String token, int id, String email, String firstName, String lastName, List<String> roles, int phone) {
+    public JwtResponse(String token, int id, String email, String firstName, String lastName, List<String> roles, int phone, String type) {
         this.token = token;
         this.id = id;
         this.firstName = firstName;
@@ -23,6 +23,7 @@ public class JwtResponse {
         this.email = email;
         this.roles = roles;
         this.phone = phone;
+        this.type= type;
     }
 
     public String getToken() {

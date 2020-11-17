@@ -72,7 +72,7 @@ public class AuthService {
                 userDetails.getUsername(),
                 account.getFirstName(),
                 account.getLastName(),
-                roles, account.getPhone()));
+                roles, account.getPhone(), account.getType()));
     }
 
     public boolean validateCredentials(AuthRequest authRequest) {
