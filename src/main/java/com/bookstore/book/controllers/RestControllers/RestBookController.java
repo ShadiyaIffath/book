@@ -46,7 +46,6 @@ public class RestBookController {
 
     @PostMapping("new-review")
     public ReviewDtoForAndroid SaveReview(@RequestBody CreateReviewDto dto){
-        System.out.println(dto.getBookId()+" "+dto.getReview()+" "+dto.getDateCreated());
         return bookService.saveReview(dto);
     }
 

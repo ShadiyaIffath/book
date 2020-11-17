@@ -21,4 +21,8 @@ public class CreateReservationDto {
     private String dateExpected;
 
     private String status = "Created";
+
+    private int bookId;
+
+    private int accountId;
 }

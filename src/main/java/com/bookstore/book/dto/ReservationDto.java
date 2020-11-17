@@ -18,5 +18,4 @@ public class ReservationDto {
     private String dateExpected;
     private BookDto book;
     private AccountDto account;
-
 }

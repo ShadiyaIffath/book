@@ -1,8 +1,6 @@
 package com.bookstore.book.services;
 
-import com.bookstore.book.dto.BookDto;
-import com.bookstore.book.dto.CreateReservationDto;
-import com.bookstore.book.dto.ReservationDto;
+import com.bookstore.book.dto.*;
 import com.bookstore.book.entities.Book;
 import com.bookstore.book.entities.Reservation;
 import com.bookstore.book.repositories.BookRepository;
@@ -50,6 +48,30 @@ public class ReservationService {
             messageService.reservationCreated(reservation.getAccount(),"Reservation Created", reservation);
             messageService.reservationCreated(accountService.findAccountById(1),"Reservation Created", reservation);
             valid = true;
+        }
+        return valid;
+    }
+
+    public boolean newReservation(CreateReservationDto dto) {
+        boolean valid = false;
+        Reservation reservation = convertDto(dto);
+        if (reservationRepository.checkAvailability("Created", reservation.getDateReserved(), reservation.getDateExpected(), dto.getBookId()).size() == 0) {
+            reservation.setBook(bookRepository.findById(dto.getBookId()));
+            reservation.setAccount(accountService.findAccountById(dto.getAccountId()));
+            reservation = reservationRepository.save(reservation);
+            messageService.reservationCreated(reservation.getAccount(), "Reservation Created", reservation);
+            messageService.reservationCreated(accountService.findAccountById(1), "Reservation Created", reservation);
+            valid = true;
+        }
+        return valid;
+    }
+
+    public boolean validateAccountValidity(int id) {
+        boolean valid = true;
+        if (id != 1) {
+            if (reservationRepository.findByAccount_IdAndStatus(id, "Created").size() != 0) {
+                return false;
+            }
         }
         return valid;
     }
@@ -121,6 +143,12 @@ public class ReservationService {
                     ReservationDto reservationDto = modelMapper.map(x, ReservationDto.class);
                     return getReservationDto(x, reservationDto);
                 })
+                .collect(Collectors.toList());
+    }
+
+    public List<ReservationDtoForAndroid> getAccountReservationsForAndroid(int accountId){
+        return reservationRepository.findByAccount_IdOrderByIdDesc(accountId)
+                .stream().map(x -> modelMapper.map(x, ReservationDtoForAndroid.class))
                 .collect(Collectors.toList());
     }
 

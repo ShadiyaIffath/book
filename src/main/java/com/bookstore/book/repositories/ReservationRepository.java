@@ -23,6 +23,10 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
     @Query(value= "SELECT r.book from Reservation r where r.id = ?1")
     Book getBookOfReservation(int id);
 
+    Collection<Reservation> findByAccount_IdAndStatus(int accountId, String status);
+
+    Collection<Reservation> findByAccount_IdOrderByIdDesc(int accountId);
+
     Collection<Reservation> findByAccount_EmailOrderByIdDesc(String email);
 
     @Modifying
