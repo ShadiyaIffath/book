@@ -148,7 +148,12 @@ public class ReservationService {
 
     public List<ReservationDtoForAndroid> getAccountReservationsForAndroid(int accountId){
         return reservationRepository.findByAccount_IdOrderByIdDesc(accountId)
-                .stream().map(x -> modelMapper.map(x, ReservationDtoForAndroid.class))
+                .stream().map(x -> {
+                    ReservationDtoForAndroid dto= modelMapper.map(x, ReservationDtoForAndroid.class);
+                    dto.setAccountDto(modelMapper.map(x.getAccount(),AccountDto.class));
+                    dto.setBookDto(modelMapper.map(x.getBook(),BookDtoForAndroid.class));
+                    return dto;
+                })
                 .collect(Collectors.toList());
     }
 

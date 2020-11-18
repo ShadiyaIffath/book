@@ -1,9 +1,6 @@
 package com.bookstore.book.controllers.RestControllers;
 
-import com.bookstore.book.dto.CreateBookDto;
-import com.bookstore.book.dto.CreateReservationDto;
-import com.bookstore.book.dto.ReservationDtoForAndroid;
-import com.bookstore.book.dto.ReviewDtoForAndroid;
+import com.bookstore.book.dto.*;
 import com.bookstore.book.services.AccountService;
 import com.bookstore.book.services.BookService;
 import com.bookstore.book.services.ReservationService;
@@ -56,8 +53,35 @@ public class RestReservationController {
         }
     }
 
+    @PostMapping("cancel-reservation/{reservationId}")
+    public ResponseEntity CancelReservation(@PathVariable int reservationId){
+        try {
+            reservationService.cancelReservation(reservationId);
+            return ResponseEntity.status(HttpStatus.OK).body("RZDR000");
+        }
+        catch (Exception ex){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("RZN001");
+        }
+    }
+
     @GetMapping("account-reservations/{accountId}")
     public List<ReservationDtoForAndroid> GetReviews(@PathVariable int accountId){
         return reservationService.getAccountReservationsForAndroid(accountId);
+    }
+
+    @PostMapping("edit-reservation")
+    public ResponseEntity EditReservation(@RequestBody ReservationDto dto){
+        try {
+            boolean updateSuccessful = reservationService.updateReservation(dto);
+            if (updateSuccessful) {
+                return ResponseEntity.status(HttpStatus.OK).body("RZDR000");
+            } else {
+                return ResponseEntity.status(HttpStatus.CONFLICT)
+                        .body("RZAU001");
+            }
+        }
+        catch (Exception ex){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("RZN001");
+        }
     }
 }
