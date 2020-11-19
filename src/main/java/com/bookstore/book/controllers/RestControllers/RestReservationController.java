@@ -64,8 +64,13 @@ public class RestReservationController {
         }
     }
 
+    @GetMapping("all-reservations")
+    public List<ReservationDtoForAndroid> GetAllReservations(){
+        return reservationService.getAllReservationsForAndroid();
+    }
+
     @GetMapping("account-reservations/{accountId}")
-    public List<ReservationDtoForAndroid> GetReviews(@PathVariable int accountId){
+    public List<ReservationDtoForAndroid> GetAccountReservations(@PathVariable int accountId){
         return reservationService.getAccountReservationsForAndroid(accountId);
     }
 
