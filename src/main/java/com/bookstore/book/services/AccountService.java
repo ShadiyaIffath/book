@@ -4,6 +4,7 @@ import com.bookstore.book.dto.AccountDto;
 import com.bookstore.book.dto.CreateAccountDto;
 import com.bookstore.book.entities.Account;
 import com.bookstore.book.repositories.AccountRepository;
+import com.bookstore.book.repositories.ReservationRepository;
 import com.bookstore.book.utils.enums.Role;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class AccountService {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private ReservationRepository reservationRepository;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -92,6 +96,11 @@ public class AccountService {
     public void deleteAccountById(int id){ accountRepository.deleteById(id);}
 
     @Transactional
-    public void banAccountById(int id, boolean ban){ accountRepository.banAccountById(id,ban);}
+    public void banAccountById(int id, boolean ban){
+        accountRepository.banAccountById(id,ban);
+        if(!ban){
+            reservationRepository.cancelReservationById(id,"Cancelled");
+        }
+    }
 
 }

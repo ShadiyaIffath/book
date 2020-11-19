@@ -136,6 +136,7 @@ public class BookService {
             Genre genre = genreRepository.findById(dto.getGenreId());
             book.setGenre(genre);
         }
+        book.setImageUrl(dto.getImageUrl());
         book.setPublisher(dto.getPublisher());
         book.setAuthor(dto.getAuthor());
         book.setISBN(dto.getISBN());

@@ -32,4 +32,8 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
     @Modifying
     @Query(value = "UPDATE Reservation SET status = ?2 where id = ?1")
     void cancelReservationById(int id, String status);
+
+    @Modifying
+    @Query(value = "UPDATE Reservation r SET r.status = ?2 where r.account.id = ?1")
+    void cancelReservationsByAccountId(int id, String status);
 }
