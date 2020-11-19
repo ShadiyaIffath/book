@@ -17,8 +17,8 @@ public class RestBookController {
     private BookService bookService;
 
     @GetMapping("all-books")
-    public List<BookDto> GetAllBooks(){
-        return bookService.getAllBooks();
+    public List<BookDtoForAndroid> GetAllBooks(){
+        return bookService.getAllBooksForAndroid();
     }
 
     @GetMapping("newest-books")
@@ -39,6 +39,12 @@ public class RestBookController {
         }
     }
 
+    @PostMapping("delete-book")
+    public ResponseEntity DeleteBook(@RequestBody int bookId){
+        bookService.removeBook(bookId);
+        return ResponseEntity.status(HttpStatus.OK).body("RZDR000");
+    }
+
     @GetMapping("book-reviews/{bookId}")
     public List<ReviewDtoForAndroid> GetReviews(@PathVariable int bookId){
         return bookService.getAllReviewsForAndroid(bookId);
@@ -53,5 +59,38 @@ public class RestBookController {
     public ResponseEntity deleteReview(@PathVariable int reviewId){
         bookService.deleteReview(reviewId);
         return ResponseEntity.status(HttpStatus.OK).body("RZDR000");
+    }
+
+    @GetMapping("get-genre")
+    public List<GenreDto> getAllGenre(){
+        return bookService.getAllGenre();
+    }
+
+    @PostMapping("new-book")
+    public ResponseEntity CreateNewBook(@RequestBody CreateBookDto dto){
+        if(dto == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("RZN000");
+        }
+        try{
+           bookService.newBook(dto);
+            return ResponseEntity.status(HttpStatus.OK).body("RZS000");
+        }
+        catch(Exception ex){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("RZN001");
+        }
+    }
+
+    @PostMapping("edit-book")
+    public ResponseEntity EditBook(@RequestBody BookDto dto){
+        if(dto == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("RZN000");
+        }
+        try{
+            bookService.updateBook(dto);
+            return ResponseEntity.status(HttpStatus.OK).body("RZS000");
+        }
+        catch(Exception ex){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("RZN001");
+        }
     }
 }

@@ -22,5 +22,6 @@ public class CreateBookDto {
     private String imageUrl;
     private MultipartFile image;
     private int genreId;
+    private GenreDto genreDto;
     private String imageString;
 }

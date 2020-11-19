@@ -74,11 +74,19 @@ public class BookService {
         bookRepository.save(book);
     }
 
+    public void newBook(CreateBookDto createBookDto){
+        Book book = modelMapper.map(createBookDto, Book.class);
+        book.setGenre(modelMapper.map(createBookDto.getGenreDto(), Genre.class));
+        bookRepository.save(book);
+    }
+
     public List<BookDto> getAllBooks() {
         List<BookDto> books = bookRepository.findAll()
                 .stream().map(x -> {
                     BookDto bookDto = modelMapper.map(x, BookDto.class);
-                    bookDto.setImageString(Base64.getEncoder().encodeToString(x.getImage()));
+                    if(x.getImage()!= null) {
+                        bookDto.setImageString(Base64.getEncoder().encodeToString(x.getImage()));
+                    }
                     bookDto.setGenreDto(modelMapper.map(x, GenreDto.class));
                     return bookDto;
                 })
@@ -122,8 +130,13 @@ public class BookService {
 
     public void updateBook(BookDto dto) {
         Book book = bookRepository.findById(dto.getId());
-        Genre genre = genreRepository.findById(dto.getGenreId());
-        book.setGenre(genre);
+        if(dto.getGenreDto() != null){
+            book.setGenre(modelMapper.map(dto.getGenreDto(),Genre.class));
+        }else {
+            Genre genre = genreRepository.findById(dto.getGenreId());
+            book.setGenre(genre);
+        }
+        book.setPublisher(dto.getPublisher());
         book.setAuthor(dto.getAuthor());
         book.setISBN(dto.getISBN());
         book.setTitle(dto.getTitle());
@@ -169,6 +182,16 @@ public class BookService {
 
     public List<BookDtoForAndroid> getNewestBooks(){
         return bookRepository.findTop4ByOrderByIdDesc()
+                .stream().map(x -> {
+                    BookDtoForAndroid bookDto = modelMapper.map(x, BookDtoForAndroid.class);
+                    bookDto.setGenreDto(modelMapper.map(x, GenreDto.class));
+                    return bookDto;
+                })
+                .collect(Collectors.toList());
+    }
+
+    public List<BookDtoForAndroid> getAllBooksForAndroid(){
+        return bookRepository.findAll()
                 .stream().map(x -> {
                     BookDtoForAndroid bookDto = modelMapper.map(x, BookDtoForAndroid.class);
                     bookDto.setGenreDto(modelMapper.map(x, GenreDto.class));
