@@ -26,7 +26,7 @@ public class RestInquiryController {
     }
 
     @PostMapping("delete-inquiry")
-    public ResponseEntity DeleteBook(@RequestBody int inquiryId){
+    public ResponseEntity DeleteInquiry(@RequestBody int inquiryId){
         inquiryService.deleteInquiryById(inquiryId);
         return ResponseEntity.status(HttpStatus.OK).body("RZDR000");
     }
