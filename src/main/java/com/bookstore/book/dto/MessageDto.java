@@ -14,7 +14,6 @@ import java.util.Date;
 @AllArgsConstructor
 public class MessageDto {
     private int id;
-    private Account account;
     private Date dateCreated;
     private String title;
     private String message;

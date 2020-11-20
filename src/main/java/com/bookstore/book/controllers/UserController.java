@@ -96,7 +96,6 @@ public class UserController {
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @RequestMapping(value="/inbox/{id}", method = RequestMethod.GET)
     public void readMessage(@PathVariable int id){
-        System.out.println("read");
         messageService.markMessageAsRead(id);
     }
 
@@ -104,7 +103,8 @@ public class UserController {
     @RequestMapping(value="/inbox/readAll", method = RequestMethod.GET)
     public ModelAndView readAllMessages(){
         ModelAndView model = new ModelAndView("redirect:../inbox");
-        messageService.markAllAsRead();
+        int id = service.findLoggedInAccount().getId();
+        messageService.markAllAsRead(id);
         return model;
     }
 }

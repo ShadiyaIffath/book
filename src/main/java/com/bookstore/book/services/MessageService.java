@@ -1,5 +1,6 @@
 package com.bookstore.book.services;
 
+import com.bookstore.book.dto.AccountDto;
 import com.bookstore.book.dto.BookDto;
 import com.bookstore.book.dto.MessageDto;
 import com.bookstore.book.dto.ReservationDto;
@@ -36,7 +37,13 @@ public class MessageService {
         message.setType("Created");
         message.setDateCreated(new Date());
         message.setUnread(true);
-        String messageBody = "A reservation has been created by " + reservation.getAccount().getFirstName() + " " + reservation.getAccount().getLastName() + " at " + reservation.getDateCreated() + " the id is " + reservation.getId() + ". The reservation is made for " + reservation.getBook().getTitle() + " from " + reservation.getDateReserved() + " till " + reservation.getDateExpected();
+        String messageBody = "A reservation has been created by " +
+                reservation.getAccount().getFirstName() + " " +
+                reservation.getAccount().getLastName() + " at " +
+                reservation.getDateCreated() + " the id is " +
+                reservation.getId() + ". The reservation is made for " +
+                reservation.getBook().getTitle() + " from " + reservation.getDateReserved() +
+                " till " + reservation.getDateExpected();
         message.setMessage(messageBody);
         repository.save(message);
     }
@@ -48,7 +55,12 @@ public class MessageService {
         message.setType("Deleted");
         message.setDateCreated(new Date());
         message.setUnread(true);
-        String messageBody = "A reservation has been deleted by " + reservation.getAccount().getFirstName() + " " + reservation.getAccount().getLastName() + " the id is " + reservation.getId() + ". The reservation was made for " + reservation.getBook().getTitle() + " from " + reservation.getDateReserved() + " till " + reservation.getDateExpected();
+        String messageBody = "A reservation has been deleted by " +
+                reservation.getAccount().getFirstName() + " " +
+                reservation.getAccount().getLastName() + " the id is " +
+                reservation.getId() + ". The reservation was made for " +
+                reservation.getBook().getTitle() + " from " + reservation.getDateReserved() +
+                " till " + reservation.getDateExpected();
         message.setMessage(messageBody);
         repository.save(message);
     }
@@ -60,14 +72,34 @@ public class MessageService {
         message.setType("Updated");
         message.setDateCreated(new Date());
         message.setUnread(true);
-        String messageBody = "A reservation has been updated by " + reservation.getAccount().getFirstName() + " " + reservation.getAccount().getLastName() + " at " + reservation.getDateCreated() + " the id is " + reservation.getId() + ". The reservation was made for " + reservation.getBook().getTitle() + " from " + reservation.getDateReserved() + " till " + reservation.getDateExpected();
+        String messageBody = "A reservation has been updated by " +
+                reservation.getAccount().getFirstName() + " " +
+                reservation.getAccount().getLastName() + " at " +
+                reservation.getDateCreated() + " the id is " + reservation.getId() +
+                ". The reservation was made for " + reservation.getBook().getTitle() +
+                " from " + reservation.getDateReserved() + " till " +
+                reservation.getDateExpected();
         message.setMessage(messageBody);
         repository.save(message);
     }
 
     public List<MessageDto> getMessages() {
         String email = accountService.findLoggedInAccountEmail();
-        return repository.findByAccount_EmailOrderByIdDesc(email).stream().map(x -> modelMapper.map(x, MessageDto.class)).collect(Collectors.toList());
+        return repository.findByAccount_EmailOrderByIdDesc(email).stream()
+                .map(x -> {
+                    MessageDto dto = modelMapper.map(x, MessageDto.class);
+                    return dto;
+                })
+                .collect(Collectors.toList());
+    }
+
+    public List<MessageDto> getMessages(int accountId) {
+        return repository.findByAccount_IdOrderByIdDesc(accountId).stream()
+                .map(x -> {
+                    MessageDto dto = modelMapper.map(x, MessageDto.class);
+                    return dto;
+                })
+                .collect(Collectors.toList());
     }
 
     @Transactional
@@ -76,8 +108,8 @@ public class MessageService {
     }
 
     @Transactional
-    public void markAllAsRead() {
-        repository.markAllAsRead();
+    public void markAllAsRead(int accountId) {
+        repository.markAllAsRead(accountId);
     }
 
     public void deleteMessage(int id) {

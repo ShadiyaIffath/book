@@ -8,15 +8,18 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Collection;
 
 public interface MessageRepository extends JpaRepository<Message, Integer> {
+
     Collection<Message> findByAccount_EmailOrderByIdDesc(String email);
+
+    Collection<Message> findByAccount_IdOrderByIdDesc(int accountId);
 
     @Modifying
     @Query(value = "UPDATE Message SET unread = false where id = ?1")
     void markMessageAsRead(int id);
 
     @Modifying
-    @Query(value = "UPDATE Message SET unread = false")
-    void markAllAsRead();
+    @Query(value = "UPDATE Message m SET m.unread = false where m.account.id = ?1")
+    void markAllAsRead(int accountId);
 
     Long countByAccount_IdAndUnread(Integer id, boolean unread);
 }

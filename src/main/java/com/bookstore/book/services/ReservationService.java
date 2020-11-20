@@ -60,7 +60,6 @@ public class ReservationService {
             reservation.setAccount(accountService.findAccountById(dto.getAccountId()));
             reservation = reservationRepository.save(reservation);
             messageService.reservationCreated(reservation.getAccount(), "Reservation Created", reservation);
-            messageService.reservationCreated(accountService.findAccountById(1), "Reservation Created", reservation);
             valid = true;
         }
         return valid;
@@ -89,7 +88,6 @@ public class ReservationService {
     public void removeReservation(int id) {
         Reservation reservation = reservationRepository.findById(id);
         messageService.reservationDeleted(reservation.getAccount(), "Reservation Deleted", reservation);
-        messageService.reservationCreated(accountService.findAccountById(1),"Reservation Deleted", reservation);
         reservationRepository.deleteById(id);
     }
 
