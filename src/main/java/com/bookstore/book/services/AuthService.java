@@ -37,7 +37,7 @@ public class AuthService {
     public ResponseEntity<?> loginUserService(AuthRequest authRequest) {
         System.out.println("auth service");
         Account account = accountRepository.findByEmail(authRequest.getEmail());
-        if (account == null || !passwordEncoder.matches(authRequest.getPassword(), account.getPassword())) {
+        if (account == null || !passwordEncoder.matches(authRequest.getPassword(), account.getPassword()) || !account.getActive()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body("RZAU000");
         }
