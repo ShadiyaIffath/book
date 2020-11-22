@@ -35,7 +35,6 @@ public class AuthService {
 
     //mobile application
     public ResponseEntity<?> loginUserService(AuthRequest authRequest) {
-        System.out.println("auth service");
         Account account = accountRepository.findByEmail(authRequest.getEmail());
         if (account == null || !passwordEncoder.matches(authRequest.getPassword(), account.getPassword()) || !account.getActive()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)

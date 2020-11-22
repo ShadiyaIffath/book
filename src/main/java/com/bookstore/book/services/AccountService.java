@@ -5,6 +5,7 @@ import com.bookstore.book.dto.CreateAccountDto;
 import com.bookstore.book.entities.Account;
 import com.bookstore.book.repositories.AccountRepository;
 import com.bookstore.book.repositories.ReservationRepository;
+import com.bookstore.book.utils.CodeGenerator;
 import com.bookstore.book.utils.enums.Role;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,9 @@ public class AccountService {
 
     @Autowired
     private ReservationRepository reservationRepository;
+
+    @Autowired
+    private MailService mailService;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -60,6 +64,18 @@ public class AccountService {
         return accountDto;
     }
 
+    public void updateProfile(AccountDto accountDto){
+        Account account = findLoggedInAccount();
+        account.setFirstName(accountDto.getFirstName());
+        account.setLastName(accountDto.getLastName());
+        account.setPhone(accountDto.getPhone());
+        account.setEmail(accountDto.getEmail());
+        if(!accountDto.getPassword().isEmpty()){
+            account.setPassword(passwordEncoder.encode(accountDto.getPassword()));
+        }
+        accountRepository.save(account);
+    }
+
     public Account findLoggedInAccount() {
         String email = findLoggedInAccountEmail();
         return accountRepository.findByEmail(email);
@@ -82,6 +98,18 @@ public class AccountService {
                     return modelMapper.map(x, AccountDto.class);
                 })
                 .collect(Collectors.toList());
+    }
+
+    public String sendConfirmationCodeEmail(int accountId, String email){
+        String code = CodeGenerator.getAlphaNumericString(7);
+        String accountEmail = accountRepository.findById(accountId).getEmail();
+        if(!email.equals(accountEmail)){
+            if(isEmailInUse(email)){
+                return "Conflict";
+            }
+        }
+        mailService.sendMail("Confirmation Code", accountEmail, "You have requested to change your account login credentials this email is sent with the code "+code +" for the confirmation of this process.");
+        return code;
     }
 
     public boolean verifyAccount(String email){

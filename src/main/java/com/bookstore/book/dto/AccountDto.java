@@ -13,8 +13,10 @@ public class AccountDto {
     private int id;
     private String firstName;
     private String lastName;
+    private String password;
     private String email;
     private int phone;
     private String type;
+    private String token;
     private Boolean active;
 }
