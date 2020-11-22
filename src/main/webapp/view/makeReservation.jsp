@@ -102,6 +102,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                    <input type="hidden" name="bookDto" value="${book}">
                                 <c:if test="${edit == true}">
                                     <div class="form-group">
                                         <div class="input-group form-group-no-border input-lg">

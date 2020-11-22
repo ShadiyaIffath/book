@@ -31,7 +31,7 @@ background: linear-gradient(0deg, rgba(239,247,239,1) 0%, rgba(94,92,86,1) 100%)
         <div class="card-body">
             <div class="row">
                 <div class="col">
-                    <img src="data:image/jpeg;base64,${book.imageString}" alt=""
+                    <img src="${book.imageUrl}" alt=""
                          style="width: 220px; height: 270px"/>
                 </div>
                 <div class="col-8">

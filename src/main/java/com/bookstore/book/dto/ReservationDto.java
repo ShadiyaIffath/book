@@ -16,6 +16,6 @@ public class ReservationDto {
     private String dateCreated;
     private String dateReturned;
     private String dateExpected;
-    private BookDto book;
+    private BookDto bookDto;
     private AccountDto account;
 }

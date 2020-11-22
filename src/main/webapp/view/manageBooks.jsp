@@ -72,7 +72,7 @@
                     <th scope="col">Title</th>
                     <th scope="col">Author</th>
                     <th scope="col">ISBN</th>
-                    <th scope="col">Price Value</th>
+                    <th scope="col">Quantity</th>
                     <th scope="col">Genre</th>
                     <th scope="col" style="width:12%;">Action</th>
                 </tr>
@@ -84,7 +84,7 @@
                         <td>${book.title}</td>
                         <td>${book.author}</td>
                         <td>${book.ISBN}</td>
-                        <td>${book.value}</td>
+                        <td>${book.quantity}</td>
                         <td class="genre">${book.genreDto.genre}</td>
                         <td>
                             <div class="row">

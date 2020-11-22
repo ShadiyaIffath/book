@@ -14,7 +14,7 @@ public class BookDto {
     private String title;
     private String ISBN;
     private String author;
-    private double value;
+    private int quantity;
     private String summary;
     private String imageUrl;
     private boolean available;

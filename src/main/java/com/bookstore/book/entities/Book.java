@@ -29,7 +29,7 @@ public class Book {
     private boolean available;
 
     @Column( nullable = false)
-    private double value;
+    private int quantity;
 
     @Column(length = 500,nullable = false)
     private String summary;
@@ -43,7 +43,7 @@ public class Book {
     @Column
     private String imageUrl;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "genre_id")
     private Genre genre;
 

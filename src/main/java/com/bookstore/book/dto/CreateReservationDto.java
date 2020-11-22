@@ -22,6 +22,8 @@ public class CreateReservationDto {
 
     private String status = "Created";
 
+    private BookDto bookDto;
+
     private int bookId;
 
     private int accountId;

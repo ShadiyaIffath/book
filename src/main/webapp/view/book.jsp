@@ -179,13 +179,13 @@
                                 <div class="row">
                                     <div class="col-md-1">
                                         <label class="text-primary">
-                                            Price Value
+                                            Quantity
                                         </label>
                                     </div>
                                     <div class="col-md-10 pl-5">
-                                        <input type="number" class="form-control" name="value" required placeholder="$ "
-                                               min="10"
-                                               value="${bookForm.value}"/>
+                                        <input type="number" class="form-control" name="quantity" required
+                                               min="1"
+                                               value="${bookForm.quantity}"/>
                                     </div>
                                 </div>
                             </div>

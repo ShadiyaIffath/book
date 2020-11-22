@@ -16,7 +16,7 @@ public class CreateBookDto {
     private String description;
     private String author;
     private String publisher;
-    private double value;
+    private int quantity;
     private boolean available = true;
     private String summary;
     private String imageUrl;

@@ -41,8 +41,9 @@ public class ReservationService {
     public boolean createReservation(CreateReservationDto reservationDto, int id) {
         boolean valid = false;
         Reservation reservation = convertDto(reservationDto);
-        if (reservationRepository.checkAvailability("Created", reservation.getDateReserved(), reservation.getDateExpected(), id).size() == 0) {
-            reservation.setBook(bookRepository.findById(id));
+        int count = reservationRepository.checkAvailability("Created", reservation.getDateReserved(), reservation.getDateExpected(), id).size();
+        reservation.setBook(bookRepository.findById(id));
+        if ( count < reservation.getBook().getQuantity()) {
             reservation.setAccount(accountService.findLoggedInAccount());
             reservation = reservationRepository.save(reservation);
             messageService.reservationCreated(reservation.getAccount(),"Reservation Created", reservation);
@@ -55,8 +56,9 @@ public class ReservationService {
     public boolean newReservation(CreateReservationDto dto) {
         boolean valid = false;
         Reservation reservation = convertDto(dto);
-        if (reservationRepository.checkAvailability("Created", reservation.getDateReserved(), reservation.getDateExpected(), dto.getBookId()).size() == 0) {
-            reservation.setBook(bookRepository.findById(dto.getBookId()));
+        int count = reservationRepository.checkAvailability("Created", reservation.getDateReserved(), reservation.getDateExpected(), dto.getBookId()).size();
+        reservation.setBook(bookRepository.findById(dto.getBookId()));
+        if (count < reservation.getBook().getQuantity()) {
             reservation.setAccount(accountService.findAccountById(dto.getAccountId()));
             reservation = reservationRepository.save(reservation);
             messageService.reservationCreated(reservation.getAccount(), "Reservation Created", reservation);
@@ -68,7 +70,7 @@ public class ReservationService {
     public boolean validateAccountValidity(int id) {
         boolean valid = true;
         if (id != 1) {
-            if (reservationRepository.findByAccount_IdAndStatus(id, "Created").size() != 0) {
+            if (reservationRepository.findByAccount_IdAndStatus(id, "Created").size() > 3) {
                 return false;
             }
         }
@@ -94,9 +96,9 @@ public class ReservationService {
     public ReservationDto getReservationById(int id) {
         Reservation x = reservationRepository.findById(id);
         ReservationDto reservationDto = modelMapper.map(x, ReservationDto.class);
-        BookDto dto = reservationDto.getBook();
+        BookDto dto = reservationDto.getBookDto();
         dto.setImageString(Base64.getEncoder().encodeToString(dto.getImage()));
-        reservationDto.setBook(dto);
+        reservationDto.setBookDto(dto);
         return getReservationDto(x, reservationDto);
     }
 
@@ -106,7 +108,7 @@ public class ReservationService {
             Reservation reservation = convertDtoToEntity(dto);
             if (dto.getStatus().equals("Created")) {
                 Collection<Reservation> reservationCollection = reservationRepository.checkReservationAvailability("Created", reservation.getDateReserved(), reservation.getDateExpected(), reservation.getBook().getId(), reservation.getId());
-                if (reservationCollection == null || reservationCollection.size() == 0) {
+                if (reservationCollection == null || reservationCollection.size() < reservation.getBook().getQuantity()) {
                     reservationRepository.save(reservation);
                     messageService.reservationUpdated(reservation.getAccount(),"Reservation Updated", reservation);
                     successful = true;

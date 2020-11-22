@@ -142,7 +142,7 @@ public class BookService {
         book.setISBN(dto.getISBN());
         book.setTitle(dto.getTitle());
         book.setSummary(dto.getSummary());
-        book.setValue(dto.getValue());
+        book.setQuantity(dto.getQuantity());
         bookRepository.save(book);
     }
 

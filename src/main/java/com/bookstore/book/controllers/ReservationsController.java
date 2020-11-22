@@ -81,7 +81,7 @@ public class ReservationsController {
         System.out.println(dto.getAccount().getEmail());
         model.addObject("personal",accountService.verifyAccount(dto.getAccount().getEmail()));
         model.addObject("resForm", dto);
-        model.addObject("book", dto.getBook());
+        model.addObject("book", dto.getBookDto());
         model.addObject("statuses",reservationService.getAllStatus() );
         model.addObject("edit",true);
         return model;

@@ -151,7 +151,7 @@
                                  style="width: 250px; height:480px; background-color: #89c9b8;">
                                 <div class="product_inner p-2 pt-3">
                                     <div class="product_image">
-                                        <img src="data:image/jpeg;base64,${book.imageString}" alt=""
+                                        <img src="${book.imageUrl}" alt=""
                                              style="width: 250px; height: 270px"/>
                                     </div>
                                     <div class="product_content text-center" style="height:150px; padding-top: 15px;">
