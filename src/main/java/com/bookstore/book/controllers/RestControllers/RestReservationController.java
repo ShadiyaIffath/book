@@ -8,6 +8,7 @@ import javassist.bytecode.stackmap.BasicBlock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class RestReservationController {
     @Autowired
     private AccountService accountService;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @PostMapping("new-reservation")
     public ResponseEntity AddReservation(@RequestBody CreateReservationDto Dto){
         if(Dto == null){
@@ -42,6 +44,7 @@ public class RestReservationController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("RZN001");
         }
     }
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @PostMapping("delete-reservation/{reservationId}")
     public ResponseEntity DeleteReservation(@PathVariable int reservationId){
         try {
@@ -52,7 +55,7 @@ public class RestReservationController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("RZN001");
         }
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @PostMapping("cancel-reservation/{reservationId}")
     public ResponseEntity CancelReservation(@PathVariable int reservationId){
         try {
@@ -63,17 +66,18 @@ public class RestReservationController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("RZN001");
         }
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("all-reservations")
     public List<ReservationDtoForAndroid> GetAllReservations(){
         return reservationService.getAllReservationsForAndroid();
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @GetMapping("account-reservations/{accountId}")
     public List<ReservationDtoForAndroid> GetAccountReservations(@PathVariable int accountId){
         return reservationService.getAccountReservationsForAndroid(accountId);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @PostMapping("edit-reservation")
     public ResponseEntity EditReservation(@RequestBody ReservationDto dto){
         try {

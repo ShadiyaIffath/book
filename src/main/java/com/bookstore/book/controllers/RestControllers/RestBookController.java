@@ -40,6 +40,7 @@ public class RestBookController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("delete-book")
     public ResponseEntity DeleteBook(@RequestBody int bookId){
         bookService.removeBook(bookId);
@@ -51,6 +52,7 @@ public class RestBookController {
         return bookService.getAllReviewsForAndroid(bookId);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @PostMapping("new-review")
     public ReviewDtoForAndroid SaveReview(@RequestBody CreateReviewDto dto){
         return bookService.saveReview(dto);
@@ -68,6 +70,7 @@ public class RestBookController {
         return bookService.getAllGenre();
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("new-book")
     public ResponseEntity CreateNewBook(@RequestBody CreateBookDto dto){
         if(dto == null){
@@ -82,6 +85,7 @@ public class RestBookController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("edit-book")
     public ResponseEntity EditBook(@RequestBody BookDto dto){
         if(dto == null){

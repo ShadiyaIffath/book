@@ -8,6 +8,7 @@ import com.bookstore.book.services.InquiryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,17 +26,20 @@ public class RestInquiryController {
         return ResponseEntity.status(HttpStatus.OK).body("RZS000");
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("delete-inquiry")
     public ResponseEntity DeleteInquiry(@RequestBody int inquiryId){
         inquiryService.deleteInquiryById(inquiryId);
         return ResponseEntity.status(HttpStatus.OK).body("RZDR000");
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("all-inquiries")
     public List<InquiryDto> GetAllInquiries(){
         return inquiryService.getAllInquiries();
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("respond-inquiry/{inquiryId}")
     public ResponseEntity respondInquiry(@PathVariable("inquiryId") int id, @RequestBody String response){
         inquiryService.sendResponseEmail(id, response);
