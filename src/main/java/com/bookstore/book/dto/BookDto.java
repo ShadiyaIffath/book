@@ -21,6 +21,5 @@ public class BookDto {
     private GenreDto genreDto;
     private int genreId;
     private byte[] image;
-    private String imageString;
     private String publisher;
 }

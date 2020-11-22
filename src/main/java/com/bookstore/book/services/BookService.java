@@ -84,9 +84,6 @@ public class BookService {
         List<BookDto> books = bookRepository.findAll()
                 .stream().map(x -> {
                     BookDto bookDto = modelMapper.map(x, BookDto.class);
-                    if(x.getImage()!= null) {
-                        bookDto.setImageString(Base64.getEncoder().encodeToString(x.getImage()));
-                    }
                     bookDto.setGenreDto(modelMapper.map(x, GenreDto.class));
                     return bookDto;
                 })
@@ -122,7 +119,6 @@ public class BookService {
     public BookDto findBookById(int id) {
         Book book = bookRepository.findById(id);
         BookDto dto = modelMapper.map(book, BookDto.class);
-        dto.setImageString(Base64.getEncoder().encodeToString(dto.getImage()));
         dto.setGenreDto(modelMapper.map(book.getGenre(), GenreDto.class));
         dto.setGenreId(book.getGenre().getId());
         return dto;

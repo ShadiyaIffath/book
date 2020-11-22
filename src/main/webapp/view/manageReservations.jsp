@@ -68,14 +68,16 @@
                         <td><c:if test="${res.dateReturned == null}"> - </c:if> <c:if
                                 test="${res.dateReturned != null}"> ${res.dateReturned} </c:if></td>
                         <td>${res.dateExpected}</td>
-                        <td>${res.book.title}</td>
+                        <td>${res.bookDto.title}</td>
                         <td>${res.account.firstName}</td>
                         <td>
                             <div class="row">
                                 <div class="col">
+                                    <c:if test="${res.dateReserved > today}">
                                     <button class="btn btn-primary btn-sm" title="Edit reservation"
                                             onclick="location.href ='${contextPath}/reservation/edit/${res.id}'">
                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                    </c:if>
                                 </div>
                                 <div class="col">
                                     <form action="${contextPath}/reservation/remove" method="post">

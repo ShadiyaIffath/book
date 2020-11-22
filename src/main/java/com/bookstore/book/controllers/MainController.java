@@ -5,6 +5,7 @@ import com.bookstore.book.dto.CreateAccountDto;
 import com.bookstore.book.dto.CreateInquiryDto;
 import com.bookstore.book.entities.Inquiry;
 import com.bookstore.book.services.*;
+import com.bookstore.book.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -100,6 +102,7 @@ public class MainController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value="/reservations", method= RequestMethod.GET)
     public String showReservations(Model model){
+        model.addAttribute("today", DateUtil.getStringFromDate(new Date()));
         model.addAttribute("reservations", reservationService.getAllReservations());
         return "manageReservations";
     }
@@ -107,6 +110,7 @@ public class MainController {
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @RequestMapping(value="/myReservations", method= RequestMethod.GET)
     public String showAccountReservations(Model model){
+        model.addAttribute("today", DateUtil.getStringFromDate(new Date()));
         model.addAttribute("reservations", reservationService.getAccountReservations());
         return "myReservations";
     }

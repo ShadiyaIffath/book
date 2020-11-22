@@ -49,7 +49,7 @@
             <div class="row">
                 <div class="col-md-4 card-img p-3" style="background-color: #c9d99e">
                     <img class="card-img-top text-center p-3" id="bookImage"
-                         src="data:image/jpeg;base64,${book.imageString}"
+                         src="${book.imageUrl}"
                          alt="Book image"
                          style="width: 175px; height: 225px; margin-left: 3%;">
                     <div class="card-title">
@@ -102,7 +102,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                    <input type="hidden" name="bookDto" value="${book}">
                                 <c:if test="${edit == true}">
                                     <div class="form-group">
                                         <div class="input-group form-group-no-border input-lg">

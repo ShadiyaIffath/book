@@ -80,8 +80,10 @@ public class ReservationService {
     public List<ReservationDto> getAllReservations() {
         List<ReservationDto> reservations = reservationRepository.findAll()
                 .stream().map(x -> {
-                    ReservationDto reservationDto = modelMapper.map(x, ReservationDto.class);
-                    return getReservationDto(x, reservationDto);
+                    ReservationDto dto = modelMapper.map(x, ReservationDto.class);
+                    dto.setAccount(modelMapper.map(x.getAccount(),AccountDto.class));
+                    dto.setBookDto(modelMapper.map(x.getBook(),BookDto.class));
+                    return getReservationDto(x, dto);
                 })
                 .collect(Collectors.toList());
         return reservations;
@@ -96,8 +98,7 @@ public class ReservationService {
     public ReservationDto getReservationById(int id) {
         Reservation x = reservationRepository.findById(id);
         ReservationDto reservationDto = modelMapper.map(x, ReservationDto.class);
-        BookDto dto = reservationDto.getBookDto();
-        dto.setImageString(Base64.getEncoder().encodeToString(dto.getImage()));
+        BookDto dto = modelMapper.map(x.getBook(),BookDto.class);
         reservationDto.setBookDto(dto);
         return getReservationDto(x, reservationDto);
     }
@@ -133,15 +134,16 @@ public class ReservationService {
     public BookDto getBookFromReservationId(int id){
         Book book = reservationRepository.getBookOfReservation(id);
         BookDto dto = modelMapper.map(book, BookDto.class);
-        dto.setImageString(Base64.getEncoder().encodeToString(dto.getImage()));
         return dto;
     }
 
     public List<ReservationDto> getAccountReservations(){
         return reservationRepository.findByAccount_EmailOrderByIdDesc(accountService.findLoggedInAccountEmail())
                 .stream().map(x -> {
-                    ReservationDto reservationDto = modelMapper.map(x, ReservationDto.class);
-                    return getReservationDto(x, reservationDto);
+                    ReservationDto dto = modelMapper.map(x, ReservationDto.class);
+                    dto.setAccount(modelMapper.map(x.getAccount(),AccountDto.class));
+                    dto.setBookDto(modelMapper.map(x.getBook(),BookDto.class));
+                    return getReservationDto(x, dto);
                 })
                 .collect(Collectors.toList());
     }

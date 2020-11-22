@@ -70,7 +70,7 @@
                                 </c:if>
                                 <c:if test="${edit == true}">
                                     <img class="card-img-top text-center p-3" id="bookImage"
-                                         src="data:image/jpeg;base64,${bookForm.imageString}"
+                                         src="${bookForm.imageUrl}"
                                          alt="Book image"
                                          style="width: 175px; height: 225px; margin-left: 3%;">
                                 </c:if>
