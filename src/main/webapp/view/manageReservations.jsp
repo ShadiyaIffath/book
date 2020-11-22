@@ -73,10 +73,20 @@
                         <td>
                             <div class="row">
                                 <div class="col">
-                                    <c:if test="${res.dateReserved > today}">
+                                    <c:if test="${res.dateExpected > today && res.status == 'Created'}">
                                     <button class="btn btn-primary btn-sm" title="Edit reservation"
                                             onclick="location.href ='${contextPath}/reservation/edit/${res.id}'">
                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                    </c:if>
+                                </div>
+                                <div class="col">
+                                    <c:if test="${res.status =='Created'}">
+                                        <form action="${contextPath}/reservation/ban" method="post">
+                                            <input type="hidden" value="${res.id}" name="id">
+                                            <button type="submit" class="btn btn-primary btn-sm"
+                                                    title="Cancel Reservation">
+                                                <i class="fa fa-ban" aria-hidden="true"></i></button>
+                                        </form>
                                     </c:if>
                                 </div>
                                 <div class="col">

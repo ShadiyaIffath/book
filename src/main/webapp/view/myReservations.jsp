@@ -73,7 +73,7 @@
                         <td>
                             <div class="row">
                                 <div class="col">
-                                    <c:if test="${res.dateReserved > today}">
+                                    <c:if test="${res.dateExpected > today && res.status == 'Created'}">
                                     <button class="btn btn-primary btn-sm" title="Edit Reservation"
                                             onclick="location.href ='${contextPath}/reservation/edit/${res.id}'">
                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
