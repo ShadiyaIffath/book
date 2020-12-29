@@ -32,15 +32,6 @@ public class BookRepositoryTest {
     }
 
     @Test
-    public void whenFindByISBN_returnBook() {
-        //arrange
-        //act
-        Book found = bookRepository.findByISBN("1234");
-        //assert
-        assertNotNull(found);
-    }
-
-    @Test
     public void whenFindByID_returnNull() {
         //act
         Book book = bookRepository.findById(1);

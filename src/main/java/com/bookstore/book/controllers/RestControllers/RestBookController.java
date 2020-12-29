@@ -41,8 +41,8 @@ public class RestBookController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping("delete-book")
-    public ResponseEntity DeleteBook(@RequestBody int bookId){
+    @DeleteMapping("delete-book/{bookId}")
+    public ResponseEntity DeleteBook(@PathVariable int bookId){
         bookService.removeBook(bookId);
         return ResponseEntity.status(HttpStatus.OK).body("RZDR000");
     }
@@ -59,7 +59,7 @@ public class RestBookController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping("delete-review/{reviewId}")
+    @DeleteMapping("delete-review/{reviewId}")
     public ResponseEntity deleteReview(@PathVariable int reviewId){
         bookService.deleteReview(reviewId);
         return ResponseEntity.status(HttpStatus.OK).body("RZDR000");
@@ -86,7 +86,7 @@ public class RestBookController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping("edit-book")
+    @PatchMapping("edit-book")
     public ResponseEntity EditBook(@RequestBody BookDto dto){
         if(dto == null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("RZN000");

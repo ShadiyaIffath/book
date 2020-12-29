@@ -47,7 +47,6 @@ public class ReservationService {
             reservation.setAccount(accountService.findLoggedInAccount());
             reservation = reservationRepository.save(reservation);
             messageService.reservationCreated(reservation.getAccount(),"Reservation Created", reservation);
-            messageService.reservationCreated(accountService.findAccountById(1),"Reservation Created", reservation);
             valid = true;
         }
         return valid;

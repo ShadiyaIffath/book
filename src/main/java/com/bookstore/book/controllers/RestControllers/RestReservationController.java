@@ -45,7 +45,7 @@ public class RestReservationController {
         }
     }
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    @PostMapping("delete-reservation/{reservationId}")
+    @DeleteMapping("delete-reservation/{reservationId}")
     public ResponseEntity DeleteReservation(@PathVariable int reservationId){
         try {
             reservationService.removeReservation(reservationId);
@@ -78,7 +78,7 @@ public class RestReservationController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    @PostMapping("edit-reservation")
+    @PatchMapping("edit-reservation")
     public ResponseEntity EditReservation(@RequestBody ReservationDto dto){
         try {
             boolean updateSuccessful = reservationService.updateReservation(dto);

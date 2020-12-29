@@ -18,7 +18,7 @@ public class RestMessageController {
     private MessageService messageService;
 
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    @PostMapping("delete-message/{messageId}")
+    @DeleteMapping("delete-message/{messageId}")
     public ResponseEntity DeleteMessage(@PathVariable int messageId){
         messageService.deleteMessage(messageId);
         return ResponseEntity.status(HttpStatus.OK).body("RZDR000");

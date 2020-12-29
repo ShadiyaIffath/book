@@ -31,8 +31,8 @@ public class RestAccountController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping("delete-account")
-    public ResponseEntity DeleteAccount(@RequestBody int id) {
+    @DeleteMapping("delete-account/{id}")
+    public ResponseEntity DeleteAccount(@PathVariable("id") int id) {
         accountService.deleteAccountById(id);
         return ResponseEntity.status(HttpStatus.OK).body("RZDR000");
     }

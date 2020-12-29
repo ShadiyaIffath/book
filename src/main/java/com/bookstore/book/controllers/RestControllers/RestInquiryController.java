@@ -27,8 +27,8 @@ public class RestInquiryController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping("delete-inquiry")
-    public ResponseEntity DeleteInquiry(@RequestBody int inquiryId){
+    @DeleteMapping("delete-inquiry/{inquiryId}")
+    public ResponseEntity DeleteInquiry(@PathVariable("inquiryId") int inquiryId){
         inquiryService.deleteInquiryById(inquiryId);
         return ResponseEntity.status(HttpStatus.OK).body("RZDR000");
     }
