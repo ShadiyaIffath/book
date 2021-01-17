@@ -1,10 +1,7 @@
 package com.bookstore.book.controllers.RestControllers;
 
 import com.bookstore.book.dto.*;
-import com.bookstore.book.services.AccountService;
-import com.bookstore.book.services.BookService;
 import com.bookstore.book.services.ReservationService;
-import javassist.bytecode.stackmap.BasicBlock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +16,6 @@ public class RestReservationController {
 
     @Autowired
     private ReservationService reservationService;
-
-    @Autowired
-    private AccountService accountService;
 
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @PostMapping("new-reservation")

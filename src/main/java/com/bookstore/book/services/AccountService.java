@@ -100,18 +100,13 @@ public class AccountService {
                 .collect(Collectors.toList());
     }
 
-    public String sendConfirmationCodeEmail(int accountId, String email) {
-        String code = "";
+    public boolean verifyEmail(int accountId, String email){
         email = email.substring(1, email.length() - 1);
         String accountEmail = accountRepository.findById(accountId).getEmail();
         if (!email.equals(accountEmail)) {
-            if (isEmailInUse(email)) {
-                return "Conflict";
-            }
+            return !isEmailInUse(email);
         }
-        code = CodeGenerator.getAlphaNumericString(7);
-        mailService.sendMail("Confirmation Code", accountEmail, "You have requested to change your account login credentials this email is sent with the code " + code + " for the confirmation of this process.");
-        return code;
+        return true;
     }
 
     public boolean verifyAccount(String email){

@@ -5,6 +5,7 @@ import com.bookstore.book.dto.CreateAccountDto;
 import com.bookstore.book.entities.Account;
 import com.bookstore.book.services.AccountService;
 import com.bookstore.book.services.AuthService;
+import com.bookstore.book.services.MailService;
 import com.bookstore.book.utils.security.requests.AuthRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,9 @@ public class RestUserController {
 
     @Autowired
     private AuthService authService;
+
+    @Autowired
+    private MailService mailService;
 
     @PostMapping("/signIn")
     public ResponseEntity Login(@RequestBody AuthRequest authRequest) {
@@ -45,10 +49,11 @@ public class RestUserController {
     @PostMapping("/profile-edit-request/{accountId}")
     public ResponseEntity ProfileEditRequest(@PathVariable int accountId, @RequestBody String email) {
         try {
-            String response = service.sendConfirmationCodeEmail(accountId, email);
-            if (response.equals("Conflict")) {
+            boolean valid = service.verifyEmail(accountId,email);
+            if (!valid) {
                 return ResponseEntity.status(HttpStatus.CONFLICT).body("RZAU001");
             } else {
+                String response = mailService.sendProfileUpdateRequestMail(accountId);
                 return ResponseEntity.status(HttpStatus.OK).body(response);
             }
         }catch (Exception ex){

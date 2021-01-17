@@ -55,7 +55,7 @@
                     <th scope="col">Date Expected</th>
                     <th scope="col">Book Title</th>
                     <th scope="col">Reserved By</th>
-                    <th scope="col" style="width:12%;">Action</th>
+                    <th scope="col" style="width:17%;">Action</th>
                 </tr>
                 </thead>
                 <tbody class="text-center text-primary">
