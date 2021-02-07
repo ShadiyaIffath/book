@@ -68,7 +68,8 @@ public class RestReservationControllerTest {
     @Test
     public void AddReservationTest_AccountInvalid()throws Exception{
         //arrange
-        CreateReservationDto Dto = new CreateReservationDto("2020-12-12", null,"2020-12-29","Created",new BookDto(),1,1);
+        CreateReservationDto Dto = new CreateReservationDto("2020-12-12",
+                null,"2020-12-29","Created",new BookDto(),1,1);
         Gson gson = new Gson();
         String json = gson.toJson(Dto);
         when(reservationService.validateAccountValidity(Mockito.anyInt())).thenReturn(false);
@@ -88,7 +89,8 @@ public class RestReservationControllerTest {
     @Test
     public void AddReservationTest_ReservationConflict()throws Exception{
         //arrange
-        CreateReservationDto Dto = new CreateReservationDto("2020-12-12", null,"2020-12-29","Created",new BookDto(),1,1);
+        CreateReservationDto Dto = new CreateReservationDto("2020-12-12",
+                null,"2020-12-29","Created",new BookDto(),1,1);
         Gson gson = new Gson();
         String json = gson.toJson(Dto);
         when(reservationService.validateAccountValidity(Mockito.anyInt())).thenReturn(true);
@@ -109,7 +111,8 @@ public class RestReservationControllerTest {
     @Test
     public void AddReservationTest_ReservationSuccessful()throws Exception{
         //arrange
-        CreateReservationDto Dto = new CreateReservationDto("2020-12-12", null,"2020-12-29","Created",new BookDto(),1,1);
+        CreateReservationDto Dto = new CreateReservationDto("2020-12-12",
+                null,"2020-12-29","Created",new BookDto(),1,1);
         Gson gson = new Gson();
         String json = gson.toJson(Dto);
         when(reservationService.validateAccountValidity(Mockito.anyInt())).thenReturn(true);

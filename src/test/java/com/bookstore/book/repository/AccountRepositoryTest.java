@@ -10,7 +10,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @DataJpaTest
@@ -42,14 +42,15 @@ public class AccountRepositoryTest {
     }
 
     @Test
-    public void whenBanAccountById_ThenReturnNull(){
+    public void whenBanAccountById_ThenReturnFalse(){
         //when
         Account account = new Account("Ela","Bridge",
                 "elabridge@gmail.com",011111111,"1234","ROLE",true);
-        entityManager.persistAndFlush(account);
+        account = entityManager.persistAndFlush(account);
         //given
-        accountRepository.banAccountById(account.getId(),true);
+        accountRepository.banAccountById(account.getId(),false);
+        account = entityManager.find(Account.class,account.getId());
         //then
-        assert(account.getActive().equals(true));
+        assertFalse(account.getActive());
     }
 }

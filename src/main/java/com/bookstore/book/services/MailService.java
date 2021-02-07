@@ -25,12 +25,6 @@ public class MailService {
     @Autowired
     private AccountRepository accountRepository;
 
-    public String findLoggedInAccountEmail(){
-        UserDetails userDetails =
-                (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return userDetails.getUsername();
-    }
-
     public String sendProfileUpdateRequestMail(int accountId){
         String code = "";
         String accountEmail = accountRepository.findById(accountId).getEmail();

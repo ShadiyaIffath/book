@@ -31,9 +31,6 @@ public class AccountService {
     private ReservationRepository reservationRepository;
 
     @Autowired
-    private MailService mailService;
-
-    @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
     public boolean isEmailInUse(String email) {
