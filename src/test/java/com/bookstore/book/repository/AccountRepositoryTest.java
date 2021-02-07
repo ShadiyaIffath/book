@@ -42,15 +42,24 @@ public class AccountRepositoryTest {
     }
 
     @Test
-    public void whenBanAccountById_ThenReturnFalse(){
-        //when
-        Account account = new Account("Ela","Bridge",
-                "elabridge@gmail.com",011111111,"1234","ROLE",true);
+    public void whenGetAccountByValidId_ReturnAccount(){
+        //arrange
+        Account account = new Account("Ela","Bridge","elabridge@gmail.com",
+                011111111,"1234","ROLE",true);
         account = entityManager.persistAndFlush(account);
-        //given
-        accountRepository.banAccountById(account.getId(),false);
-        account = entityManager.find(Account.class,account.getId());
-        //then
-        assertFalse(account.getActive());
+        int id = account.getId();
+        //act
+        Account returnedAccount = accountRepository.findById(id);
+        //assert
+        assertEquals(account,returnedAccount);
     }
+
+    @Test
+    public void whenGetAccountByInvalidId_ReturnNull(){
+        //act
+        Account account = accountRepository.findById(-1);
+        //assert
+        assertNull(account);
+    }
+
 }
