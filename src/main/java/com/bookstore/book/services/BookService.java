@@ -48,20 +48,6 @@ public class BookService {
         return genreDtos;
     }
 
-    public boolean isBookAlreadyAvailable(String ISBN, int id) {
-        boolean valid = false;
-        Book book = bookRepository.findByISBN(ISBN);
-        if (book != null) {
-            if (id == -1) {
-                valid = true;
-            } else if (book.getId() != id) {
-                valid = true;
-            }
-        }
-        return valid;
-    }
-    
-
     public void saveBook(CreateBookDto createBookDto) {
         Book book = modelMapper.map(createBookDto, Book.class);
         try {
@@ -152,7 +138,7 @@ public class BookService {
     }
 
     public List<ReviewDto> getAllReviews(int id) {
-        return reviewRepository.findAllByBook_Id(id).stream()
+        return reviewRepository.findAllByBook_IdOrderByIdDesc(id).stream()
                 .map(x -> {
                     ReviewDto r = modelMapper.map(x, ReviewDto.class);
                     r.setAccountDto(modelMapper.map(x.getAccount(),AccountDto.class));
@@ -162,7 +148,7 @@ public class BookService {
     }
 
     public List<ReviewDtoForAndroid> getAllReviewsForAndroid(int id) {
-        return reviewRepository.findAllByBook_Id(id).stream()
+        return reviewRepository.findAllByBook_IdOrderByIdDesc(id).stream()
                 .map(x -> {
                     ReviewDtoForAndroid r = modelMapper.map(x, ReviewDtoForAndroid.class);
                     r.setAccountDto(modelMapper.map(x.getAccount(),AccountDto.class));
