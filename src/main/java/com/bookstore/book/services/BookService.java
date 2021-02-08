@@ -67,7 +67,7 @@ public class BookService {
     }
 
     public List<BookDto> getAllBooks() {
-        List<BookDto> books = bookRepository.findAll()
+        List<BookDto> books = bookRepository.findAllByOrderByIdDesc()
                 .stream().map(x -> {
                     BookDto bookDto = modelMapper.map(x, BookDto.class);
                     bookDto.setGenreDto(modelMapper.map(x, GenreDto.class));
@@ -174,7 +174,7 @@ public class BookService {
     }
 
     public List<BookDtoForAndroid> getAllBooksForAndroid(){
-        return bookRepository.findAll()
+        return bookRepository.findAllByOrderByIdDesc()
                 .stream().map(x -> {
                     BookDtoForAndroid bookDto = modelMapper.map(x, BookDtoForAndroid.class);
                     bookDto.setGenreDto(modelMapper.map(x, GenreDto.class));

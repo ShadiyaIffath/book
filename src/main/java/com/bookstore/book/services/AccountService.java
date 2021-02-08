@@ -121,7 +121,7 @@ public class AccountService {
     public void banAccountById(int id, boolean ban){
         accountRepository.banAccountById(id,ban);
         if(!ban){
-            reservationRepository.cancelReservationById(id,"Cancelled");
+            reservationRepository.cancelReservationsByAccountId(id,"Cancelled");
         }
     }
 

@@ -29,7 +29,7 @@ public class ReviewRepositoryTest {
     public void  findAllByBook_Id_ReturnReviewCollection() {
         //arrange
         //act
-        Collection<Review> reviews = reviewRepository.findAllByBook_Id(69);
+        Collection<Review> reviews = reviewRepository.findAllByBook_IdOrderByIdDesc(69);
         //assert
         assertNotNull(reviews);
     }
@@ -38,7 +38,7 @@ public class ReviewRepositoryTest {
     public void whenFindAllByBook_Id_ReturnNull(){
         //arrange
         //act
-        Collection<Review> reviews = reviewRepository.findAllByBook_Id(0);
+        Collection<Review> reviews = reviewRepository.findAllByBook_IdOrderByIdDesc(0);
         //assert
         assertNotNull(reviews);
     }

@@ -77,7 +77,7 @@ public class ReservationService {
     }
 
     public List<ReservationDto> getAllReservations() {
-        List<ReservationDto> reservations = reservationRepository.findAll()
+        List<ReservationDto> reservations = reservationRepository.findAllByOrderByIdDesc()
                 .stream().map(x -> {
                     ReservationDto dto = modelMapper.map(x, ReservationDto.class);
                     dto.setAccount(modelMapper.map(x.getAccount(),AccountDto.class));
@@ -159,7 +159,7 @@ public class ReservationService {
     }
 
     public List<ReservationDtoForAndroid> getAllReservationsForAndroid(){
-        return reservationRepository.findAll()
+        return reservationRepository.findAllByOrderByIdDesc()
                 .stream().map(x -> {
                     ReservationDtoForAndroid dto= modelMapper.map(x, ReservationDtoForAndroid.class);
                     dto.setAccountDto(modelMapper.map(x.getAccount(),AccountDto.class));

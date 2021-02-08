@@ -29,6 +29,8 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
 
     Collection<Reservation> findByAccount_EmailOrderByIdDesc(String email);
 
+    Collection<Reservation> findAllByOrderByIdDesc();
+
     @Modifying
     @Query(value = "UPDATE Reservation SET status = ?2 where id = ?1")
     void cancelReservationById(int id, String status);
