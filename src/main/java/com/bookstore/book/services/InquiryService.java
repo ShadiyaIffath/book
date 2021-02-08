@@ -34,10 +34,9 @@ public class InquiryService {
     }
 
     public List<InquiryDto> getAllInquiries() {
-        List<InquiryDto> inquiries = inquiryRepository.findAll()
+        return inquiryRepository.findAllByOrderByIdDesc()
                 .stream().map(x -> modelMapper.map(x, InquiryDto.class))
                 .collect(Collectors.toList());
-        return inquiries;
     }
 
     public void deleteInquiryById(int id){
