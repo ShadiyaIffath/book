@@ -34,9 +34,10 @@ public class InquiryService {
     }
 
     public List<InquiryDto> getAllInquiries() {
-        return inquiryRepository.findAllByOrderByIdDesc()
+        List<InquiryDto> inquiries = inquiryRepository.findAllByOrderByIdDesc()
                 .stream().map(x -> modelMapper.map(x, InquiryDto.class))
                 .collect(Collectors.toList());
+        return inquiries;
     }
 
     public void deleteInquiryById(int id){
@@ -46,7 +47,7 @@ public class InquiryService {
     public void sendResponseEmail(int id, String response){
         Inquiry inquiry = inquiryRepository.findInquiriesById(id);
         if(inquiry != null) {
-            String inquiryResponse = "Your Question: " + inquiry.getQuestion() + "\n" + "Our response: " + response;
+            String inquiryResponse = "Hi "+inquiry.getName()+",\nYour Question from Raziel: " + inquiry.getQuestion() + "\n" + "Our response: " + response+"\nBest regards,\nTeam of Raziel";
             mailService.sendMail("Response to your inquiry", inquiry.getEmail(), inquiryResponse);
             inquiry.setResponded(true);
             inquiryRepository.save(inquiry);

@@ -1,5 +1,6 @@
 package com.bookstore.book.services;
 
+import com.bookstore.book.entities.Account;
 import com.bookstore.book.repositories.AccountRepository;
 import com.bookstore.book.utils.CodeGenerator;
 import org.slf4j.Logger;
@@ -27,9 +28,10 @@ public class MailService {
 
     public String sendProfileUpdateRequestMail(int accountId){
         String code = "";
-        String accountEmail = accountRepository.findById(accountId).getEmail();
+        Account account = accountRepository.findById(accountId);
+        String accountEmail = account.getEmail();
         code = CodeGenerator.getAlphaNumericString(7);
-        sendMail("Confirmation Code", accountEmail, "You have requested to change your account login credentials this email is sent with the code " + code + " for the confirmation of this process.");
+        sendMail("Confirmation Code", accountEmail, "Hi "+ account.getFirstName()+" " + account.getLastName()+",\n       You have requested to change your account login credentials this email is sent with the code " + code + " for the confirmation of this process.\nBest regards,\nTeam of Raziel");
         return code;
     }
 

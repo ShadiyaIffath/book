@@ -57,7 +57,7 @@ public class InquiryServiceTest {
         //given
         List<InquiryDto> inquiries = inquiryService.getAllInquiries();
         //assert
-        assertEquals(inquiries.size(),(inquiryList.size()));
+        assertEquals(inquiries.size(),inquiryList.size());
     }
 
     @Test
@@ -75,8 +75,7 @@ public class InquiryServiceTest {
                 "Testing", false);
         when(inquiryRepository.findInquiriesById(1)).thenReturn(inquiry);
         String response = "answer";
-        String inquiryResponse = "Your Question: " + inquiry.getQuestion() + "\n" +
-                "Our response: " +response;
+        String inquiryResponse = "Hi "+inquiry.getName()+",\nYour Question from Raziel: " + inquiry.getQuestion() + "\n" + "Our response: " + response+"\nBest regards,\nTeam of Raziel";
 
         //given
         inquiryService.sendResponseEmail(1, response);
@@ -95,8 +94,8 @@ public class InquiryServiceTest {
                 "Testing", false);
         when(inquiryRepository.findInquiriesById(1)).thenReturn(null);
         String response = "answer";
-        String inquiryResponse = "Your Question: " + inquiry.getQuestion() + "\n" +
-                "Our response: " +response;
+        String inquiryResponse = "Hi "+inquiry.getName()+",\nYour Question from Raziel: " + inquiry.getQuestion() + "\n" + "Our response: " + response+"\nBest regards,\nTeam of Raziel";
+
         //given
         inquiryService.sendResponseEmail(1,response);
 
