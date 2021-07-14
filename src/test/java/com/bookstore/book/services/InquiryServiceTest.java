@@ -53,7 +53,7 @@ public class InquiryServiceTest {
         List<Inquiry> inquiryList = new ArrayList<>();
         inquiryList.add(inquiry);
         inquiryList.add(inquiry1);
-        when(inquiryRepository.findAll()).thenReturn(inquiryList);
+        when(inquiryRepository.findAllByOrderByIdDesc()).thenReturn(inquiryList);
         //given
         List<InquiryDto> inquiries = inquiryService.getAllInquiries();
         //assert

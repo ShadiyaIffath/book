@@ -197,4 +197,8 @@ public class BookService {
         reviewDto.setAccountDto(modelMapper.map(account, AccountDto.class));
         return reviewDto;
     }
+
+    public List<Book> write_books(){
+        return bookRepository.findAll();
+    }
 }
